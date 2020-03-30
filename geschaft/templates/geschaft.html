@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Geschäft {{ geschaft.name }}
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+	<div class="row" style="margin-top:50px;">
+	  	<div class="col-md-10 col-md-offset-1">
+	  		<ol class="breadcrumb" style="background-color:white;padding-left:0px;">
+			  <li><a href="{% url 'projekt:projekt' %}">Projekte</a></li>
+			  {% for f in parent_folders %}
+			  <li><a href="{% url 'project_folder:project_folder' project_folder_id=f.id %}?active=ubersicht">{{ f.name }}</a></li>
+			  {% endfor %}
+			  <li><a href="{% url 'geschaft:geschaft' geschaft_id=geschaft.id %}?active=formular">{{ geschaft.name }}</a></li>
+			  {% if active.tabs == 'formular' %}
+			  <li><a href="{% url 'geschaft:geschaft' geschaft_id=geschaft.id %}?active=formular">Formular</a></li>
+			  {% elif active.tabs == 'dokumente' %}
+			  <li><a href="{% url 'geschaft:geschaft' geschaft_id=geschaft.id %}?active=dokumente">Dokumente</a></li>
+			  {% elif active.tabs == 'bearbeiten' %}
+			  <li><a href="{% url 'geschaft:geschaft' geschaft_id=geschaft.id %}?active=bearbeiten">Einstellungen</a></li>
+			  {% elif active.tabs == 'loschen' %}
+			  <li><a href="{% url 'geschaft:geschaft' geschaft_id=geschaft.id %}?active=loschen">Geschäft löschen</a></li>
+			  {% endif %}
+			</ol>
+	  	</div>
+	</div>
+	<div class="row" style="margin-top:10px;">
+	  	<div class="col-md-10 col-md-offset-1">
+	  		<h2>Geschäft {{ geschaft.name }}</h2>
+	  		{% if geschaft.project.completed %}<p><i>Das Projekt dieses Geschäfts wurde abgeschlossen. Aktivieren sie das Projekt zur bearbeitung dieses Geschäfts.</i></p>{% endif %}
+	  		<p style="margin-top:30px;"><strong>Projekt: </strong><a href="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}">{{ geschaft.project_folder.get_project }}</a></p>
+	  	</div>
+	</div>
+	<div class="row" style="margin-top:30px;">
+	  	<div class="col-md-10 col-md-offset-1">
+	  		<ul class="nav nav-tabs">
+	  			{% if not geschaft.project.completed %}
+	  			<li {% if active.tabs == 'formular' %}class="active"{% endif %}><a href="{% url 'geschaft:geschaft' geschaft_id=geschaft.id %}?active=formular">Formular</a></li>
+	  			{% endif %}
+  				<li {% if active.tabs == 'dokumente' %}class="active"{% endif %}><a href="{% url 'geschaft:geschaft' geschaft_id=geschaft.id %}?active=dokumente">Dokumente</a></li>
+  				{% if not geschaft.project.completed %}
+  				<li {% if active.tabs == 'bearbeiten' %}class="active"{% endif %}><a href="{% url 'geschaft:geschaft' geschaft_id=geschaft.id %}?active=bearbeiten">Einstellungen</a></li>
+  				{% endif %}
+  				<li {% if active.tabs == 'loschen' %}class="active"{% endif %}><a href="{% url 'geschaft:geschaft' geschaft_id=geschaft.id %}?active=loschen">Geschäft löschen</a></li>
+			</ul>
+	  	</div>
+	</div>
+	{% if active.tabs == 'dokumente' %}
+	<div class="row" style="margin-top:50px;">
+		<div class="col-md-10 col-md-offset-1">
+			<h4>Dokumente</h4>
+		</div>
+  		<div class="col-md-10 col-md-offset-1" style="margin-top:30px;">
+  			<table class="table table-hover">
+				<thead>
+      				<tr>
+        				<th>Name <a href="{% url 'geschaft:geschaft' geschaft_id=geschaft.id %}?active={{active.tabs}}&sort=name&reverse=false"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></a><a href="{% url 'geschaft:geschaft' geschaft_id=geschaft.id %}?active={{active.tabs}}&sort=name&reverse=true"></span><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></a></th>
+        				<th>Download</th>
+      				</tr>
+    			</thead>
+    			<tbody>
+    				{% for document in documents %}
+    					<tr>
+        					<td>{{ document.name }}</td>
+        					<td><form method="post" action="{% url 'geschaft:geschaft' geschaft_id=geschaft.id %}">{% csrf_token %}<input type="hidden" name="geschaft_id" value="{{ geschaft.id }}"/><input type="hidden" name="document_id" value="{{ document.id }}"/><button type="submit" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-file" aria-hidden="true"></span></button></form></td>
+      					</tr>
+					{% endfor %}
+					<tr>
+        				<td><strong>Alle Dokumente als zip File</strong></td>
+        				<td><form method="post" action="{% url 'geschaft:geschaft' geschaft_id=geschaft.id %}">{% csrf_token %}<input type="hidden" name="geschaft_id" value="{{ geschaft.id }}"/><input type="hidden" name="all" value="true"/><button type="submit" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span></button></form></td>
+      				</tr>
+    			</tbody>
+  			</table>
+  		</div>
+	</div>
+	{% if error == 'true' %}
+	<script>
+		alert("Es ist ein Fehler augetreten, bitte überprüfen Sie das Formular.");
+	</script>
+	{% endif %}
+	{% elif active.tabs == 'formular' %}
+  	<div class="row" style="margin-top:50px;">
+  		<div class="col-md-10 col-md-offset-1">
+  			<h4>Formular</h4>
+  			<form method="post" action="{% url 'form:form' %}" style="margin-top:30px;">{% csrf_token %}<input type="hidden" name="geschaft_id" value="{{ geschaft.id }}"/><button type="submit" class="btn btn-sm btn-primary">Formular bearbeiten</button></form>
+  		</div>
+  	</div>
+	{% elif active.tabs == 'bearbeiten' and success == 'false' %}
+	<div class="row" style="margin-top:50px;">
+  		<div class="col-md-10 col-md-offset-1">
+  			<h4>Einstellungen</h4>
+  			<form action="{% url 'geschaft:geschaft' geschaft_id=geschaft.id %}" method="post" style="margin-top:30px;">
+  				{% csrf_token %}
+  				<div class="form-group">
+  					<label>Name:</label>
+  					<input type="text" class="form-control" name="name" value="{{ geschaft.name }}" style="max-width:500px;">
+				</div>
+				<div class="form-group">
+					<label style="max-width:500px;text-align:justify;">Ordner</label>
+					<select class="form-control" name="folder" style="max-width:100px;">
+    					{% for folder in geschaft.project_folder.get_project.list_all_folders %}
+    					<option value="{{ folder.id }}" {% if folder.id == geschaft.project_folder.id %}selected="selected"{% endif %}>{{ folder.name }}</option>
+    					{% endfor %}
+  					</select>
+				</div>
+				<input type="hidden" name="active" value="{{ active.tabs }}">
+				<button type="submit" class="btn btn-primary" style="margin-top:30px;margin-bottom:30px;">Ändern</button>
+  			</form>
+  		</div>
+  	</div>
+  	{% elif active.tabs == 'loschen' and success == 'false' %}
+  	<div class="row" style="margin-top:50px;">
+  		<div class="col-md-10 col-md-offset-1">
+  			<h4>Löschen</h4>
+  			<form action="{% url 'geschaft:geschaft' geschaft_id=geschaft.id %}" method="post" style="margin-top:30px;">
+  				{% csrf_token %}
+  				<input type="hidden" name="loschen" value="true">
+  				<input type="hidden" name="active" value="{{ active.tabs }}">
+				<button type="submit" class="btn btn-primary" style="margin-top:30px;margin-bottom:30px;" onclick="delete_geschaft(event);">Geschäft löschen</button>
+  			</form>
+  		</div>
+  	</div>
+	{% else %}
+	<div class="row" style="margin-top:50px;">
+  		<div class="col-md-10 col-md-offset-1">
+  			<div class="alert alert-success">
+			 	Geschäft erfolgreich bearbeitet.
+			</div>
+  		</div>
+	</div>
+	{% endif %}
+</div>
+<script>
+function delete_geschaft(e) {
+	if(confirm("Wollen Sie das Geschäft unwiderruflich löschen?")){
+	}
+	else{
+		e.preventDefault();
+	}
+}
+</script>
+{% endblock %}

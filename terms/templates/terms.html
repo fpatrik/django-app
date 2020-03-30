@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		{% load staticfiles %}
+		<script src="{% static 'jquery/jquery.js' %}"></script>
+		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}" />
+		<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'jasny-bootstrap/js/jasny-bootstrap.min.js' %}"></script>
+		<link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+		
+	</head>
+	<body style="font-family: 'Muli', sans-serif;" data-spy="scroll" data-target="#scrollspy">
+		<nav class="navbar navbar-default">
+	  		<div class="container-fluid">
+	    		<div class="navbar-header">
+	      			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+	        			<span class="sr-only">Toggle navigation</span>
+	        			<span class="icon-bar"></span>
+	        			<span class="icon-bar"></span>
+	        			<span class="icon-bar"></span>
+	      			</button>
+	      			<a class="navbar-brand" href=""><img alt="Brand" src="{% static 'images/logo.png' %}" height="25"></a>
+	    		</div>
+	    		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+	      			<ul class="nav navbar-nav">
+						{% if user.conventecuser.accepted_tou %}
+	      				<li {% if active.nav == 'projekte' %}class="active"{% endif %}><a href="{% url 'projekt:projekt' %}">Projekte</a></li>
+	      				<li {% if active.nav == 'teams' %}class="active"{% endif %}><a href="{% url 'team:team' %}">Teams</a></li>
+	      				{% if user.conventecuser.role == 'admin'%}
+	      				<li {% if active.nav == 'kanzlei' %}class="active"{% endif %}><a href="{% url 'kanzlei:kanzlei' kanzlei_id=user.conventecuser.kanzlei.id %}">Admin Kanzlei</a></li>
+	      				{% endif %}
+	      				<li {% if active.nav == 'einstellungen' %}class="active"{% endif %}><a href="{% url 'settings:settings' %}">Einstellungen</a></li>
+		      			<li {% if active.nav == 'feedback' %}class="active"{% endif %}><a href="{% url 'feedback:feedback' %}">Feedback</a></li>
+						{% endif %}
+	      			</ul>
+	
+	      			<ul class="nav navbar-nav navbar-right">
+	      				<p class="navbar-text">Eingeloggt als {{ user.get_full_name }}</p>
+	      				<div class="btn-group">
+	    					<a href="{% url 'logout:logout' %}" class="btn btn-default navbar-btn">
+	        					 Logout
+	    					</a>
+						</div>
+	      			</ul>
+	    		</div><!-- /.navbar-collapse -->
+	  		</div><!-- /.container-fluid -->
+		</nav>
+		<div class="container">
+			<div class="row" style="margin-top:100px;">
+				{% if lang %}
+				<div class="hidden-xs col-sm-3" id="scrollspy">
+					<nav class="affix">
+						<ul class="nav" style="max-width:200px;margin-top:25px;">
+							{% if False and not lang and not user.conventecuser.accepted_tou %}
+							<li>
+								<a href="#willkommen" onclick="event.preventDefault();" style="cursor: default;">Willkommen</a>
+							</li>
+							{% endif %}
+							{% if lang == 'de' or user.conventecuser.accepted_tou %}
+							<li>
+								<a href="#nutzung" onclick="event.preventDefault();" style="cursor: default;">Nutzungsbedingungen Beta-Version</a>
+								<ul class="nav nav-stacked">
+									<li>
+										<a href="#allgemein" onclick="event.preventDefault();" style="cursor: default;">Allgemein</a>
+									</li>
+									<li>
+										<a href="#dauer" onclick="event.preventDefault();" style="cursor: default;">Dauer und Verfügbarkeit des Testzugangs</a>
+									</li>
+									<li>
+										<a href="#vertraulichkeit" onclick="event.preventDefault();" style="cursor: default;">Vertraulichkeit der Anmeldedaten</a>
+									</li>
+									<li>
+										<a href="#urheberrecht" onclick="event.preventDefault();" style="cursor: default;">Urheberrecht</a>
+									</li>
+									<li>
+										<a href="#keine" onclick="event.preventDefault();" style="cursor: default;">Keine Ansprüche</a>
+									</li>
+									<li>
+										<a href="#haftungsausschluss" onclick="event.preventDefault();" style="cursor: default;">Haftungsausschluss</a>
+									</li>
+									<li>
+										<a href="#links" onclick="event.preventDefault();" style="cursor: default;">Links</a>
+									</li>
+									<li>
+										<a href="#datensicherheit" onclick="event.preventDefault();" style="cursor: default;">Datensicherheit im Allgemeinen</a>
+									</li>
+									<li>
+										<a href="#datenschutz" onclick="event.preventDefault();" style="cursor: default;">Datenschutz</a>
+									</li>
+									<li>
+										<a href="#berufsgeheimnis" onclick="event.preventDefault();" style="cursor: default;">Berufsgeheimnis und Geschäftsgeheimnisse</a>
+									</li>
+									<li>
+										<a href="#anwendbares" onclick="event.preventDefault();" style="cursor: default;">Anwendbares Recht und Gerichtsstand</a>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<a href="#cookie" onclick="event.preventDefault();" style="cursor: default;">Cookie Richtlinie</a>
+							</li>
+							{% endif %}
+							{% if lang == 'en' and not user.conventecuser.accepted_tou %}
+							<li>
+								<a href="#nutzung" onclick="event.preventDefault();" style="cursor: default;">Terms of Use Beta Version</a>
+								<ul class="nav nav-stacked">
+									<li>
+										<a href="#translation" onclick="event.preventDefault();" style="cursor: default;">Translation</a>
+									</li>
+									<li>
+										<a href="#allgemein" onclick="event.preventDefault();" style="cursor: default;">In General</a>
+									</li>
+									<li>
+										<a href="#dauer" onclick="event.preventDefault();" style="cursor: default;">Duration and Accessibility of the Test Account</a>
+									</li>
+									<li>
+										<a href="#vertraulichkeit" onclick="event.preventDefault();" style="cursor: default;">Confidential Nature of Login Data</a>
+									</li>
+									<li>
+										<a href="#urheberrecht" onclick="event.preventDefault();" style="cursor: default;">Copyright</a>
+									</li>
+									<li>
+										<a href="#keine" onclick="event.preventDefault();" style="cursor: default;">No Claims</a>
+									</li>
+									<li>
+										<a href="#haftungsausschluss" onclick="event.preventDefault();" style="cursor: default;">Exclusion of Liability</a>
+									</li>
+									<li>
+										<a href="#links" onclick="event.preventDefault();" style="cursor: default;">Links</a>
+									</li>
+									<li>
+										<a href="#datensicherheit" onclick="event.preventDefault();" style="cursor: default;">Data Security in general</a>
+									</li>
+									<li>
+										<a href="#datenschutz" onclick="event.preventDefault();" style="cursor: default;">Data Protection</a>
+									</li>
+									<li>
+										<a href="#berufsgeheimnis" onclick="event.preventDefault();" style="cursor: default;">Professional Secrecy and Trade Secrets</a>
+									</li>
+									<li>
+										<a href="#anwendbares" onclick="event.preventDefault();" style="cursor: default;">Applicable Law and Jurisdiction</a>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<a href="#cookie" onclick="event.preventDefault();" style="cursor: default;">Cookie Policy</a>
+							</li>
+							{% endif %}
+						</ul>
+					</nav>
+				</div>
+				{% endif %}
+				<div class="{% if not lang %}col-sm-offset-2{% endif %} col-sm-8" style="text-align: justify;">
+					{% if not lang and not user.conventecuser.accepted_tou %}
+					<h1 id="willkommen">Willkommen {{ user.get_full_name }}</h1>
+					<br>
+					<p>Wir freuen uns, Sie auf der Conventec App Webseite begrüssen zu dürfen. Auf dieser Webseite stellen wir Ihnen als Testnutzer den Prototypen eines individuell eingerichteten Document Automation Tools mit Kollaborationsfunktionen (Customized Document Automation and Collaboration Tool, &quot;<strong>CDAC</strong>&quot;) zu Testzwecken zur Verfügung, welches primär für den Gebrauch durch Anwaltskanzleien, Rechtsabteilungen in Unternehmen und die öffentliche Verwaltung ausgelegt ist. </p><br><p>Für Ihr geschätztes Feedback stehen wir Ihnen gerne persönlich zur Verfügung. Sie dürfen uns aber Ihre Rückmeldungen, insbesondere zu konkreten Verbesserungsmöglichkeiten oder allgemeinen Anregungen auch gerne im Feedback-Bereich unserer Webseite mitteilen. Für Ihr Interesse und Ihren wertvollen Beitrag zur Verbesserung und Weiterentwicklung unseres Tools bedanken wir uns bestens.</p>
+					<br>
+					<p>I möchte die Nutzungsbedingungen und die Cookie-Richtlinie in folgender Sprache lesen:<br>
+					I would like to read the terms of use and the cookie policy in the following language:</p>
+					<br>
+					<a href="{% url 'terms:terms' %}?lang=de" class="btn btn-info" style="margin-right:20px;">Deutsch</a><a href="{% url 'terms:terms' %}?lang=en" class="btn btn-info" role="button">English translation</a>
+					<br>
+					<br>
+					{% endif %}
+					{% if lang == 'de' or user.conventecuser.accepted_tou %}
+					<h1 id="nutzung">Nutzungsbedingungen Beta-Version</h1>
+					<br>
+					<h3 id="allgemein">Allgemein</h3>
+					<p>Auf der Webseite <i>app.conventec.ch</i> (die "<strong>Conventec App Webseite</strong>") stellen wir Ihnen als Testnutzer (dem "<strong>Nutzer</strong>") den Prototypen eines individuell eingerichteten Document Automation Tools mit Kollaborationsfunktionen (Customized Document Automation and Collaboration Tool, "<strong>CDAC</strong>" oder "<strong>Conventec App</strong>") zu Testzwecken Verfügung, welches primär für den Gebrauch durch Anwaltskanzleien, Rechtsabteilungen in Unternehmen und die öffentliche Verwaltung ausgelegt ist.</p>
+					<p>Zu diesem Zweck haben wir Ihnen einen Testzugang zur Conventec App Webseite bzw. zur Conventec App (der "<strong>Testzugang</strong>") eingerichtet und die entsprechenden Anmeldedaten (die "<strong>originären Anmeldedaten</strong>") zukommen lassen.</p>
+					<p>Der Nutzer hat die Möglichkeit, weitere Zugänge und entsprechende Anmeldedaten zu erstellen (die "<strong>abgeleiteten Anmeldedaten</strong>", zusammen mit den originären Anmeldedaten: die "<strong>Anmeldedaten</strong>"). Personen, für die solche weiteren Zugänge erstellt werden oder die solche weiteren Zugänge benutzen, gelten ebenfalls als Nutzer.</p>
+					<p>Mit dem Besuch der Conventec App Webseite bzw. der Benutzung der Conventec App erklärt der Nutzer, dass er mit den nachfolgenden Nutzungsbedingungen (die "<strong>Nutzungsbedingungen</strong>") einverstanden ist. Eine jederzeitige Anpassung derselben wird ausdrücklich vorbehalten.</p>
+					<br>
+					<h3 id="dauer">Dauer und Verfügbarkeit des Testzugangs</h3>
+					<p>Der Testzugang steht dem Nutzer ab Datum der Übermittlung der originären Anmeldedaten während eines Zeitraums von einem Monat zur Verfügung, vorbehältlich abweichender schriftlicher Vereinbarung. Der Testzugang wird dem Nutzer während dieses Zeitraums kostenlos zur Verfügung gestellt.</p>
+					<p>Aufgrund fortlaufender Entwicklungs- und Wartungsarbeiten an der Conventec App Webseite bzw. der Conventec App kann es vorkommen, dass diese während der Dauer des Testzugangs vorübergehend nicht verfügbar sind.</p>
+					<p>Im Fall von Missbrauch bzw. Gebrauch der Conventec App Webseite und/oder der Conventec App in Verletzung dieser Nutzungsbedingungen ist Conventec berechtigt, den Testzugang jederzeit zu sperren.</p>
+					<br>
+					<h3 id="vertraulichkeit">Vertraulichkeit der Anmeldedaten</h3>
+					<p>Der Nutzer behandelt die Anmeldedaten vertraulich. Die Ab- und Weitergabe der Anmeldedaten durch den Nutzer an andere Personen oder, sofern die Anmeldedaten dem Nutzer als Vertreter eines Unternehmens zwecks Testnutzung durch dieses Unternehmen überlassen wurden, Personen ausserhalb dieses Unternehmens ("<strong>unautorisierte Drittparteien</strong>"), darf nur mit vorgängiger schriftlicher Zustimmung von Conventec erfolgen. Der Nutzer ist dafür verantwortlich, dass seine Angestellten, Beauftragten oder sonstigen Hilfspersonen, insbesondere Personen, welchen Anmeldedaten ab- oder weitergegeben wurden, diese Nutzungsbedingungen jederzeit beachten.</p>
+					<p>Hat der Nutzer den Verdacht, dass Anmeldedaten an unautorisierte Drittparteien gelangt sind, ohne dass vorgängige schriftliche Zustimmung von Conventec eingeholt wurde, so ist der Nutzer verpflichtet, Conventec hiervon unverzüglich Mitteilung zu machen und alle zweckdienlichen diesbezüglichen Auskünfte zu erteilen.</p>
+					<br>
+					<h3 id="urheberrecht">Urheberrecht</h3>
+					<p>Sämtliche Inhalte der Conventec App Webseite und der Conventec App sind urheberrechtlich geschützt. Download, Speicherung und/oder Ausdrucken von einzelnen Inhalten der Conventec App Webseite bzw. der Conventec App ist für den privaten Gebrauch erlaubt, sofern Copyrightvermerke und andere gesetzlich geschützte Bezeichnungen nicht entfernt werden. Durch die Vervielfältigung von Inhalten und/oder Daten der Conventec App Webseite bzw. der Conventec App findet keine Übertragung von Rechten statt; sämtliche Rechte verbleiben bei Conventec.</p>
+					<p>Die vollständige oder teilweise Reproduktion, Änderung, Verknüpfung oder Benutzung der Conventec App Webseite bzw. der Conventec App zu kommerziellen oder öffentlichen Zwecken bedarf der vorgängigen schriftlichen Zustimmung von Conventec.</p>
+					<br>
+					<h3 id="keine">Keine Ansprüche</h3>
+					<p>Zwischen unautorisierten Drittparteien und Conventec kommt durch die Nutzung der Conventec App Webseite oder der Conventec App kein Vertragsverhältnis zustande. Die auf der Conventec App Webseite bereitgestellten Inhalte stellen auch insofern kein Angebot zum Abschluss irgendeines Rechtsgeschäfts dar. Insofern ergeben sich daraus auch keinerlei vertragliche oder quasivertragliche Ansprüche gegen Conventec. Ein vertragliches Verhältnis kommt ausschliesslich zwischen dem Nutzer und Conventec zustande.</p>
+					<br>
+					<h3 id="haftungsausschluss">Haftungsausschluss</h3>
+					<p>Bei der Conventec App Webseite bzw. der Con-ventec App handelt es sich um einen Prototypen (Beta-Version), welcher nicht für die kommerzielle Verwendung vorgesehen ist. Conventec übernimmt entsprechend keine Gewähr für die Aktualität, Korrektheit, Vollständigkeit oder Qualität der auf der Conventec App Webseite bereitgestellten Inhalte.</p>
+					<p>Conventec lehnt, soweit gesetzlich zulässig, jegliche Haftung für Schäden aller Art (direkte und indirekte, unmittelbare und mittelbare) ab, welche sich aus dem Zugriff auf die oder der Benutzung der Conventec App Webseite oder Links zu Webseiten Dritter resultieren können. </p>
+					<p>Obwohl Conventec stets um die Sicherheit ihrer Webseite bemüht ist, gewährleistet Conventec nicht, dass die Conventec App Webseite oder verlinkte Webseiten Dritter zu jeder Zeit frei von Viren und anderen schädlichen Daten sind. Insofern erfolgt die Benutzung der Conventec Webseite sowie verlinkter Webseiten Dritter auf eigene Gefahr des Nutzers und die Vornahme entsprechender Sicherheitsvorkehren (insbesondere Anti-Virus-Schutz) liegt in dessen Verantwortung. Conventec übernimmt keine Haftung für Schäden an Hardware oder Software, welche bei Nutzer und deren Kunden durch die Benutzung der Conventec App oder der Conventec App Webseite entstehen.</p>
+					<br>
+					<h3 id="links">Links</h3>
+					<p>Die Conventec App Webseite kann Links zu Webseiten Dritter enthalten, auf deren Inhalt und Gestaltung Conventec keinen Einfluss hat. Con-ventec übernimmt deshalb keinerlei Gewähr für die Korrektheit, Vollständigkeit oder rechtliche Zulässigkeit der Inhalte solcher Webseiten.</p>
+					<br>
+					<h3 id="datensicherheit">Datensicherheit im Allgemeinen</h3>
+					<p>Bei elektronischer Kontaktaufnahme werden Ihre Daten über ein öffentlich zugängliches Netzwerk übermittelt. Es ist deshalb möglich, dass unbe-fugte Drittparteien auf Ihre Daten zugreifen könnten.</p>
+					<br>
+					<h3 id="datenschutz">Datenschutz</h3>
+					<p>Sämtliche von Nutzern bei der Benutzung der Conventec App Webseite und der Conventec App übermittelten Informationen werden von Conventec vertraulich behandelt. Mit der Benutzung der Conventec App Webseite bzw. der Conventec App willigt der Nutzer ein, dass die Daten unter Einhaltung der anwendbaren Datenschutzbestimmungen auf einem in der Schweiz gehosteten Server gespeichert werden. An Conventec gesendete E-Mails (z.B. an office@conventec.ch oder support@conventec.ch) werden auf einen Server in den USA gespeichert.</p>
+					<p>Der Nutzer willigt ein, dass Mitarbeiter von Conventec oder allenfalls von Conventec beauftragte Dritte die vom ihm übermittelten Daten einsehen können.</p>
+					<p>Conventec ist bestrebt, die von Nutzer übermittelten Informationen vor nicht autorisiertem Zugriffen, Verlust, Missbrauch oder Verfälschung zu schützen.</p>
+					<p>Conventec ist berechtigt, durch den Nutzer offengelegte Informationen (einschliesslich bei der Benutzung der Conventec App an Conventec übermittelter Informationen) ("<strong>Nutzerinformationen</strong>") an staatliche Behörden oder andere Dritte zu übermitteln, sofern dies erforderlich ist i) um die Interessen von Conventec zu schützen, oder ii) im Zusammenhang mit dem Verkauf bzw. Übertragung des gesamten oder Teilen des Geschäfts, oder iii) wenn Conventec dazu aufgrund von gesetzlichen oder regulatorischen Bestimmungen bzw. gerichtlichen oder behördlichen Anordnungen verpflichtet ist. Falls Conventec verpflichtet ist, Nutzerinformationen Dritten mitzuteilen, ist Conventec in angemessener Weise bemüht, den betroffenen Nutzer hierüber in Kenntnis zu setzen, ausser wenn dies aus rechtlichen oder praktischen Gründen nicht geboten ist.</p>
+					<br>
+					<h3 id="berufsgeheimnis">Berufsgeheimnis und Geschäftsgeheimnisse</h3>
+					<p>Jeder Nutzer der Conventec App Webseite oder der Conventec App hat vor der Benutzung der Conventec App Webseite oder Conventec App selbstständig zu prüfen, ob und inwieweit die Übermittlung von Nutzerinformationen an Conventec rechtlich zulässig ist.</p>
+					<br>
+					<h3 id="anwendbares">Anwendbares Recht und Gerichtsstand</h3>
+					<p>Die Nutzung der Conventec App Webseite bzw. des Conventec Tools untersteht materiellem schweizerischem Recht, unter Ausschluss internationaler Verträge (insbesondere des Übereinkommens der Vereinten Nationen über Verträge über den internationalen Warenkauf vom 11. April 1980).</p>
+					<p>Alle Streitigkeiten und Ansprüche, welche aus oder im Zusammenhang mit dem Zugriff auf die oder der Benutzung der Conventec Webseite entstehen sind ausschliesslich den Gerichten des Bezirks Meilen (Kanton Zürich, Schweiz) zu unterbreiten.</p>
+					<br>
+					<h1 id="cookie">Cookie-Richtlinie</h1>
+					<br>
+					<p>Ein Cookie ist eine kleine Textdatei, welche auf dem Computer, Smartphone oder Tablet des Besuchers der Conventec App Webseite gespeichert und bei späteren Besuchen abgerufen wird.</p>
+					<p>Cookies erlauben es unter anderem Benutzer zu identifizieren und diese mit über sie gesammelten Daten in Verbindung zu bringen. Conventec beabsichtigt nicht Cookies zu nutzen, um Personendaten zu sammeln oder solche Daten an Dritte weiterzugeben.</p>
+					<p>Es gibt dauerhafte und temporäre Cookies. Dauerhafte Cookies werden als Datei bis zu zwölf Monate lang gespeichert. Temporäre Cookies werden bis zum Schliessen der Browsersitzung gespeichert. Auf der Conventec App Webseite werden dauerhafte Cookies verwendet, um Benutzer zu identifizieren und die Sicherheit der Webseite zu erhöhen.</p>
+					<p>Besucher der Conventec App Webseite können Cookies durch entsprechende Anpassungen bei den Einstellungen des verwendeten Browsers von ihrem Computer, Smartphone oder Tablet löschen. In der Regel finden sich im Menü "Hilfe" des jeweiligen Browsers Informationen dazu, ob und inwiefern Cookies zugelassen werden und wie diese gelöscht werden können. Werden Cookies abgelehnt, kann die Conventec App Webseite nicht genutzt werden.</p>
+					<br>
+					{% if not user.conventecuser.accepted_tou %}
+					<form action="{% url 'terms:terms' %}" method="POST" style="margin-bottom:100px;">
+						{% csrf_token %}
+						<div class="checkbox">
+							<label><input id="cb1" name="cb1" type="checkbox" autocomplete="off" onclick="if($('#cb1').prop('checked') && $('#cb2').prop('checked')){$('#submit-button').prop('disabled', false);}else{$('#submit-button').prop('disabled', true);}">Ich habe die Nutzungsbedingungen gelesen und akzeptiere diese</label>
+						</div>
+						<div class="checkbox">
+							<label><input id="cb2" name="cb2" type="checkbox" autocomplete="off" onclick="if($('#cb1').prop('checked') && $('#cb2').prop('checked')){$('#submit-button').prop('disabled', false);}else{$('#submit-button').prop('disabled', true);}">Ich habe die Cookie-Richtlinie gelesen und akzeptiere diese</label>
+						</div>
+						<br>
+						<button id="submit-button" type="submit" class="btn btn-primary" disabled="false">Absenden</button>
+					</form>
+					{% endif %}
+					{% endif %}
+					{% if lang == 'en' and not user.conventecuser.accepted_tou %}
+					<br>
+					<h1 id="nutzung">Terms of Use Beta Version</h1>
+					<br>
+					<h3 id="translations">Translation</h3>
+					<p>These terms of use exist as a German and an English version. Please note that the English version is provided as a translation for information purposes only. Only the German translation shall be authoritative and legally binding. In the event of contradictions between the German and the English version, the German version shall prevail.</p>
+					<br>
+					<h3 class="allgemein" style="display:none;">Allgemein</h3>
+					<h3 class="allgemein" id="allgemein">In General</h3>
+					<a class="allgemein" style="cursor:pointer;" onclick="$('.allgemein').toggle();">show German translation</a>
+					<a class="allgemein" style="cursor:pointer;display:none;" onclick="$('.allgemein').toggle();">show English translation</a>
+					<br>
+					<br>
+					<p class="allgemein" style="display:none;">Auf der Webseite <i>app.conventec.ch</i> (die "<strong>Conventec App Webseite</strong>") stellen wir Ihnen als Testnutzer (dem "<strong>Nutzer</strong>") den Prototypen eines individuell eingerichteten Document Automation Tools mit Kollaborationsfunktionen (Customized Document Automation and Collaboration Tool, "<strong>CDAC</strong>" oder "<strong>Conventec App</strong>") zu Testzwecken Verfügung, welches primär für den Gebrauch durch Anwaltskanzleien, Rechtsabteilungen in Unternehmen und die öffentliche Verwaltung ausgelegt ist.</p>
+					<p class="allgemein" style="display:none;">Zu diesem Zweck haben wir Ihnen einen Testzugang zur Conventec App Webseite bzw. zur Conventec App (der "<strong>Testzugang</strong>") eingerichtet und die entsprechenden Anmeldedaten (die "<strong>originären Anmeldedaten</strong>") zukommen lassen.</p>
+					<p class="allgemein" style="display:none;">Der Nutzer hat die Möglichkeit, weitere Zugänge und entsprechende Anmeldedaten zu erstellen (die "<strong>abgeleiteten Anmeldedaten</strong>", zusammen mit den originären Anmeldedaten: die "<strong>Anmeldedaten</strong>"). Personen, für die solche weiteren Zugänge erstellt werden oder die solche weiteren Zugänge benutzen, gelten ebenfalls als Nutzer.</p>
+					<p class="allgemein" style="display:none;">Mit dem Besuch der Conventec App Webseite bzw. der Benutzung der Conventec App erklärt der Nutzer, dass er mit den nachfolgenden Nutzungsbedingungen (die "<strong>Nutzungsbedingungen</strong>") einverstanden ist. Eine jederzeitige Anpassung derselben wird ausdrücklich vorbehalten.</p>
+					<p class="allgemein">On the website <i>app.conventec.ch</i> (the "<strong>Conventec App Webseite</strong>"), we make available to you as a test user (the "<strong>User</strong>") for test purposes a prototype of a customized document automa-tion tool with collaboration features ("<strong>CDAC</strong>" or "<strong>Conventec App</strong>"), designed primarily for the use by law firms, commercial enterprises and the public administration.</p>
+					<p class="allgemein">For this purpose, we have set up a test account for you to the Contentec App Website and to the Conventec App, respectively (the "<strong>Test Account</strong>"), and we have provided you with personal login data ("<strong>Original Log-In Data</strong>").</p>
+					<p class="allgemein">The user is granted the possibility to create fur-ther accounts and corresponding log-in data ("<strong>Derived Log-In Data</strong>", and together with the Original Log-In Data: "<strong>Log-In Data</strong>"). Any person for whom such a further account is created, and any person using such further account also qualifies as User.</p>
+					<p class="allgemein">By visiting the Conventec App Website or by us-ing the Conventec App, respectively, the User declares its consent to the terms of use set out hereinafter (the "<strong>Terms of Use</strong>"). Amendments thereto remain expressly reserved at any time.</p>
+					<br>
+					<h3 class="dauer" style="display:none;">Dauer und Verfügbarkeit des Testzugangs</h3>
+					<h3 class="dauer" id="dauer">Duration and Accessibility of the Test Account</h3>
+					<a class="dauer" style="cursor:pointer;" onclick="$('.dauer').toggle();">show German translation</a>
+					<a class="dauer" style="cursor:pointer;display:none;" onclick="$('.dauer').toggle();">show English translation</a>
+					<br>
+					<br>
+					<p class="dauer" style="display:none;">Der Testzugang steht dem Nutzer ab Datum der Übermittlung der originären Anmeldedaten während eines Zeitraums von einem Monat zur Verfügung, vorbehältlich abweichender schriftlicher Vereinbarung. Der Testzugang wird dem Nutzer während dieses Zeitraums kostenlos zur Verfügung gestellt.</p>
+					<p class="dauer" style="display:none;">Aufgrund fortlaufender Entwicklungs- und Wartungsarbeiten an der Conventec App Webseite bzw. der Conventec App kann es vorkommen, dass diese während der Dauer des Testzugangs vorübergehend nicht verfügbar sind.</p>
+					<p class="dauer" style="display:none;">Im Fall von Missbrauch bzw. Gebrauch der Conventec App Webseite und/oder der Conventec App in Verletzung dieser Nutzungsbedingungen ist Conventec berechtigt, den Testzugang jederzeit zu sperren.</p>
+					<p class="dauer">The Test Account is available to the User for a period of one month from the date of the transmission of the Original Log-In Data. Special agreements remain reserved. The Test Account is at the dis-posal of the User during this period free of charge.</p>
+					<p class="dauer">Due to continuing development and maintenance of the Conventec App Website or the Conventec App, respectively, these may not be available at all times throughout the period of the Test Account.</p>
+					<p class="dauer">In the event of abuse or use of the Conventec App Website or the Conventec App, respectively, in violation of these Terms of Use, Conventec is entitled to block the Test Account at any time.</p>
+					<br>
+					<h3 class="vertraulichkeit" style="display:none;">Vertraulichkeit der Anmeldedaten</h3>
+					<h3 class="vertraulichkeit" id="vertraulichkeit">Confidential Nature of Login Data</h3>
+					<a class="vertraulichkeit" style="cursor:pointer;" onclick="$('.vertraulichkeit').toggle();">show German translation</a>
+					<a class="vertraulichkeit" style="cursor:pointer;display:none;" onclick="$('.vertraulichkeit').toggle();">show English translation</a>
+					<br>
+					<br>
+					<p class="vertraulichkeit" style="display:none;">Der Nutzer behandelt die Anmeldedaten vertraulich. Ab- und Die Weitergabe von Anmeldedaten durch den Nutzer an andere Personen oder, sofern die Anmeldedaten dem Nutzer als Vertreter eines Unternehmens zwecks Testnutzung durch dieses Unternehmen überlassen wurden, Personen ausserhalb dieses Unternehmens ("<strong>unautorisierte Drittparteien</strong>"), darf nur mit vorgängiger schriftlicher Zustimmung von Conventec erfolgen. Der Nutzer ist dafür verantwortlich, dass seine Angestellten, Beauftragten oder sonstigen Hilfspersonen, insbesondere Personen, welchen Anmeldedaten ab- oder weitergegeben wurden, diese Nutzungsbedingungen jederzeit beachten.</p>
+					<p class="vertraulichkeit" style="display:none;">Hat der Nutzer den Verdacht, dass Anmeldedaten an unautorisierte Drittparteien gelangt sind, ohne dass vorgängige schriftliche Zustimmung von Conventec eingeholt wurde, so ist der Nutzer verpflichtet, Conventec hiervon unverzüglich Mitteilung zu machen und alle zweckdienlichen diesbezüglichen Auskünfte zu erteilen.</p>
+					<p class="vertraulichkeit">The User must treat the Log-In Data as confidential. The granting ordisclosure of Log-In Data by the User to other persons or, if Log-In Data has been provided to the User as representative of a commercial enterprise, to a person outside such commercial enterprise ("<strong>Unauthorised Third Parties</strong>" is only permitted with the prior written consent by Conventec. The User is responsible that its employees, agents or other associates, including (but not limited to) the persons to which it has granted or disclosed Log-In Data, comply with this provision at all times.</p>
+					<p class="vertraulichkeit">If the User suspects that Log-In Data has fallen into the hands of Unauthorised Third Parties without prior written consent by Conventec, the User is obligated to notify Conventec immediate-ly and to provide all relevant information in this regard.</p>
+					<br>
+					<h3 class="haftungsausschluss" style="display:none;">Haftungsausschluss</h3>
+					<h3 class="haftungsausschluss" id="haftungsausschluss">No Claims</h3>
+					<a class="haftungsausschluss" style="cursor:pointer;" onclick="$('.haftungsausschluss').toggle();">show German translation</a>
+					<a class="haftungsausschluss" style="cursor:pointer;display:none;" onclick="$('.haftungsausschluss').toggle();">show English translation</a>
+					<br>
+					<br>
+					<p class="haftungsausschluss" style="display:none;">Zwischen unautorisierten Drittparteien und Conventec kommt durch die Nutzung der Conventec App Webseite oder der Conventec App kein Vertragsverhältnis zustande. Die auf der Conventec App Webseite bereitgestellten Inhalte stellen auch insofern kein Angebot zum Abschluss irgendeines Rechtsgeschäfts dar. Insofern ergeben sich daraus auch keinerlei vertragliche oder quasivertragliche Ansprüche gegen Conventec. Ein vertragliches Verhältnis kommt ausschliesslich zwischen dem Nutzer und Conventec zustande.</p>
+					<p class="haftungsausschluss" style="display:none;">Bei der Conventec App Webseite bzw. der Con-ventec App handelt es sich um einen Prototypen (Beta-Version), welcher nicht für die kommerzielle Verwendung vorgesehen ist. Conventec übernimmt entsprechend keine Gewähr für die Aktualität, Korrektheit, Vollständigkeit oder Qualität der auf der Conventec App Webseite bereitgestellten Inhalte.</p>
+					<p class="haftungsausschluss" style="display:none;">Conventec lehnt, soweit gesetzlich zulässig, jegliche Haftung für Schäden aller Art (direkte und indirekte, unmittelbare und mittelbare) ab, welche sich aus dem Zugriff auf die oder der Benutzung der Conventec App Webseite oder Links zu Webseiten Dritter resultieren können. </p>
+					<p class="haftungsausschluss" style="display:none;">Obwohl Conventec stets um die Sicherheit ihrer Webseite bemüht ist, gewährleistet Conventec nicht, dass die Conventec App Webseite oder verlinkte Webseiten Dritter zu jeder Zeit frei von Viren und anderen schädlichen Daten sind. Insofern erfolgt die Benutzung der Conventec Webseite sowie verlinkter Webseiten Dritter auf eigene Gefahr des Nutzers und die Vornahme entsprechender Sicherheitsvorkehren (insbesondere Anti-Virus-Schutz) liegt in dessen Verantwortung. Conventec übernimmt keine Haftung für Schäden an Hardware oder Software, welche bei Nutzer und deren Kunden durch die Benutzung der Conventec App oder der Conventec App Webseite entstehen.</p>
+					<p class="haftungsausschluss">The Conventec App Website and the Conventec App, respectively, constitute a prototype (beta version), which is not designed commercial use. Therefore, Conventec does not give any representations or warranties with respect to up-to-dateness, accuracy, completeness or quality of the contents contained on the Conventec App Website.</p>
+					<p class="haftungsausschluss">To the fullest extent legally permissible, Conventec disclaims all and any liability for damage of any kind (direct, indirect or consequential damages), which may result from the access or use of the Conventec App Website or links lead-ing to third party websites.</p>
+					<p class="haftungsausschluss">Despite the fact that Conventec continuously makes considerable security efforts, Conventec does not represent or warrant that the Conventec App Website or third party websites linked therewith will at all times be free from viruses or other damaging data. Therefore, the User uses the Conventec App Website at its own risk, and it lies within the User’s responsibility to take corresponding security precautions (in particular anti-virus protection). Conventec cannot be held liable for any damages inflicted on hardware or software of its Users and their customers which result due to the use of the Conventec App or the Conventec App Website.</p>
+					<br>
+					<h3 class="links" style="display:none;">Links</h3>
+					<h3 class="links" id="links">Links</h3>
+					<a class="links" style="cursor:pointer;" onclick="$('.links').toggle();">show German translation</a>
+					<a class="links" style="cursor:pointer;display:none;" onclick="$('.links').toggle();">show English translation</a>
+					<br>
+					<br>
+					<p class="links" style="display:none;">Die Conventec App Webseite kann Links zu Webseiten Dritter enthalten, auf deren Inhalt und Gestaltung Conventec keinen Einfluss hat. Con-ventec übernimmt deshalb keinerlei Gewähr für die Korrektheit, Vollständigkeit oder rechtliche Zulässigkeit der Inhalte solcher Webseiten.</p>
+					<p class="links">The Conventec App Website may contain links leading to third party websites, which are beyond control of Conventec. Accordingly, Conventec does not assume any responsibility for accuracy, completeness or legality of the content of such websites.</p>
+					<br>
+					<h3 class="datensicherheit" style="display:none;">Datensicherheit im Allgemeinen</h3>
+					<h3 class="datensicherheit" id="datensicherheit">Data Security in general</h3>
+					<a class="datensicherheit" style="cursor:pointer;" onclick="$('.datensicherheit').toggle();">show German translation</a>
+					<a class="datensicherheit" style="cursor:pointer;display:none;" onclick="$('.datensicherheit').toggle();">show English translation</a>
+					<br>
+					<br>
+					<p class="datensicherheit" style="display:none;">Bei elektronischer Kontaktaufnahme werden Ihre Daten über ein öffentlich zugängliches Netzwerk übermittelt. Es ist deshalb möglich, dass unbe-fugte Drittparteien auf Ihre Daten zugreifen könnten.</p>
+					<p class="datensicherheit">When effecting electronic communication, your data is transmitted via a publicly accessible net-work. Therefore, it is possible that unauthorised third parties might access your data.</p>
+					<br>
+					<h3 class="datenschutz" style="display:none;">Datenschutz</h3>
+					<h3 class="datenschutz" id="datensicherheit">Data Protection</h3>
+					<a class="datenschutz" style="cursor:pointer;" onclick="$('.datenschutz').toggle();">show German translation</a>
+					<a class="datenschutz" style="cursor:pointer;display:none;" onclick="$('.datenschutz').toggle();">show English translation</a>
+					<br>
+					<br>
+					<p class="datenschutz" style="display:none;">Sämtliche von Nutzern bei der Benutzung der Conventec App Webseite und der Conventec App übermittelten Informationen werden von Conventec vertraulich behandelt. Mit der Benutzung der Conventec App Webseite bzw. der Conventec App willigt der Nutzer ein, dass die Daten unter Einhaltung der anwendbaren Datenschutzbestimmungen auf einem in der Schweiz gehosteten Server gespeichert werden. An Conventec gesendete E-Mails (z.B. an office@conventec.ch oder support@conventec.ch) werden auf einen Server in den USA gespeichert.</p>
+					<p class="datenschutz" style="display:none;">Der Nutzer willigt ein, dass Mitarbeiter von Conventec oder allenfalls von Conventec beauftragte Dritte die vom ihm übermittelten Daten einsehen können.</p>
+					<p class="datenschutz" style="display:none;">Conventec ist bestrebt, die von Nutzer übermittelten Informationen vor nicht autorisiertem Zugriffen, Verlust, Missbrauch oder Verfälschung zu schützen.</p>
+					<p class="datenschutz" style="display:none;">Conventec ist berechtigt, durch den Nutzer offengelegte Informationen (einschliesslich bei der Benutzung der Conventec App an Conventec übermittelter Informationen) ("<strong>Nutzerinformationen</strong>") an staatliche Behörden oder andere Dritte zu übermitteln, sofern dies erforderlich ist i) um die Interessen von Conventec zu schützen, oder ii) im Zusammenhang mit dem Verkauf bzw. Übertragung des gesamten oder Teilen des Geschäfts, oder iii) wenn Conventec dazu aufgrund von gesetzlichen oder regulatorischen Bestimmungen bzw. gerichtlichen oder behördlichen Anordnungen verpflichtet ist. Falls Conventec verpflichtet ist, Nutzerinformationen Dritten mitzuteilen, ist Conventec in angemessener Weise bemüht, den betroffenen Nutzer hierüber in Kenntnis zu setzen, ausser wenn dies aus rechtlichen oder praktischen Gründen nicht geboten ist.</p>
+					<p class="datenschutz">Any information transmitted by use of the Conventec App Website and the Conventec App will be treated as confidential by Conventec. By using the Conventec App Website or the Conventec App, respectively, the User agrees that his data will be stored on a server hosted in Switzerland in accorandance with the applicable laws on data protection. E-Mails sent to Conventec (e.g. to office@conventec.ch or support@conventec.ch) will be stored on a server in the US.</p>
+					<p class="datenschutz">Each User agrees that a member of staff of Conventec, or third parties mandated by Conventec, may review data transmitted by him.</p>
+					<p class="datenschutz">Conventec aims to protect any information transmitted by its User from unauthorized access, loss, misuse or fraud.</p>
+					<p class="datenschutz">Conventec is entitled to disclose information made available to it by the User (including information transmitted to Conventec by the User in the course of using the Conventec App) ("<strong>User Information</strong>") with government authorities or other third parties as required i) to protect the interests of Conventec, or ii) in connection with the sale or transfer of all or parts of the business, or iii) by applicable legal or regulatory provisions or court or administrative order. If Conventec is required to disclose User information it will use reasonable endeavours to notify the affected User, unless Conventec is restricted from doing so due to legal or practicable reasons.</p>
+					<br>
+					<h3 class="berufsgeheimnis" style="display:none;">Berufsgeheimnis und Geschäftsgeheimnisse</h3>
+					<h3 class="berufsgeheimnis" id="berufsgeheimnis">Professional Secrecy and Trade Secrets</h3>
+					<a class="berufsgeheimnis" style="cursor:pointer;" onclick="$('.berufsgeheimnis').toggle();">show German translation</a>
+					<a class="berufsgeheimnis" style="cursor:pointer;display:none;" onclick="$('.berufsgeheimnis').toggle();">show English translation</a>
+					<br>
+					<br>
+					<p class="berufsgeheimnis" style="display:none;">Jeder Nutzer der Conventec App Webseite oder der Conventec App hat vor der Benutzung der Conventec App Webseite oder Conventec App selbstständig zu prüfen, ob und inwieweit die Übermittlung von Nutzerinformationen an Conventec rechtlich zulässig ist.</p>
+					<p class="berufsgeheimnis">Each User of the Conventec App Website and the Conventec App must verify prior to the use of the Conventec App Website or the Conventec App whether and to which extent the transmission of User Information to Conventec is legally permissible.</p>
+					<br>
+					<h3 class="anwendbares" style="display:none;">Anwendbares Recht und Gerichtsstand </h3>
+					<h3 class="anwendbares" id="anwendbares">Applicable Law and Jurisdiction</h3>
+					<a class="anwendbares" style="cursor:pointer;" onclick="$('.anwendbares').toggle();">show German translation</a>
+					<a class="anwendbares" style="cursor:pointer;display:none;" onclick="$('.anwendbares').toggle();">show English translation</a>
+					<br>
+					<br>
+					<p class="anwendbares" style="display:none;">Die Nutzung der Conventec App Webseite bzw. des Conventec Tools untersteht materiellem schweizerischem Recht, unter Ausschluss interna-tionaler Verträge (insbesondere des Übereinkommens der Vereinten Nationen über Verträge über den internationalen Warenkauf vom 11. April 1980).</p>
+					<p class="anwendbares" style="display:none;">Alle Streitigkeiten und Ansprüche, welche aus oder im Zusammenhang mit dem Zugriff auf die oder der Benutzung der Conventec Webseite entstehen sind ausschliesslich den Gerichten des Bezirks Meilen (Kanton Zürich, Schweiz) zu unterbreiten.</p>
+					<p class="anwendbares">The use of the Conventec App Website and the Conventec App, respectively, is subject to the substantive laws of Switzerland, to the exclusion of international treaties (in particular the . Vienna Convention on the International Sale of Goods of 11 April 1980).</p>
+					<p class="anwendbares">Any dispute, claim or controversy arising from or in connection with the accessing or the use of the Conventec App Website shall be subject to the exclusive jurisdiction of the courts of the district of Meilen (Canton of Zurich, Switzerland).</p>
+					<br>
+					<h1 class="cookie" style="display:none;">Cookie-Richtlinie</h1>
+					<h1 class="cookie" id="cookie">Cookie Policy</h1>
+					<a class="cookie" style="cursor:pointer;" onclick="$('.cookie').toggle();">show German translation</a>
+					<a class="cookie" style="cursor:pointer;display:none;" onclick="$('.cookie').toggle();">show English translation</a>
+					<br>
+					<br>
+					<p class="cookie" style="display:none;">Ein Cookie ist eine kleine Textdatei, welche auf dem Computer, Smartphone oder Tablet des Besuchers der Conventec App Webseite gespeichert und bei späteren Besuchen abgerufen wird.</p>
+					<p class="cookie" style="display:none;">Cookies erlauben es unter anderem Benutzer zu identifizieren und diese mit über sie gesammelten Daten in Verbindung zu bringen. Conventec beabsichtigt nicht Cookies zu nutzen, um Personendaten zu sammeln oder solche Daten an Dritte weiterzugeben.</p>
+					<p class="cookie" style="display:none;">Es gibt dauerhafte und temporäre Cookies. Dauerhafte Cookies werden als Datei bis zu zwölf Monate lang gespeichert. Temporäre Cookies werden bis zum Schliessen der Browsersitzung gespeichert. Auf der Conventec App Webseite werden dauerhafte Cookies verwendet, um Benutzer zu identifizieren und die Sicherheit der Webseite zu erhöhen.</p>
+					<p class="cookie" style="display:none;">Besucher der Conventec App Webseite können Cookies durch entsprechende Anpassungen bei den Einstellungen des verwendeten Browsers von ihrem Computer, Smartphone oder Tablet löschen. In der Regel finden sich im Menü "Hilfe" des jeweiligen Browsers Informationen dazu, ob und inwiefern Cookies zugelassen werden und wie diese gelöscht werden können. Werden Cookies abgelehnt, kann die Conventec App Webseite nicht genutzt werden.</p>
+					<p class="cookie">A cookie is a small text file that is saved to the computer, smartphone or tablet of the visitor of the Conventec App Website, and retrieved therefrom during subsequent visits.</p>
+					<p class="cookie">Among other things, cookies allow identification of users and association with data collected about them. Conventec does not intend to use cookies to collect personal data, or to disclose auch data to third parties.</p>
+					<p class="cookie">There are persistent and temporary cookies. Persistent cookies are stored as a file for no longer than twelve months. Temporary cookies are stored until the browser session is closed. On the Conventec App Website, persistent cookies are used to identify users and increase website security. </p>
+					<p class="cookie">Visitors of the Conventec App Website can easily delete cookies from their computer, smartphone or tablet by adjusting the settings in their browser. Usually, information on how and to which extent cookies are allowed and how they can be deleted is located in the section "Help" of the respective browser. If cookies are disabled, the Conventec App Website is not available for use.</p>
+					<br>
+					{% if not user.conventecuser.accepted_tou %}
+					<form action="{% url 'terms:terms' %}" method="POST" style="margin-bottom:100px;">
+						{% csrf_token %}
+						<div class="checkbox">
+							<label><input id="cb1" name="cb1" type="checkbox" autocomplete="off" onclick="if($('#cb1').prop('checked') && $('#cb2').prop('checked')){$('#submit-button').prop('disabled', false);}else{$('#submit-button').prop('disabled', true);}">I have read the Terms of use and accept them</label>
+						</div>
+						<div class="checkbox">
+							<label><input id="cb2" name="cb2" type="checkbox" autocomplete="off" onclick="if($('#cb1').prop('checked') && $('#cb2').prop('checked')){$('#submit-button').prop('disabled', false);}else{$('#submit-button').prop('disabled', true);}">I have read the Cookie Policy and accept them</label>
+						</div>
+						<br>
+						<button id="submit-button" type="submit" class="btn btn-primary" disabled="false">Submit</button>
+					</form>
+					{% endif %}
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		
+		
+	<style>
+		/* all links */
+		.affix .nav>li>a {
+		    color: black;
+		    border-left: 2px solid transparent;
+		    font-size: 16px;
+		    font-weight: 400;
+		    background-color: transparent;
+		    
+		}
+		
+		/* nested links */
+		.affix .nav .nav>li>a {
+		    padding-top: 1px;
+		    padding-bottom: 1px;
+		    padding-left: 30px;
+		    font-size: 14px;
+		    background-color: transparent;
+		}
+		
+		/* nested nested links */
+		.affix .nav .nav .nav>li>a {
+		    padding-top: 1px;
+		    padding-bottom: 1px;
+		    padding-left: 40px;
+		    font-size: 14px;
+		    background-color: transparent;
+		}
+		
+		/* active & hover links */
+		.affix .nav>.active>a {   
+		    font-weight: 500;          
+		    background-color: transparent;  
+		    border-left: 2px solid rgb(154, 172, 184); 
+		}
+		
+		.affix .nav>li>a:hover, .affix .nav>li>a:focus, .affix .nav>.active:focus>a{
+			background-color: transparent;
+		}
+		
+		/* all active links */
+		.affix .nav>.active>a {
+		    font-weight: 700;
+		}
+		/* nested active links */
+		.affix .nav .nav>.active>a {
+		    font-weight: 500;
+		}
+		
+		/* hide inactive nested list */
+		.affix .nav ul.nav {
+		    display: none;           
+		}
+		/* show active nested list */
+		.affix .nav>.active>ul.nav {
+		    display: block;           
+		}
+	</style>
+	<script>
+		$('body').scrollspy({ target: '#scrollspy', offset: 200})
+	</script>
+		<noscript>
+	  <style>html{display:none;}</style>
+	  <meta http-equiv="refresh" content="0.0;url={% url 'login:error' %}?e=nojs">
+	</noscript>
+	<script>
+		if(!navigator.cookieEnabled){
+			window.location = "{% url 'login:error' %}?e=nocookie";
+		}
+	</script>
+	</body>
+</html>

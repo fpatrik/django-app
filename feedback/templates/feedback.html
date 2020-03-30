@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Feedback
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+	<div class="row" style="margin-top:50px;">
+	  	<div class="col-md-10 col-md-offset-1">
+	  		<ol class="breadcrumb" style="background-color:white;padding-left:0px;">
+			  <li><a href="{% url 'feedback:feedback' %}">Feedback</a></li>
+			</ol>
+	  	</div>
+	</div>
+	<div class="row" style="margin-top:10px;">
+	  	<div class="col-md-10 col-md-offset-1">
+	  		<h2>Feedback</h2>
+	  		<p style="max-width:500px;text-align:justify;margin-top:20px;">Vielen Dank, dass Sie den Prototypen unserer Conventec App getestet haben! Zur <strong>weiteren Verbesserung</strong> der Conventec App interessiert uns Ihre Meinung. Sie dürfen uns gerne laufend während dem Testing Fehler melden, Anregungen machen, oder nach Abschluss ihres Testings das Feedback Formular ausfüllen. Wir stehen Ihnen auch gerne für ein persönliches Gespräch zur Verfügung. <a href="mailto:office@conventec.ch">Kontakt</a></p>
+	  	</div>
+	</div>
+	<div class="row" style="margin-top:30px;">
+	  	<div class="col-md-10 col-md-offset-1">
+	  		<ul class="nav nav-tabs">
+  				<li {% if active.tabs == 'anregung' %}class="active"{% endif %}><a href="{% url 'feedback:feedback' %}?active=anregung#title">Anregungen machen</a></li>
+  				<li {% if active.tabs == 'fehler' %}class="active"{% endif %}><a href="{% url 'feedback:feedback' %}?active=fehler#title">Fehler melden</a></li>
+  				<li {% if active.tabs == 'allgemein' %}class="active"{% endif %}><a href="{% url 'feedback:feedback' %}?active=allgemein#title">Feedback Formular</a></li>
+			</ul>
+	  	</div>
+	</div>
+	{% if success == 't' %}
+	<div class="row" style="margin-top:50px;">
+  		<div class="col-md-10 col-md-offset-1">
+  			<div class="alert alert-success">
+			 	<p>Besten Dank, dass Sie sich Zeit für uns genommen haben.</p>
+			 	<p>Ihr Conventec Team</p>
+			</div>
+  		</div>
+	</div>
+	{% endif %}
+	{% if active.tabs == 'anregung' %}
+	<div class="row" style="margin-top:50px;">
+  		<div class="col-md-10 col-md-offset-1">
+  			<h4 id="title">Anregungen machen</h4>
+  			<p style="max-width:500px;text-align:justify;margin-top:20px;">Sie haben eine Anregung für die Verbesserung der Conventec App? Wir sind dankbar um Ihre Hinweise. Bitte beschreiben Sie möglichst genau, wo und was wir anpassen sollten.</p>
+  			<form action="{% url 'feedback:feedback' %}?success=t&active=anregung" method="post" style="margin-top:30px;">
+  				{% csrf_token %}
+  				<div class="form-group">
+  					<label>Betreff:</label>
+  					<input type="text" class="form-control" name="title"  style="max-width:500px;">
+				</div>
+				<div class="form-group">
+					<label>Text:</label>
+					<textarea class="form-control" rows="5" name="text" style="max-width:500px;"></textarea>
+				</div>
+				<div class="checkbox">
+				 	<label><input type="checkbox" name="anonymous">Anonymes Feedback</label>
+				</div>
+				<input type="hidden" class="form-control" name="type" value="anregung">
+				<button type="submit" class="btn btn-primary" style="margin-top:30px;margin-bottom:60px;">Feedback absenden</button>
+  			</form>
+  		</div>
+  	</div>
+  	{% elif active.tabs == 'fehler' %}
+	<div class="row" style="margin-top:50px;">
+  		<div class="col-md-10 col-md-offset-1">
+  			<h4 id="title">Fehler melden</h4>
+  			<p style="max-width:500px;text-align:justify;margin-top:20px;">Sie haben einen Fehler in der Conventec App gefunden? Wir sind dankbar um Ihre Hinweise. Bitte beschreiben Sie möglichst genau, wo und was wir anpassen sollten.</p>
+  			<form action="{% url 'feedback:feedback' %}?success=t&active=fehler" method="post" style="margin-top:30px;">
+  				{% csrf_token %}
+  				<div class="form-group">
+  					<label>Betreff:</label>
+  					<input type="text" class="form-control" name="title"  style="max-width:500px;">
+				</div>
+				<div class="form-group">
+					<label>Text:</label>
+					<textarea class="form-control" rows="5" name="text" style="max-width:500px;"></textarea>
+				</div>
+				<div class="checkbox">
+				 	<label><input type="checkbox" name="anonymous">Anonymes Feedback</label>
+				</div>
+				<input type="hidden" class="form-control" name="type" value="fehler">
+				<button type="submit" class="btn btn-primary" style="margin-top:30px;margin-bottom:60px;">Feedback absenden</button>
+  			</form>
+  		</div>
+  	</div>
+  	{% elif active.tabs == 'allgemein' %}
+	<div class="row" style="margin-top:50px;">
+  		<div class="col-md-10 col-md-offset-1">
+  			<h4 id="title">Feedback Formular</h4>
+   			<p style="max-width:500px;text-align:justify;margin-top:20px;">Für Ihr wertvolles Feedback bedanken wir uns herzlich!</p>
+  			<form action="{% url 'feedback:feedback' %}?success=t&active=fehler" method="post" style="margin-top:30px;">
+  				{% csrf_token %}
+  				<div class="form-group">
+  					<label style="max-width:500px;text-align:justify;">1. Würden Sie Conventec für Ihr Unternehmen nutzen und gegebenenfalls einem Kollegen weiterempfehlen?</label>
+  					<div class="radio">
+  						<label>
+  							<input type="radio" name="q1a" value="ja" onclick="$('#begrundung').hide();">
+  							Ja
+  						</label>
+  					</div>
+  					<div class="radio">
+  						<label>
+  							<input type="radio" name="q1a" value="nein" onclick="$('#begrundung').show();">
+  							Nein
+  						</label>
+  					</div>
+				</div>
+				<div class="form-group" id="begrundung" style="display:none;">
+					<label style="max-width:500px;text-align:justify;">Begründung:</label>
+					<textarea class="form-control" rows="5" name="q1b" style="max-width:500px;"></textarea>
+				</div>
+				<div class="form-group">
+  					<label style="max-width:500px;text-align:justify;">2. Welche Elemente der Conventec App haben Sie ausprobiert?</label>
+  					<div class="checkbox">
+					 	<label><input type="checkbox" name="q2a">Mitarbeiter- und Teamverwaltung (z.B. Hinzufügen von Mitarbeitern, Erstellen von Teams</label>
+					</div>
+					<div class="checkbox">
+					 	<label><input type="checkbox" name="q2b">Erstellung Projekt (Mandat)</label>
+					</div>
+					<div class="checkbox">
+					 	<label><input type="checkbox" name="q2c" onclick="$('.geschafte').toggle()">Erstellung einzelnes Geschäft</label>
+					</div>
+					<div class="checkbox geschafte" style="margin-left:20px;display:none;">
+					 	<label><input type="checkbox" name="q2d">1.4.2. AG Revisionsstelle Opting Out Post Incorporation</label>
+					</div>
+					<div class="checkbox geschafte" style="margin-left:20px;display:none">
+					 	<label><input type="checkbox" name="q2e">2.1.1. GmbH Gründung bar</label>
+					</div>
+					<div class="checkbox">
+					 	<label><input type="checkbox" name="q2f">Formular ausfüllen</label>
+					</div>
+					<div class="checkbox">
+					 	<label><input type="checkbox" name="q2g">Dokumente downloaden</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label style="max-width:500px;text-align:justify;">3. Haben Sie das Gefühl, dass Conventec Ihnen Ihren juristischen Arbeitsalltag erleichtern kann? Wenn ja, wie? Wenn nein, warum nicht?</label>
+					<textarea class="form-control" rows="5" name="q3" style="max-width:500px;"></textarea>
+				</div>
+				<div class="form-group">
+					<label style="max-width:500px;text-align:justify;">4. Wie müsste die Conventec App allenfalls angepasst werden, damit Sie noch besser bzw. effizienter arbeiten können?</label>
+					<textarea class="form-control" rows="5" name="q4" style="max-width:500px;"></textarea>
+				</div>
+				<div class="form-group">
+					<label style="max-width:500px;text-align:justify;">5. Empfinden Sie den Webauftritt der Conventec App als ansprechend und bedienungsfreundlich? [Skala von 1-6, 1 sehr schlecht, 6 sehr gut]</label>
+					<select class="form-control" name="q5" style="max-width:100px;">
+    					<option value="6">6</option>
+    					<option value="5">5</option>
+    					<option value="4">4</option>
+    					<option value="3">3</option>
+    					<option value="2">2</option>
+    					<option value="1">1</option>
+  					</select>
+				</div>
+				<div class="form-group">
+					<label style="max-width:500px;text-align:justify;">6. Von welchen juristischen Geschäften würden Sie sich wünschen, dass sie auf der Conventec App automatisiert verfügbar wären (z.B. AG Kapitalerhöhung)?</label>
+					<textarea class="form-control" rows="5" name="q6" style="max-width:500px;"></textarea>
+				</div>
+				<div class="form-group">
+					<label style="max-width:500px;text-align:justify;">7. Wo beobachten Sie Ineffizienzen/Verbesserungspotential in Ihrem juristischen Alltag und wie könnte Conventec Ihnen bei der Behebung/Umsetzung helfen?</label>
+					<textarea class="form-control" rows="5" name="q7" style="max-width:500px;"></textarea>
+				</div>
+				<div class="form-group">
+  					<label style="max-width:500px;text-align:justify;">8. Würden Sie es als hilfreich empfinden, wenn Sie in der Conventec App in real-time mit Ihren Teamkollegen oder Kunden an Geschäften (insb. Verträgen) arbeiten könnten, beispielsweise mithilfe eines Texteditors?</label>
+  					<div class="radio">
+  						<label>
+  							<input type="radio" name="q8" value="ja">
+  							Ja
+  						</label>
+  					</div>
+  					<div class="radio">
+  						<label>
+  							<input type="radio" name="q8" value="nein">
+  							Nein
+  						</label>
+  					</div>
+				</div>
+				<div class="form-group">
+					<label style="max-width:500px;text-align:justify;">9. Gibt es ein „Wunschfeature“, welches Sie als sehr nützlich empfinden würden, momentan aber noch nicht durch Conventec implementiert worden ist?</label>
+					<textarea class="form-control" rows="5" name="q9" style="max-width:500px;"></textarea>
+				</div>
+				<div class="form-group">
+					<label style="max-width:500px;text-align:justify;">10. Wie hoch wäre Ihre monatliche Zahlungsbereitschaft für die Nutzung der Conventec App angepasst auf Ihre Kanzlei / Unternehmung?</label>
+					<textarea class="form-control" rows="5" name="q10" style="max-width:500px;"></textarea>
+				</div>
+				<div class="form-group">
+					<label style="max-width:500px;text-align:justify;">11. Blockchain, Artificial Intelligence, Analytics etc. – Wie könnte Conventec Ihre Kanzlei / Unternehmung auf dem weiteren Weg zur Digitalisierung sonst unterstützen?</label>
+					<textarea class="form-control" rows="5" name="q11" style="max-width:500px;"></textarea>
+				</div>
+				<div class="checkbox">
+				 	<label><input type="checkbox" name="anonymous">Anonymes Feedback</label>
+				</div>
+				<input type="hidden" class="form-control" name="type" value="allgemein">
+				<button type="submit" class="btn btn-primary" style="margin-top:30px;margin-bottom:60px;">Feedback absenden</button>
+  			</form>
+  		</div>
+  	</div>
+  	{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	
+		<meta charset="UTF-8">
+		<title>Login</title>
+		{% load staticfiles %}
+		<script type="text/javascript" src="{% static 'jquery/jquery.js' %}"></script>
+		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}" />
+		<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+		
+	</head>
+<body>
+
+	<nav class="navbar navbar-default">
+  		<div class="container-fluid">
+    		<div class="navbar-header">
+      			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        			<span class="sr-only">Toggle navigation</span>
+        			<span class="icon-bar"></span>
+        			<span class="icon-bar"></span>
+        			<span class="icon-bar"></span>
+      			</button>
+      			<a class="navbar-brand" href="{% url 'login:login' %}"><img alt="Brand" src="{% static 'images/logo.png' %}" height="25"></a>
+    		</div>
+    		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      			<ul class="nav navbar-nav">
+      			</ul>
+
+      			<ul class="nav navbar-nav navbar-right">
+      			</ul>
+    		</div><!-- /.navbar-collapse -->
+  		</div><!-- /.container-fluid -->
+	</nav>
+	{% if not token %}
+	<div class="panel panel-primary" style="max-width:400px;margin-left:auto; margin-right:auto;margin-top:50px;">
+		<div class="panel-heading">
+    		<h3 class="panel-title">Passwort setzen</h3>
+  		</div>
+  		<div class="panel-body">
+    		<form action="{% url 'login:reset' %}" method="POST">
+    			{% csrf_token %}
+    			{% if success != 'ms' and success != 's' %}
+    			<div class="form-group">
+    				<label for="email">E-Mail Adresse</label>
+    				<input type="text" class="form-control" id="email" name="email" value="{% if email %}{{ email }}{% endif %}">
+  				</div>
+  				{% endif %}
+  				{% if success %}
+  					<div class="alert alert-{% if success == 'ne' or success == 'it' %}danger{% else %}success{% endif %}" role="alert">
+  						{% if success == 'ne' %}E-Mail unbekannt{% elif success == 'ms' %}Sie erhalten in Kürze eine E-Mail mit weiteren Instruktionen{% elif success == 'it' %}Fehler beim zurücksetzen des Passwortes, bitte fordern Sie eine neue E-Mail an{% elif success == 's' %}Das Passwort wurde erfolgreich gesetzt, Sie können sich nun einloggen{% endif %}
+					</div>
+  				{% endif %}
+  				<button type="submit" class="btn btn-primary" {% if success == 'ms' or success == 's' %}style="display:none;"{% endif %}>E-Mail anfordern</button>
+  				<a href="{% url 'login:login' %}" style="display:block;margin-bottom:20px;margin-top:20px;"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Zurück</a>
+    		</form>
+  		</div>
+	</div>
+	{% else %}
+	<div class="panel panel-primary" style="max-width:400px;margin-left:auto; margin-right:auto;margin-top:50px;">
+		<div class="panel-heading">
+    		<h3 class="panel-title">Passwort zurücksetzen</h3>
+  		</div>
+  		<div class="panel-body">
+    		<form action="{% url 'login:reset' %}" method="POST">
+    			{% csrf_token %}
+    			<div class="form-group">
+    				<label for="pw1">Passwort</label>
+    				<input type="password" class="form-control" name="pw1">
+  				</div>
+  				<div class="form-group">
+    				<label for="pw1">Passwort wiederholen</label>
+    				<input type="password" class="form-control" name="pw2">
+  				</div>
+  				<input type="hidden" name="email" value="{{ email }}">
+  				<input type="hidden" name="token" value="{{ token }}">
+  				{% if success %}
+  					<div class="alert alert-danger" role="alert">
+  						<strong>Passwort zurücksetzen fehlgeschlagen.</strong> {% if success == 'dp' %}Die Passwörter stimmen nicht überein.{% endif %}
+					</div>
+  				{% endif %}
+  				<button type="submit" class="btn btn-primary">Passwort setzen</button>
+  				<a href="{% url 'login:login' %}" style="display:block;margin-bottom:20px;margin-top:20px;"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Zurück</a>
+    		</form>
+  		</div>
+	</div>
+	{% endif %}
+	<noscript>
+  		<style>html{display:none;}</style>
+  		<meta http-equiv="refresh" content="0.0;url={% url 'login:error' %}?e=nojs">
+	</noscript>
+	<script>
+		if(!navigator.cookieEnabled){
+			window.location = "{% url 'login:error' %}?e=nocookie";
+		}
+	</script>
+</body>
+</html>
+
+

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	
+		<meta charset="UTF-8">
+		<title>Login</title>
+		{% load staticfiles %}
+		<script type="text/javascript" src="{% static 'jquery/jquery.js' %}"></script>
+		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}" />
+		<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+		
+	</head>
+<body>
+
+	<nav class="navbar navbar-default">
+  		<div class="container-fluid">
+    		<div class="navbar-header">
+      			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        			<span class="sr-only">Toggle navigation</span>
+        			<span class="icon-bar"></span>
+        			<span class="icon-bar"></span>
+        			<span class="icon-bar"></span>
+      			</button>
+      			<a class="navbar-brand" href="{% url 'login:login' %}"><img alt="Brand" src="{% static 'images/logo.png' %}" height="25"></a>
+    		</div>
+    		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      			<ul class="nav navbar-nav">
+      			</ul>
+
+      			<ul class="nav navbar-nav navbar-right">
+      			</ul>
+    		</div><!-- /.navbar-collapse -->
+  		</div><!-- /.container-fluid -->
+	</nav>
+
+	<div class="panel panel-primary" style="max-width:400px;margin-left:auto; margin-right:auto;margin-top:50px;">
+		<div class="panel-heading">
+    		<h3 class="panel-title">Login</h3>
+  		</div>
+  		<div class="panel-body">
+    		<form action="{% url 'login:login' %}" method="POST">
+    			{% csrf_token %}
+    			<div class="form-group">
+    				<label for="email">E-Mail Adresse</label>
+    				<input type="text" class="form-control" id="email" name="email" placeholder="E-Mail Adresse">
+  				</div>
+  				<div class="form-group">
+    				<label for="password">Passwort</label>
+    				<input type="password" class="form-control" id="password" name="password" placeholder="Passwort">
+  				</div>
+  				<a href="{% url 'login:reset' %}" style="display:block;margin-bottom:20px;">Passwort vergessen</a>
+  				{% if error != None %}
+  					<div class="alert alert-danger" role="alert">
+  						<strong>Login fehlgeschlagen.</strong> {{error}}
+					</div>
+  				{% endif %}
+  				<button type="submit" class="btn btn-primary">Login</button>
+    		</form>
+  		</div>
+	</div>
+	<noscript>
+  		<style>html{display:none;}</style>
+  		<meta http-equiv="refresh" content="0.0;url={% url 'login:error' %}?e=nojs">
+	</noscript>
+	<script>
+		if(!navigator.cookieEnabled){
+			window.location = "{% url 'login:error' %}?e=nocookie";
+		}
+	</script>
+</body>
+</html>
+
+

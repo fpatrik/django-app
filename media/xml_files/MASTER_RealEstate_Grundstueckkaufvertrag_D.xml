@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document font_type="Calibri" font_size="12" text_color="black">
+	<style name="docheading1" font_size="16" bold="true" alignment="left"/>
+	<style name="docheading1e" font_size="14" bold="true" italics="true" alignment="left"/>
+	<style name="text1" font_size="11" alignment="left"/>
+	<style name="text1bold" font_size="11" bold="true" alignment="left"/>
+	<style name="text1both" font_size="11" alignment="both" spacing_after="50"/>
+	<style name="text1e" font_size="9" italics="true" alignment="left"/>
+	<style name="text2" font_size="14" bold="true" alignment="center"/>
+	<style name="text2e" font_size="12" bold="true" alignment="center"/>
+	<style name="signature1" font_size="11" bold="true" alignment="left"/>
+	<style name="signature1e" font_size="9" bold="true" italics="true" alignment="left"/>
+	<style name="text1right" font_size="11" alignment="right"/>
+	<style name="text1eright" font_size="9" italics="true" alignment="right"/>
+
+
+	<table columns="2" rows="11" style="borderless" column_widths="906,11000" style_name="text1both" delete_empty="true">
+        <cell>
+        	<paragraph style_name="docheading1">
+        		<text></text>
+        	</paragraph>
+    	</cell>
+    	<cell>
+        	<paragraph style_name="text1" >
+        		<text font_size="14">Öffentliche Urkunde</text>
+        	</paragraph>
+        	<paragraph style_name="docheading1">
+        		<text></text>
+        	</paragraph>
+        	<paragraph style_name="docheading1">
+        		<text></text>
+        	</paragraph>
+        	<paragraph style_name="docheading1">
+        		<text font_size="14">Kaufvertrag</text>
+        	</paragraph>
+        	<paragraph style_name="docheading1">
+        		<text></text>
+        	</paragraph>
+        	<paragraph style_name="docheading1">
+        		<text></text>
+        	</paragraph>
+    	</cell>
+    	<cell>
+        	<paragraph style_name="text1" alignment="right">
+        		<text>vom</text>
+        	</paragraph>
+    	</cell>
+    	<cell>
+        	<paragraph style_name="text1">
+        		<text>{{allgemeines.allgemeines.datum}}</text>
+        	</paragraph>
+        	<paragraph style_name="text1">
+        		<text></text>
+        	</paragraph>
+        	<paragraph style_name="text1">
+        		<text></text>
+        	</paragraph>
+    	</cell>
+    	<cell>
+        	<paragraph style_name="text1" alignment="right">
+        		<text>zwischen</text>
+        	</paragraph>
+    	</cell>
+    	<cell>
+        	<paragraph style_name="text1bold" spacing_line="1.4">
+        		<text>{{parteien.verkaufer.firma}}</text>
+        	</paragraph>
+        	
+        	{% if parteien.verkaufer.buros=="eigene" %}
+        	<paragraph style_name="text1">
+        		<text>{{parteien.verkaufer.strasse}}</text>
+        	</paragraph>
+        	<paragraph style_name="text1">
+        		<text>{{parteien.verkaufer.plz}} {{parteien.verkaufer.sitzgemeinde}}</text>
+        	</paragraph>
+        	<paragraph style_name="text1">
+        		<text>{{parteien.verkaufer.staat}}</text>
+        	</paragraph>
+			{%else%}
+			<paragraph style_name="text1">
+        		<text>c/o {{parteien.verkaufer.name}}</text>
+        	</paragraph>
+			<paragraph style_name="text1">
+        		<text>{{parteien.verkaufer.strasse}}</text>
+        	</paragraph>
+        	<paragraph style_name="text1">
+        		<text>{{parteien.verkaufer.plz}}{{parteien.verkaufer.sitzgemeinde}}</text>
+        	</paragraph>
+        	<paragraph style_name="text1">
+        		<text>{{parteien.verkaufer.staat}}</text>
+        	</paragraph>
+        	{%endif%}
+    		<paragraph style_name="text1">
+        		<text></text>
+        	</paragraph>
+        	<paragraph style_name="text1">
+        		<text>{{parteien.verkaufer.che}}</text>
+        	</paragraph>
+        	<paragraph style_name="text1">
+        		<text></text>
+        	</paragraph>
+        	{%if parteien.verkaufer.vertretung=="n_mitglied" %}
+        	<paragraph style_name="text1">
+        		<text>heute vertreten durch {{parteien.verkaufer.vorname}} {{parteien.verkaufer.nachname}}{%if parteien.verkaufer.titel%}, {{parteien.verkaufer.titel}},{%endif%} geboren am {{parteien.verkaufer.geburtsdatum}}, {% if parteien.verkaufer.staatsburger=="schweizer"%}von {{parteien.verkaufer.heimatort}}{%else%}{{parteien.verkaufer.staatsangehorige}} Staatsangehörige{%if parteien.verkaufer.sex_v=="herr"%}r{%endif%}{%endif%}, wohnhaft an der {{parteien.verkaufer.strasse_v}}, {{parteien.verkaufer.plz_ort_v}},</text>
+        	</paragraph>
+        	<paragraph style_name="text1">
+        		<text></text>
+        	</paragraph>
+        	<paragraph style_name="text1">
+        		<text>gestützt auf die notariell beglaubigte {%if parteien.verkaufer.beglaubigung=="ausland" and parteien.verkaufer.beglaubigung_art=="apostille"%}und apostillierte {%endif%}{%if parteien.verkaufer.beglaubigung=="ausland" and parteien.verkaufer.beglaubigung_art=="uberbeglaubigung"%}und überbeglaubigte {%endif%}Vollmacht vom {{parteien.verkaufer.datum_vollmacht}}</text>
+        	</paragraph>
+        	{%endif%}
+        	{%if parteien.verkaufer.vertretung=="mitglied" %}
+        	<paragraph style_name="text1">
+        		<text>heute vertreten durch {{parteien.verkaufer.vorname}} {{parteien.verkaufer.nachname}}{%if parteien.verkaufer.titel%}, {{parteien.verkaufer.titel}},{%endif%} geboren am {{parteien.verkaufer.geburtsdatum}}, {% if parteien.verkaufer.staatsburger=="schweizer"%}von {{parteien.verkaufer.heimatort}}{%else%}{{parteien.verkaufer.staatsangehorige}} Staatsangehörige{%if parteien.verkaufer.sex_v=="herr"%}r{%endif%}{%endif%}, wohnhaft an der {{parteien.verkaufer.strasse_v}}, {{parteien.verkaufer.plz_ort_v}}, {{parteien.verkaufer.funktion}} mit {{parteien.verkaufer.zeichnung}}</text>
+        	</paragraph>
+        	{%endif%}
+
+        	<paragraph style_name="text1">
+        		<text></text>
+        	</paragraph>
+
+        	<paragraph style_name="text1">
+        		<text>nachfolgend: die "</text><text bold="true">Verkäuferin</text><text>")</text>
+        	</paragraph>
+        	<paragraph style_name="text1">
+        		<text></text>
+        	</paragraph><paragraph style_name="text1">
+        		<text></text>
+        	</paragraph>
+		</cell>
+		<cell>
+        	<paragraph style_name="text1" alignment="right">
+        		<text>und</text>
+        	</paragraph>
+    	</cell>
+    	<cell>
+        	<paragraph style_name="text1bold" spacing_line="1.4">
+        		<text>{{parteien.kaufer.firma}}</text>
+        	</paragraph>
+        	
+        	{% if parteien.kaufer.buros=="eigene" %}
+        	<paragraph style_name="text1">
+        		<text>{{parteien.kaufer.strasse}}</text>
+        	</paragraph>
+        	<paragraph style_name="text1">
+        		<text>{{parteien.kaufer.plz}} {{parteien.kaufer.sitzgemeinde}}</text>
+        	</paragraph>
+        	<paragraph style_name="text1">
+        		<text>{{parteien.kaufer.staat}}</text>
+        	</paragraph>
+			{%else%}
+			<paragraph style_name="text1">
+        		<text>c/o {{parteien.kaufer.name}}</text>
+        	</paragraph>
+			<paragraph style_name="text1">
+        		<text>{{parteien.kaufer.strasse}}</text>
+        	</paragraph>
+        	<paragraph style_name="text1">
+        		<text>{{parteien.kaufer.plz}}{{parteien.kaufer.sitzgemeinde}}</text>
+        	</paragraph>
+        	<paragraph style_name="text1">
+        		<text>{{parteien.kaufer.staat}}</text>
+        	</paragraph>
+        	{%endif%}
+    		<paragraph style_name="text1">
+        		<text></text>
+        	</paragraph>
+        	<paragraph style_name="text1">
+        		<text>{{parteien.kaufer.che}}</text>
+        	</paragraph>
+        	<paragraph style_name="text1">
+        		<text></text>
+        	</paragraph>
+        	{%if parteien.kaufer.vertretung=="n_mitglied" %}
+        	<paragraph style_name="text1">
+        		<text>heute vertreten durch {{parteien.kaufer.vorname}} {{parteien.kaufer.nachname}}{%if parteien.kaufer.titel%}, {{parteien.kaufer.titel}},{%endif%} geboren am {{parteien.kaufer.geburtsdatum}}, {% if parteien.kaufer.staatsburger=="schweizer"%}von {{parteien.kaufer.heimatort}}{%else%}{{parteien.kaufer.staatsangehorige}} Staatsangehörige{%if parteien.kaufer.sex_v=="herr"%}r{%endif%}{%endif%}, wohnhaft an der {{parteien.kaufer.strasse_v}}, {{parteien.kaufer.plz_ort_v}},</text>
+        	</paragraph>
+        	<paragraph style_name="text1">
+        		<text></text>
+        	</paragraph>
+        	<paragraph style_name="text1">
+        		<text>gestützt auf die notariell beglaubigte {%if parteien.kaufer.beglaubigung=="ausland" and parteien.kaufer.beglaubigung_art=="apostille"%}und apostillierte {%endif%}{%if parteien.kaufer.beglaubigung=="ausland" and parteien.kaufer.beglaubigung_art=="uberbeglaubigung"%}und überbeglaubigte {%endif%}Vollmacht vom {{parteien.kaufer.datum_vollmacht}}</text>
+        	</paragraph>
+        	{%endif%}
+        	{%if parteien.kaufer.vertretung=="mitglied" %}
+        	<paragraph style_name="text1">
+        		<text>heute vertreten durch {{parteien.kaufer.vorname}} {{parteien.kaufer.nachname}}{%if parteien.kaufer.titel%}, {{parteien.kaufer.titel}},{%endif%} geboren am {{parteien.kaufer.geburtsdatum}}, {% if parteien.kaufer.staatsburger=="schweizer"%}von {{parteien.kaufer.heimatort}}{%else%}{{parteien.kaufer.staatsangehorige}} Staatsangehörige{%if parteien.kaufer.sex_v=="herr"%}r{%endif%}{%endif%}, wohnhaft an der {{parteien.kaufer.strasse_v}}, {{parteien.kaufer.plz_ort_v}}, {{parteien.kaufer.funktion}} mit {{parteien.kaufer.zeichnung}}</text>
+        	</paragraph>
+        	{%endif%}
+
+        	<paragraph style_name="text1">
+        		<text></text>
+        	</paragraph>
+
+        	<paragraph style_name="text1">
+        		<text>nachfolgend: die "</text><text bold="true">Käuferin</text><text>")</text>
+        	</paragraph>
+        	<paragraph style_name="text1">
+        		<text></text>
+        	</paragraph>
+        	<paragraph style_name="text1">
+        		<text></text>
+        	</paragraph>
+		</cell>
+		<cell>
+        	<paragraph style_name="text1" alignment="right">
+        		<text></text>
+        	</paragraph>
+    	</cell>
+    	<cell>
+        	<paragraph style_name="text1">
+        		<text></text>
+        	</paragraph>
+    	</cell>
+    	<cell>
+        	<paragraph style_name="text1" alignment="right">
+        		<text>betreffend</text>
+        	</paragraph>
+    	</cell>
+    	<cell>
+        	<paragraph style_name="text1">
+        		<text>Grundstück</text>
+        	</paragraph>
+    	</cell>
+	</table>
+
+	<pb/>
+
+	<paragraph style_name="text1both">
+	    <text>Die Parteien vereinbaren was folgt:</text>
+	</paragraph>
+
+	<paragraph style_name="text1both">
+	    <text></text>
+	</paragraph>
+
+	<paragraph style_name="text1both">
+	    <text></text>
+	</paragraph>
+
+	<paragraph style_name="text1bold" spacing_line="1.8">
+	    <text>I. Kaufobjekt</text>
+	</paragraph>
+
+	<paragraph style_name="text1both">
+	    <text>Die Verkäuferin verkauft der Käuferin folgendes Kaufobjekt und diese übernimmt dasselbe zu Alleineigentum:</text>
+	</paragraph>
+
+	<paragraph style_name="text1both">
+	    <text></text>
+	</paragraph>
+	
+	<table columns="2" rows="5" style="borderless" column_widths="906,11000" style_name="text1both" delete_empty="true">
+        <cell>
+        	<paragraph style_name="text1both" spacing_after="120">
+        		<text>Grundbuch</text>
+        	</paragraph>
+    	</cell>
+    	<cell>
+        	<paragraph style_name="text1both" spacing_after="120">
+        		<text>{{kaufobjekt.angaben.grundbuch}}</text>
+        	</paragraph>
+    	</cell>
+    	<cell>
+        	<paragraph style_name="text1both" spacing_after="120">
+        		<text>Grundstück</text>
+        	</paragraph>
+    	</cell>
+    	<cell>
+        	<paragraph style_name="text1both" spacing_after="120">
+        		<text>{{kaufobjekt.angaben.liegenschaft}}</text>
+        	</paragraph>
+    	</cell>
+    	<cell>
+        	<paragraph style_name="text1both" spacing_after="120">
+        		<text>Flurname</text>
+        	</paragraph>
+    	</cell>
+    	<cell>
+        	<paragraph style_name="text1both" spacing_after="120">
+        		<text>{{kaufobjekt.angaben.flurname}}</text>
+        	</paragraph>
+    	</cell>
+    	<cell>
+        	<paragraph style_name="text1both" spacing_after="120">
+        		<text>Fläche(n)</text>
+        	</paragraph>
+    	</cell>
+    	<cell>
+        	<paragraph style_name="text1both" spacing_after="120">
+        		<text>{{kaufobjekt.angaben.flache}}</text>
+        	</paragraph>
+    	</cell>
+    	<cell>
+        	<paragraph style_name="text1both" spacing_after="120">
+        		<text>Grundpfandrechte</text>
+        	</paragraph>
+    	</cell>
+    	<cell>
+        	<paragraph style_name="text1both" spacing_after="120">
+        		<text>{{kaufobjekt.angaben.grundpfandrechte}}</text>
+        	</paragraph>
+    	</cell>
+    </table>
+    <paragraph style_name="text1both">
+	    <text></text>
+	</paragraph>
+	<paragraph style_name="text1both">
+	    <text></text>
+	</paragraph>
+
+<paragraph style_name="text1bold" spacing_line="1.8">
+	    <text>II. Kaufpreis</text>
+	</paragraph>
+
+	<paragraph style_name="text1both" spacing_line="1.4">
+	    <text italics="true">1. Höhe</text>
+	</paragraph>
+
+<paragraph style_name="text1both">
+	    <text>Der Kaufpreis beträgt CHF {{kaufpreis.kaufpreis.kaufpreis}}.</text>
+	</paragraph>
+	<paragraph style_name="text1both">
+	    <text></text>
+	</paragraph>
+	<paragraph style_name="text1both" spacing_line="1.4">
+	    <text italics="true">2. Tilgung</text>
+	</paragraph>
+	<paragraph style_name="text1both">
+	    <text>Die Käuferin tilgt den Kaufpreis wie folgt:</text>
+	</paragraph>
+	{%if kaufpreis.zahlungsmodalitaten.zahlungsmodalitaten=="einmal" %}
+	<paragraph style_name="text1both">
+	    <text>CHF {{kaufpreis.kaufpreis.kaufpreis}} überweist die Käuferin der Verkäuferin {{kaufpreis.zahlungsmodalitaten.zeitpunkt}} Tage nach Grundbucheintrag (Tagebucheintrag massgebend).</text>
+	</paragraph>
+	{%endif%}
+	{%if kaufpreis.zahlungsmodalitaten.zahlungsmodalitaten=="tranchen" %}
+	<paragraph style_name="text1both">
+	    <text>CHF {{kaufpreis.zahlungsmodalitaten.betrag_beurkundung}} überweist die Käuferin der Verkäuferin Valutadatum heutige öffentliche Beurkundung. Diese Anzahlung ist weder zu verzinsen noch sicherzustellen.</text>
+	</paragraph>
+	<paragraph style_name="text1both">
+		<text>CHF {{kaufpreis.zahlungsmodalitaten.betrag_grundsteueramt}} überweist die Käuferin Valutadatum Eigentumsübertragung dem Grundsteueramt {{kaufpreis.zahlungsmodalitaten.gemeinwesen}} zur Sicherstellung der Grundstückgewinnsteuern gemäss Ziffer III/d.</text>
+	</paragraph>
+	<paragraph style_name="text1both">
+			<text>CHF {{kaufpreis.zahlungsmodalitaten.betrag_eigentum}} überweist die Käuferin der Verkäuferin Valutadatum Eigentumsübertragung.</text>
+	</paragraph>
+	{%endif%}
+	<paragraph style_name="text1both">
+			<text>Die Überweisung{%if kaufpreis.zahlungsmodalitaten.zahlungsmodalitaten=="tranchen" %}en{%endif%} an die Verkäuferin gemäss dieser Ziffer II/2 haben auf folgendes Konto zu erfolgen: {{kaufpreis.konto_verkaufer.institut}}, {{kaufpreis.konto_verkaufer.iban}}, lautend auf {{kaufpreis.konto_verkaufer.iban}}.</text>
+	</paragraph>
+	{%if kaufpreis.zahlungsmodalitaten.zahlungsmodalitaten=="tranchen" %}
+	<paragraph style_name="text1both">
+			<text>Die Überweisung an das Grundsteueramt {{kaufpreis.konto_grund.inhaber}} gemäss dieser Ziffer II/2 hat auf folgendes Konto zu erfolgen: {{kaufpreis.konto_grund.institut}}, {{kaufpreis.konto_grund.iban}}, lautend auf {{kaufpreis.konto_grund.inhaber}}.</text>
+	</paragraph>
+	{%endif%}
+	<paragraph style_name="text1both">
+			<text>Die Käuferin hat der Verkäuferin anlässlich der heutigen öffentlichen Beurkundung und anlässlich der Eigentumsübertragung die unwiderruflichen Zahlungsversprechen einer Schweizer Bank zu übergeben, mit dem diese sich unwiderruflich verpflichtet, die Zahlungen gemäss Ziffer II/2 nach öffentlicher Beurkundung gemäss der obgenannten Bestimmung bedingungslos auszuführen. Das Grundbuchamt wird davon entbunden, diese Anmeldungsvoraussetzung zu überprüfen. Die Verantwortung hierfür obliegt der Urkundsperson.</text>
+	</paragraph>
+	<paragraph style_name="text1both">
+			<text>Das Zahlungsversprechen darf nur die Bedingung enthalten, dass der Kaufvertrag sowie allfällig notwendige Pfandverträge im Grundbuch eingetragen wurden.</text>
+	</paragraph>
+
+	<paragraph style_name="text1both">
+			<text>Die Käuferin verpflichtet sich mit ihrer / seiner Vertragsunterschrift allfällige Pfandverträge zu unterzeichnen, welche zur Finanzierung des Kaufpreises notwendig sind.</text>
+	</paragraph>
+
+	<paragraph style_name="text1both">
+			<text></text>
+	</paragraph>
+
+	<paragraph style_name="text1bold" spacing_line="1.8">
+	    <text>III. Weitere Vertragsbestimmungen</text>
+	</paragraph>
+
+	<paragraph style_name="text1both" spacing_line="1.4">
+	    <text italics="true">1. Besitzesantritt, Eigentumsübertragung</text>
+	</paragraph>
+
+	{% if vertragsbestimmungen.besitzesantritt.besitzesantritt=="eigentumsubertragung"%}
+	<paragraph style_name="text1both">
+			<text>Der Besitzesantritt mit Übergang von Rechten und Pflichten, Nutzen und Gefahr auf die Käuferin findet mit der Eigentumsübertragung statt.</text>
+	</paragraph>
+	{%endif%}
+
+	{% if vertragsbestimmungen.besitzesantritt.besitzesantritt=="baubewilligung"%}
+	<paragraph style_name="text1both">
+			<text>Die Eigentumsübertragung hat innerhalb von {{vertragsbestimmungen.besitzesantritt.monate}} Monaten nach Vorliegen einer rechtskräftigen Baubewilligung für die von der Käuferin auf dem Kaufobjekt geplante Überbauung, spätestens jedoch und vorbehaltlos am {{vertragsbestimmungen.besitzesantritt.zeitpunkt}} zu erfolgen.</text>
+	</paragraph>
+	<paragraph style_name="text1both">
+			<text>Wird der Vertrag nicht termingerecht erfüllt, so hat die erfüllungsbereite Partei der säumigen Partei eine Nachfrist im Sinne von Art. 107 OR anzusetzen. Art. 214 OR über den Käuferverzug findet keine Anwendung.</text>
+	</paragraph>
+	<paragraph style_name="text1both">
+			<text>Die Käuferin ist verpflichtet, den zuständigen Bewilligungsbehörden bis spätestens {{vertragsbestimmungen.besitzesantritt.zeitpunkt_baubewilligung}} eine komplette Baueingabe für die auf dem Kaufobjekt geplante Überbauung einzureichen und alles in ihrer Macht Stehende vorzukehren, dass baldmöglichst eine rechtskräftige Baubewilligung vorliegt. Die Verkäufer sind bereit, Baugesuche zuhanden der Baubewilligungsbehörde mitzuunterzeichnen.</text>
+	</paragraph>
+	<paragraph style_name="text1both">
+			<text>Die Käuferin ist ab sofort befugt, sämtliche Handlungen vorzunehmen, die für den Erhalt einer rechtskräftigen Baubewilligung sowie für die Vorbereitung der beabsichtigten Überbauung auf dem Kaufobjekt notwendig sind. Dies betrifft insbesondere die Vornahme von Baugrundsondierungen (Entnahme von Bodenproben) und die Erstellung von Bauprofilen. Mit den eigentlichen Bauarbeiten darf erst nach erfolgter Eigentumsübertragung begonnen werden.</text>
+	</paragraph>
+	<paragraph style_name="text1both">
+			<text>Der Verkäuferin darf aus diesen Projektierungs- und Vorbereitungsarbeiten keine Kosten erwachsen. Insbesondere haben die Käufer sämtliche Gebühren im Rahmen des Baubewilligungsverfahrens, Anschlussgebühren, Planungskosten usw. direkt zu übernehmen.</text>
+	</paragraph>
+	{%endif%}
+	{% if vertragsbestimmungen.besitzesantritt.besitzesantritt=="fix"%}
+	<paragraph style_name="text1both">
+			<text>Die Käuferin übernimmt das Kaufobjekt mit Übergang von Rechten und Pflichten sowie Nutzen und Schaden per {{vertragsbestimmungen.besitzesantritt.fixer_tag}} oder {{vertragsbestimmungen.besitzesantritt.tage_grundbucheintrag}} Tage nach Grundbucheintrag (Tagebuch massgebend).</text>
+	</paragraph>
+	<paragraph style_name="text1both">
+			<text>Unabhängig von diesem Zeitpunkt ist die Urkundsperson ermächtigt, diese Urkunde dem Grundbuchamt {{schlussbestimmungen.ausfertigung.grundbuchamt}} zur Eintragung anzumelden.</text>
+	</paragraph>
+	{%endif%}
+	<paragraph style_name="text1both">
+			<text></text>
+	</paragraph>
+	<paragraph style_name="text1both" spacing_line="1.4">
+	    <text italics="true">2. Abrechnung per Antrittstag</text>
+	</paragraph>
+	<paragraph style_name="text1both">
+			<text>Über die mit dem Kaufsobjekt verbundenen Abgaben rechnen die Parteien separat ab, Wert Antrittstag.</text>
+	</paragraph>
+	<paragraph style_name="text1both">
+			<text></text>
+	</paragraph>
+	<paragraph style_name="text1both" spacing_line="1.4">
+	    <text italics="true">3. Gewährleistung</text>
+	</paragraph>
+	<paragraph style_name="text1both">
+			<text>Der Kaufpreis versteht sich für vollerschlossenes Bauland. Die Parteien gehen davon aus, dass die Käuferin für die Grob- und Feinerschliessung des Kaufsobjektes (verkehrsmässige Erschliessung, Erschliessung mit Werkleitungen) keine Kosten mehr aufwenden muss. Die grundstücksinternen Zufahrten und die Weiterführung der Werkleitungen ab der Grundstücksgrenze ist Sache die Käuferin.</text>
+	</paragraph>
+	<paragraph style_name="text1both">
+			<text>Nach dem Kenntnisstand der Verkäuferin ist auf dem Kaufobjekt nicht mit Altlasten / belasteten Standorten zu rechnen. Sollten im Zuge der Erstüberbauung wider Erwarten Altlasten / belastete Standorte angetroffen werden, so gehen die daraus resultierenden Mehrkosten für Untersuchungen sowie für die spezielle Behandlung und Entsorgung des verschmutzten Materials ab einem Betrag von CHF {{vertragsbestimmungen.gewahrleistung.altlasten}} (Mehrwertsteuer eingeschlossen) zu Lasten der Verkäuferin. Mehrkosten bis zu dieser Höhe (Mehrwertsteuer eingeschlossen) übernimmt die Käuferin.</text>
+	</paragraph>
+	<paragraph style_name="text1both">
+			<text>Im Übrigen wird die Gewährspflicht der Verkäuferin für Rechts- und Sachmängel am Kaufsobjekt im Sinne des Schweizerischen Obligationenrechts aufgehoben.</text>
+	</paragraph>
+	<paragraph style_name="text1both">
+			<text>Die Vertragsparteien erklären, von der Urkundsperson auf die Bedeutung und Tragweite dieser Abmachung hingewiesen worden zu sein. Es ist ihnen insbesondere auch bekannt, dass die Vereinba-rung betreffend Wegbedingung der Gewährleistung nach Art. 192 Abs. 3 und Art. 199 OR ungültig ist, wenn die Verkäufer den Käufern die Gewährsmängel absichtlich bzw. arglistig verschwiegen haben.</text>
+	</paragraph>
+	<paragraph style_name="text1both">
+			<text></text>
+	</paragraph>
+	<paragraph style_name="text1both" spacing_line="1.4">
+	    <text italics="true">4. Gebühren, Steuern</text>
+	</paragraph>
+
+	<paragraph style_name="text1both">
+			<text>Die notariellen und grundbuchamtlichen Gebühren und Auslagen werden von den Parteien je zur Hälfte bezahlt. Die Handänderungssteuern werden von den Parteien je zur Hälfte bezahlt. Die aus dem Verkauf resultierende Grundstückgewinnsteuer ist von der Verkäuferin zu zahlen. Die Parteien bestätigen, dass die Urkundsperson sie auf das Bestehen und die Tragweite des gesetzlichen Pfandrechtes des {{kaufpreis.zahlungsmodalitaten.gemeinwesen}} für die Grundstückgewinnsteuern aufmerksam gemacht hat.</text>
+	</paragraph>
+	{%if kaufpreis.zahlungsmodalitaten.zahlungsmodalitaten=="tranchen" %}
+	<paragraph style_name="text1both">
+			<text>Das Grundsteueramt {{kaufpreis.zahlungsmodalitaten.gemeinwesen}} hat die mutmassliche Grundstückgewinnsteuer aus dem vorliegenden Verkauf mit Schreiben vom {{vertragsbestimmungen.gebuhren.datum}} auf CHF {{vertragsbestimmungen.gebuhren.grundstuckgewinnsteuer}} berechnet. Zur Sicherstellung dieser Grundstückgewinnsteuer zahlt die Käuferin beim Grundsteueramt {{kaufpreis.zahlungsmodalitaten.gemeinwesen}} auf Abrechnung am Kaufpreis den Betrag von CHF {{kaufpreis.zahlungsmodalitaten.betrag_grundsteueramt}} ein. Auf eine weitergehende Sicherstellung der Grundstückgewinnsteuer verzichtet die Käuferin.</text>
+	</paragraph>
+	{%endif%}
+	<paragraph style_name="text1both">
+			<text></text>
+	</paragraph>
+	<paragraph style_name="text1bold" spacing_line="1.8">
+	    <text>IV. Schlussbestimmungen</text>
+	</paragraph>
+
+	<paragraph style_name="text1both" spacing_line="1.4">
+	    <text italics="true">1. Kosten</text>
+	</paragraph>
+	<paragraph style_name="text1both">
+			<text>Die Notariats- und Grundbuchkosten dieses Vertrages übernehmen die Parteien je hälftig unter solidarischer Haftbarkeit.</text>
+	</paragraph>
+	<paragraph style_name="text1both">
+			<text></text>
+	</paragraph>
+	<paragraph style_name="text1both" spacing_line="1.4">
+	    <text italics="true">2. Ermächtigung Urkundsperson</text>
+	</paragraph>
+	<paragraph style_name="text1both">
+			<text>Die Urkundsperson wird zu allen mit diesem Vertrag direkt oder indirekt zusammenhängenden An-meldungen und Vorkehrungen ermächtigt und beauftragt. Insbesondere wird die Urkundsperson ermächtigt, bei einer allfälligen Abweisungsverfügung des zuständigen Grundbuchamtes einen allfälligen Beschwerdeverzicht anstelle der Parteien verbindlich zu unterzeichnen.</text>
+	</paragraph>
+	<paragraph style_name="text1both">
+			<text>Die Parteien beauftragen das Grundbuchamt, allfällige Verfügungen der Urkundsperson zuzustellen.</text>
+	</paragraph>
+	<paragraph style_name="text1both">
+			<text></text>
+	</paragraph>
+	<paragraph style_name="text1both" spacing_line="1.4">
+	    <text italics="true">3. Ausfertigung</text>
+	</paragraph>
+	<paragraph style_name="text1both">
+			<text>Das Original dieser Urkunde dient dem Grundbuchamt {{schlussbestimmungen.ausfertigung.grundbuchamt}} als Rechtsgrundausweis. Die Parteien erhalten beglaubigte Abschriften. Bei der Urkundsperson kann innert eines Jahres nach Unterzeichnung eine elektronische Scan-Kopie der Urkunde und der weiteren unterzeichneten Dokumente verlangt werden.</text>
+	</paragraph>
+	<paragraph style_name="text1both">
+			<text></text>
+	</paragraph>
+	<paragraph style_name="text1both">
+			<text></text>
+	</paragraph>
+	<paragraph style_name="text1both">
+			<text></text>
+	</paragraph>
+	
+	<paragraph style_name="text1both">
+			<text></text>
+	</paragraph>
+	<paragraph style_name="text1both" alignment="center">
+			<text bold="true" italics="true">[Unterschriften auf nachfolgender Seite]</text>
+	</paragraph>
+<pb/>
+	<paragraph style_name="text1both">
+			<text></text>
+	</paragraph>
+	<paragraph style_name="text1both">
+			<text></text>
+	</paragraph>
+<table columns="1" rows="8" style="borderless" style_name="text1" column_widths="5000">
+        <cell><paragraph><text bold="true">{{parteien.verkaufer.firma}}</text></paragraph></cell>
+        <cell><paragraph></paragraph><paragraph></paragraph><paragraph></paragraph><paragraph border_bottom="true"></paragraph></cell>
+        <cell><paragraph><text>{%if parteien.verkaufer.titel%}{{parteien.verkaufer.titel}} {%endif%}{{parteien.verkaufer.vorname}} {{parteien.verkaufer.nachname}}</text></paragraph></cell>
+        <cell><paragraph></paragraph></cell>
+        <cell><paragraph><text bold="true">{{parteien.kaufer.firma}}</text></paragraph></cell>
+        <cell><paragraph></paragraph><paragraph></paragraph><paragraph></paragraph><paragraph border_bottom="true"></paragraph></cell>
+        <cell><paragraph><text>{%if parteien.kaufer.titel%}{{parteien.kaufer.titel}} {%endif%}{{parteien.kaufer.vorname}} {{parteien.kaufer.nachname}}</text></paragraph></cell>
+        <cell><paragraph></paragraph></cell>    
+</table>
+<pb/>
+<paragraph style_name="text1both">
+			<text></text>
+	</paragraph>
+	<paragraph style_name="text1both">
+			<text>Diese Urkunde enthält den mir mitgeteilten Parteiwillen und ist von den Parteien in meiner Gegenwart selbst gelesen worden.</text>
+	</paragraph>
+	<paragraph style_name="text1both">
+			<text>Die im EG ZGB und in der RRV über das Grundbuch- und Notariatswesen vorgeschriebenen Formen wurden eingehalten.</text>
+	</paragraph>
+	<paragraph style_name="text1both">
+			<text></text>
+	</paragraph>
+	<paragraph style_name="text1both">
+			<text>Die Urkundsperson</text>
+	</paragraph>
+
+</document>

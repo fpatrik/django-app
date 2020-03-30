@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Team {{ team.name }}
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+	<div class="row" style="margin-top:50px;">
+	  	<div class="col-md-10 col-md-offset-1">
+	  		<ol class="breadcrumb" style="background-color:white;padding-left:0px;">
+			  <li><a href="{% url 'team:team' %}">Teams</a></li>
+			  <li><a href="{% url 'team:team_detail' team_id=team.id %}">{{ team.name }}</a></li>
+			  <li><a href="{% url 'team:team_detail' team_id=team.id %}">Bearbeiten</a></li>
+			</ol>
+	  	</div>
+	</div>
+	<div class="row" style="margin-top:10px;">
+	  	<div class="col-md-10 col-md-offset-1">
+	  		<h2>Team {{ team.name }}</h2>
+	  		<p>{{ team.description }} </p>
+	  	</div>
+	</div>
+	<div class="row" style="margin-top:50px;">
+  		<div class="col-md-10 col-md-offset-1">
+  			<h3>Team bearbeiten</h3>
+  			<form action="{% url 'team:team_detail' team_id=team.id %}" method="post" style="margin-top:30px;">
+  				{% csrf_token %}
+  				<div class="form-group">
+  					<label>Name:</label>
+  					<input type="text" value="{{ team.name }}" class="form-control" name="name" style="max-width:500px;">
+				</div>
+				<div class="form-group">
+					<label>Beschreibung:</label>
+					<textarea class="form-control" rows="5" name="description" style="max-width:500px;">{{ team.description }}</textarea>
+				</div> 
+				<button type="submit" class="btn btn-primary" style="margin-top:30px;margin-bottom:30px;">Team bearbeiten</button>
+  			</form>
+  		</div>
+	</div>
+	<div class="row" style="margin-top:50px;">
+		<div class="col-md-10 col-md-offset-1">
+		<h4>Teammitglieder hinzufügen</h4>
+		</div>
+  		<div class="col-md-10 col-md-offset-1" style="margin-top:30px;">
+  				<table class="table table-hover" id="table-add">
+					<thead>
+      					<tr>
+        					<th>Vorname<a href="{% url 'team:team_detail' team_id=team.id %}?sort1=f_name&reverse1=false#table-add"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></a><a href="{% url 'team:team_detail' team_id=team.id %}?sort1=f_name&reverse1=true#table-add"></span><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></a></th>
+        					<th>Nachname<a href="{% url 'team:team_detail' team_id=team.id %}?sort1=l_name&reverse1=false#table-add"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></a><a href="{% url 'team:team_detail' team_id=team.id %}?sort1=l_name&reverse1=true#table-add"></span><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></a></th>
+        					<th>Position<a href="{% url 'team:team_detail' team_id=team.id %}?sort1=position&reverse1=false#table-add"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></a><a href="{% url 'team:team_detail' team_id=team.id %}?sort1=type&reverse1=true#table-add"></span><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></a></th>
+        					<th>Rolle <a href="{% url 'team:team_detail' team_id=team.id %}?sort1=role&reverse1=false#table-add"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></a><a href="{% url 'team:team_detail' team_id=team.id %}?sort1=created&reverse1=true#table-add"></span><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></a></th>
+        					<th>User zum Team hinzufügen</th>
+      					</tr>
+    				</thead>
+    				<tbody>
+    					{% for member in n_members %}
+    						<tr>
+        						<td>{{ member.user.first_name }}</td>
+        						<td>{{ member.user.last_name }}</td>
+        						<td>{{ member.position }}</td>
+        						<td>{{ member.get_role_display }}</td>
+        						<td><form action="{% url 'team:team_detail' team_id=team.id %}#table-add" method="post">{% csrf_token %}<input type="hidden" name="add" value="{{ member.user.id }}"><button type='submit' class='btn btn-success'><span class='glyphicon glyphicon-plus' aria-hidden='false'></span></button></form></td>
+      						</tr>
+						{% endfor %}
+    				</tbody>
+  				</table>
+  		</div>
+	</div>
+	<div class="row" style="margin-top:50px;margin-bottom:50px;">
+		<div class="col-md-10 col-md-offset-1">
+			<h4>Teammitglieder entfernen</h4>
+		</div>
+  		<div class="col-md-10 col-md-offset-1" style="margin-top:30px;">
+  				<table class="table table-hover" id="table-remove">
+					<thead>
+      					<tr>
+        					<th>Vorname<a href="{% url 'team:team_detail' team_id=team.id %}?sort2=f_name&reverse2=false#table-remove"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></a><a href="{% url 'team:team_detail' team_id=team.id %}?sort2=f_name&reverse1=true#table-remove"></span><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></a></th>
+        					<th>Nachname<a href="{% url 'team:team_detail' team_id=team.id %}?sort2=l_name&reverse2=false#table-remove"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></a><a href="{% url 'team:team_detail' team_id=team.id %}?sort2=l_name&reverse1=true#table-remove"></span><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></a></th>
+        					<th>Position<a href="{% url 'team:team_detail' team_id=team.id %}?sort2=position&reverse2=false#table-remove"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></a><a href="{% url 'team:team_detail' team_id=team.id %}?sort2=type&reverse1=true#table-remove"></span><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></a></th>
+        					<th>Rolle <a href="{% url 'team:team_detail' team_id=team.id %}?sort2=role&reverse2=false#table-remove"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></a><a href="{% url 'team:team_detail' team_id=team.id %}?sort2=created&reverse1=true#table-remove"></span><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></a></th>
+        					<th>User vom Team entfernen</th>
+      					</tr>
+    				</thead>
+    				<tbody>
+    					{% for member in members %}
+    						<tr>
+        						<td>{{ member.user.first_name }}</td>
+        						<td>{{ member.user.last_name }}</td>
+        						<td>{{ member.position }}</td>
+        						<td>{{ member.get_role_display }}</td>
+        						<td><form action="{% url 'team:team_detail' team_id=team.id %}#table-remove" method="post">{% csrf_token %}<input type="hidden" name="remove" value="{{ member.user.id }}"><button type='submit' class='btn btn-danger'><span class='glyphicon glyphicon-remove' aria-hidden='false'></span></button></form></td>
+      						</tr>
+						{% endfor %}
+    				</tbody>
+  				</table>
+  		</div>
+	</div>
+	<div class="row" style="margin-top:50px;">
+  		<div class="col-md-10 col-md-offset-1">
+  			<h4>Team Löschen</h4>
+  			<form action="{% url 'team:team_detail' team_id=team.id %}" method="post" style="margin-top:30px;">
+  				{% csrf_token %}
+  				<input type="hidden" name="loschen" value="true">
+  				<input type="hidden" name="active" value="{{ active.tabs }}">
+				<button type="submit" class="btn btn-danger" style="margin-top:30px;margin-bottom:30px;" onclick="delete_team(event);">Team löschen</button>
+  			</form>
+  		</div>
+  	</div>
+  	<div class="row" style="margin-top:50px;margin-bottom:50px;">
+  		<div class="col-md-10 col-md-offset-1">
+  			  <a href="{% url 'team:team' %}" style="margin-bottom:50px;margin-top:20px;"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Speichern und zurück</a>
+  		</div>
+  	</div>
+  	
+  	<script>
+  	function delete_team(e) {
+  		if(confirm("Wollen Sie das Team, sowie alle Projekte auf die einzig dieses Team zugriff hat unwiderruflich löschen?")){
+  		}
+  		else{
+  			e.preventDefault();
+  		}
+  	}
+  	</script>
+</div>
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Feedback
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+	<div class="row" style="margin-top:50px;">
+	  	<div class="col-md-10 col-md-offset-1">
+	  		<ol class="breadcrumb" style="background-color:white;padding-left:0px;">
+			  <li><a href="{% url 'feedback:feedback' %}">Feedback</a></li>
+			</ol>
+	  	</div>
+	</div>
+	<div class="row" style="margin-top:10px;">
+	  	<div class="col-md-10 col-md-offset-1">
+	  		<h2>Feedback</h2>
+	  	</div>
+	</div>
+	<div class="row" style="margin-top:30px;">
+	  	<div class="col-md-10 col-md-offset-1">
+	  		<ul class="nav nav-tabs">
+	  			<li {% if active.tabs == 'alles' %}class="active"{% endif %}><a href="{% url 'feedback:feedback' %}?active=alles">Alles</a></li>
+  				<li {% if active.tabs == 'anregung' %}class="active"{% endif %}><a href="{% url 'feedback:feedback' %}?active=anregung">Anregungen</a></li>
+  				<li {% if active.tabs == 'fehler' %}class="active"{% endif %}><a href="{% url 'feedback:feedback' %}?active=fehler">Fehler melden</a></li>
+  				<li {% if active.tabs == 'allgemein' %}class="active"{% endif %}><a href="{% url 'feedback:feedback' %}?active=allgemein">Feedback Formular</a></li>
+			</ul>
+	  	</div>
+	</div>
+	{% if active.tabs == 'alles' %}
+	<div class="row" style="margin-top:50px;">
+  		<div class="col-md-10 col-md-offset-1" style="margin-bottom:60px;">
+  			<h4 style="margin-bottom:50px;">Alles</h4>
+  			{% for f in feedback %}
+  			<div class="panel panel-{% if f.type == 'anregung' %}success{% elif f.type == 'feedback' %}info{% else %}danger{% endif %}">
+				<div class="panel-heading">{{ f.title }} ({{ f.created }}, {% if f.user %}{{ f.user.get_full_name }}, {{f.user.conventecuser.kanzlei.name}}{% else %}anonym{% endif %})</div>
+				<div class="panel-body">
+				{{ f.text | safe | linebreaks }}
+				<form action="{% url 'feedback:feedback' %}?active=alles" method="post">
+	  				{% csrf_token %}
+	  				<input type="hidden" name="loschen" value="{{ f.id }}">
+					<button type="submit" class="btn btn-danger" style="margin-top:50px;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+  				</form>
+				</div>
+			</div>
+  			{% endfor %}
+  		</div>
+  	</div>
+  	{% elif active.tabs == 'fehler' %}
+	<div class="row" style="margin-top:50px;">
+  		<div class="col-md-10 col-md-offset-1" style="margin-bottom:60px;">
+  			<h4 style="margin-bottom:50px;">Fehler melden</h4>
+  			{% for f in feedback %}
+  			{% if f.type == 'fehler' %}
+  			<div class="panel panel-{% if f.type == 'anregung' %}success{% elif f.type == 'feedback' %}info{% else %}danger{% endif %}">
+				<div class="panel-heading">{{ f.title }} ({{ f.created }}, {% if f.user %}{{ f.user.get_full_name }}, {{f.user.conventecuser.kanzlei.name}}{% else %}anonym{% endif %})</div>
+				<div class="panel-body">
+				{{ f.text |safe | linebreaks }}
+				<form action="{% url 'feedback:feedback' %}?active=fehler" method="post">
+	  				{% csrf_token %}
+	  				<input type="hidden" name="loschen" value="{{ f.id }}">
+					<button type="submit" class="btn btn-danger" style="margin-top:50px;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+  				</form>
+				</div>
+			</div>
+			{% endif %}
+  			{% endfor %}
+  		</div>
+  	</div>
+  	{% elif active.tabs == 'anregung' %}
+	<div class="row" style="margin-top:50px;">
+  		<div class="col-md-10 col-md-offset-1" style="margin-bottom:60px;">
+  			<h4 style="margin-bottom:50px;">Anregungen</h4>
+  			{% for f in feedback %}
+  			{% if f.type == 'anregung' %}
+  			<div class="panel panel-{% if f.type == 'anregung' %}success{% elif f.type == 'feedback' %}info{% else %}danger{% endif %}">
+				<div class="panel-heading">{{ f.title }} ({{ f.created }}, {% if f.user %}{{ f.user.get_full_name }}, {{f.user.conventecuser.kanzlei.name}}{% else %}anonym{% endif %})</div>
+				<div class="panel-body">
+				{{ f.text |safe | linebreaks }}
+				<form action="{% url 'feedback:feedback' %}?active=anregung" method="post">
+	  				{% csrf_token %}
+	  				<input type="hidden" name="loschen" value="{{ f.id }}">
+					<button type="submit" class="btn btn-danger" style="margin-top:50px;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+  				</form>
+				</div>
+			</div>
+			{% endif %}
+  			{% endfor %}
+  		</div>
+  	</div>
+  	{% elif active.tabs == 'allgemein' %}
+	<div class="row" style="margin-top:50px;">
+  		<div class="col-md-10 col-md-offset-1" style="margin-bottom:60px;">
+  			<h4 style="margin-bottom:50px;">Feedback Formular</h4>
+  			{% for f in feedback %}
+  			{% if f.type == 'feedback' %}
+  			<div class="panel panel-{% if f.type == 'anregung' %}success{% elif f.type == 'feedback' %}info{% else %}danger{% endif %}">
+				<div class="panel-heading">{{ f.title }} ({{ f.created }}, {% if f.user %}{{ f.user.get_full_name }}, {{f.user.conventecuser.kanzlei.name}}{% else %}anonym{% endif %})</div>
+				<div class="panel-body">
+				{{ f.text |safe | linebreaks }}
+				<form action="{% url 'feedback:feedback' %}?active=allgemein" method="post">
+	  				{% csrf_token %}
+	  				<input type="hidden" name="loschen" value="{{ f.id }}">
+					<button type="submit" class="btn btn-danger" style="margin-top:50px;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+  				</form>
+				</div>
+			</div>
+			{%  endif %}
+  			{% endfor %}
+  		</div>
+  	</div>
+  	{% endif %}
+</div>
+{% endblock %}

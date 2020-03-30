@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title id='document-title'></title>
+    
+	{% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'forms/static/bootstrap/css/bootstrap.min.css' %}" />
+	<script type="text/javascript" src="{% static 'forms/static/jquery/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'forms/static/jquery/jquery-ui.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'forms/static/jquery/jquery-ui.css' %}" />
+	<script type="text/javascript" src="{% static 'forms/static/bootstrap/js/bootstrap.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'forms/static/nunjucks/nunjucks.min.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'forms/index.css' %}" />
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+      
+  </head>
+  <body style="font-family: 'Muli', sans-serif;">
+  	<nav class='navbar navbar-default navbar-fixed-top container'>
+             <div class="navbar-header">
+             	<div class='navbar-brand'>
+	            	<a onclick="if(!confirm('Zurück zum Geschäft ohne das Formular zu speichern?')){event.preventDefault();}" href="{% url 'geschaft:geschaft' geschaft_id=geschaft.id %}">
+	                	<img class='logo' alt='Brand' src="{% static 'images/logo.png' %}" width="274" height="26">           
+	                </a>
+	             </div>
+	             <div class='navbar-right'>
+	                <h3 class="nav navbar-text title" id='title'></h3>
+	             </div>
+               	
+            </div>
+        </nav>
+  	<div class='container' id='core'>
+    </div>
+	
+	
+	<script type="text/javascript" src="{% static 'forms/templates/templates.js' %}"></script>
+	<script type="text/javascript" src="{% static 'forms/source/helpers.js' %}"></script>
+	<script type="text/javascript" src="{% static 'forms/source/alerts.js' %}"></script>
+	<script type="text/javascript" src="{% static 'forms/source/separator.js' %}"></script>
+	<script type="text/javascript" src="{% static 'forms/source/apiselect.js' %}"></script>
+	<script type="text/javascript" src="{% static 'forms/source/label.js' %}"></script>
+	<script type="text/javascript" src="{% static 'forms/source/derivedvariable.js' %}"></script>
+	<script type="text/javascript" src="{% static 'forms/source/model.js' %}"></script>
+	<script type="text/javascript" src="{% static 'forms/source/modelselect.js' %}"></script>
+	<script type="text/javascript" src="{% static 'forms/source/textarea.js' %}"></script>
+	<script type="text/javascript" src="{% static 'forms/source/text.js' %}"></script>
+	<script type="text/javascript" src="{% static 'forms/source/textlabel.js' %}"></script>
+	<script type="text/javascript" src="{% static 'forms/source/dropdown.js' %}"></script>
+	<script type="text/javascript" src="{% static 'forms/source/radio.js' %}"></script>
+	<script type="text/javascript" src="{% static 'forms/source/checkbox.js' %}"></script>
+	<script type="text/javascript" src="{% static 'forms/source/multipage.js' %}"></script>
+	<script type="text/javascript" src="{% static 'forms/source/page.js' %}"></script>
+	<script type="text/javascript" src="{% static 'forms/source/step.js' %}"></script>
+    <script type="text/javascript" src="{% static 'forms/source/form.js' %}"></script>
+    
+    <script type="text/javascript">
+  		//Configure nunjucks
+    	nunjucks.configure({ autoescape: true });
+  		
+  		//Set name of geschaft
+  		geschaft_name = "{{ geschaft.name }}";
+
+    	//Define variables
+    	variables = {{ geschaft.variables | safe}};
+    	
+    	//Set return url
+    	return_url = "{% url 'geschaft:geschaft' geschaft_id=geschaft.id %}";
+    	
+    	//Set csrf
+    	django_csrf = "{{ csrf }}";
+
+    	//Set current page
+    	navigation = {'step' : 0, 'page' : 0, 'multipage' : {'overview' : true, 'instance' : 0}, 'end' : false};
+    	
+    	{{ form | safe }}
+    </script>
+    
+    
+    <script type="text/javascript" src="{% static 'forms/source/settings.js' %}"></script>
+    
+    
+  </body>
+  
+  
+</html>

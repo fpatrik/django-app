@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+<text bold="true" font_size="22" alignment ="center">Vollmacht</text>
+    <text bold="true" italics="true" font_size="16" alignment="center">Power Of Attorney</text>
+<lb n="1"/>
+<text>{% if unterzeichnender.personalien.sex == "herr" %} Der Unterzeichnete {{unterzeichnender.personalien.vorname}} {{unterzeichnender.personalien.nachname}} {{unterzeichnender.personalien.adresse}}, ernennt hiermit {% else %} Die Unterzeichnende {{unterzeichnender.personalien.vorname}} {{unterzeichnender.personalien.nachname}} {{unterzeichnender.personalien.adresse}}, ernennt hiermit {%endif%} </text>
+<lb n="1"/>
+<text italics ="true" font_size ="9"> The undersigned, {{unterzeichnender.personalien.vorname}} {{unterzeichnender.personalien.nachname}} {{unterzeichnender.personalien.adresse}}, hereby appoints </text>
+ <lb n="3"/>
+<text bold = "true" font_size = "11" alignment = "center"> {{bevollmachtigter.personalien.vorname}} {{bevollmachtigter.personalien.nachname}}  {{bevollmachtigter.personalien.adresse}}</text>
+<lb n="3"/>
+<paragraph> 
+    <text>zu {% if unterzeichnender.personalien.sex == "herr"%} seinem {%else%} ihrem {%endif%} Bevollmächtigten, mit Recht zur Substitution, {% if unterzeichnender.personalien.sex == "herr"%} ihn {%else%} sie {%endif%} bei der bevorstehenden</text>
+    <text bold = "true"> Gründung der {{firma.firma.name}} {{firma.firma.ubersetzung}}</text> <text> die "</text> <text bold = "true">Gesellschaft</text> <text>" zu vertreten und alle in dem Zusammenhang erforderlichen Tat- und Rechtshandlungen im Namen </text> <text>{% if unterzeichnender.personalien.sex == "herr"%} des{%else%} der{%endif%}Unterzeichneten vorzunehmen, insbesondere anlässlich der Gründung {{stammanteile.stammanteile.anzahl}} Stammanteile der Gesellschaft à CHF {{stammanteile.stammanteile.nennwert}} nominal zu zeichnen. </text>
+    </paragraph>
+    <lb n="1"/>
+<paragraph>
+    <text italics ="true">with the right of substitution, as {% if unterzeichnender.personalien.sex == "herr"%} his {%else%} her {%endif%} proxy, at the upcoming</text> <text bold = "true"> incorporation of {{firma.firma.name}} {{firma.firma.ubersetzung}}</text> <text italics ="true"> the "</text> <text bold = "true" italics ="true">Company</text> <text italics ="true">" and to and to exercise all powers and to perform all necessary actions in connection therewith on the undersigned’s behalf, including (but not limited to) the subscription for {{stammanteile.stammanteile.anzahl}} shares shares with a nominal value of CHF {{stammanteile.stammanteile.nennwert}} each in the Company.</text>
+    </paragraph>
+<lb n="2"/>
+<text>{% if rechtswahl.rechtswahl.rechtswahl == true %}Diese Vollmacht untersteht Schweizer Recht.{%endif%}</text>
+<lb n="2"/>
+<text>{{erloschungsdatum.erloschungsdatum.erloschungsdatum}}</text>
+  <lb n="2"/>
+   <table columns="2" rows="2" style="borderless">
+        <cell><paragraph></paragraph><paragraph></paragraph><paragraph border_bottom="true"></paragraph></cell>
+        <cell></cell>
+        <cell>Name</cell>
+        <cell></cell>
+    </table>
+
+</document>

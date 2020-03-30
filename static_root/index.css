@@ -1,0 +1,140 @@
+/* Background colors */
+body {
+    background-color: rgb(230,230,230);
+    position: relative;
+}
+
+.container {
+    background-color: white;
+}
+
+#core{
+    min-height:100vh;
+}
+
+/* Logo size */
+.logo {
+    max-height: 110%;
+    max-width: 110%;
+    margin-top:7px;
+}
+
+/* NAVBAR STYLES */
+.navbar-brand, .navbar-nav {
+    line-height: 80px;
+    height: 80px;
+    padding-top: 0;
+}
+
+/* TITLE STYLES */
+h1 {
+    margin-top: 150px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.title{
+padding-left: 175px;
+
+}
+
+.inline{
+	display: inline;
+}
+
+/* TOOLTIP STYLES */
+a.tooltips{
+    cursor: pointer; 
+}
+
+.tooltip-inner{
+    color: black;
+    font-size: 14px;
+    background-color: white;
+    border: 1px solid rgb(154, 172, 184);
+    max-width: 350px; 
+    text-align: left;
+    white-space:pre-wrap
+}
+
+.title-icon{
+	color:#fff;
+}
+
+/* MENU STYLES*/
+
+#Stepmenu{
+    overflow-y:auto;
+}
+/* cursor */
+#Stepmenu a{
+	cursor: pointer;
+}
+
+/* all links */
+#Stepmenu .nav>li>a {
+    color: black;
+    border-left: 2px solid transparent;
+    padding: 4px 20px;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+/* nested links */
+#Stepmenu .nav .nav>li>a {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 30px;
+    font-size: 12px;
+}
+
+/* nested nested links */
+#Stepmenu .nav .nav .nav>li>a {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 40px;
+    font-size: 12px;
+}
+
+/* active & hover links */
+#Stepmenu .nav>.active>a, 
+#Stepmenu .nav>li>a:hover, 
+#Stepmenu .nav>li>a:focus {   
+    font-weight: 500;          
+    background-color: transparent;  
+    border-left: 2px solid rgb(154, 172, 184); 
+}
+/* all active links */
+#Stepmenu .nav>.active>a, 
+#Stepmenu .nav>.active:hover>a,
+#Stepmenu .nav>.active:focus>a {
+    font-weight: 700;
+}
+/* nested active links */
+#Stepmenu .nav .nav>.active>a, 
+#Stepmenu .nav .nav>.active:hover>a,
+#Stepmenu .nav .nav>.active:focus>a {
+    font-weight: 500;
+}
+
+/* hide inactive nested list */
+#Stepmenu .nav ul.nav {
+    display: none;           
+}
+/* show active nested list */
+#Stepmenu .nav>.active>ul.nav {
+    display: block;           
+}
+
+/* PAGER STYLES */
+.pager a {
+	cursor: pointer;
+}
+
+/* ALERT LIST STYLES */
+
+#alert-list{
+	padding-left:20px;
+	padding-top: 5px;
+
+}

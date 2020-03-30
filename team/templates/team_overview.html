@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Teams
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+	<div class="row" style="margin-top:50px;">
+	  	<div class="col-md-10 col-md-offset-1">
+	  		<ol class="breadcrumb" style="background-color:white;padding-left:0px;">
+			  <li><a href="{% url 'team:team' %}">Teams</a></li>
+			  {% if active.tabs == 'ubersicht' %}
+			  <li><a href="{% url 'team:team' %}?active=ubersicht">Übersicht</a></li>
+			  {% elif active.tabs == 'hinzufugen' %}
+			  <li><a href="{% url 'team:team' %}?active=hinzufugen">Team hinzufügen</a></li>
+			  {% endif %}
+			</ol>
+	  	</div>
+	</div>
+	<div class="row" style="margin-top:10px;">
+	  	<div class="col-md-10 col-md-offset-1">
+	  		<h2>Teams</h2>
+	  	</div>
+	</div>
+	<div class="row" style="margin-top:50px;">
+	  	<div class="col-md-10 col-md-offset-1">
+	  		<ul class="nav nav-tabs">
+  				<li {% if active.tabs == 'ubersicht' %}class="active"{% endif %}><a href="{% url 'team:team' %}?active=ubersicht">Übersicht</a></li>
+  				{% if user.conventecuser.role == 'admin' %}
+  				<li {% if active.tabs == 'hinzufugen' %}class="active"{% endif %}><a href="{% url 'team:team' %}?active=hinzufugen">Team hinzufügen</a></li>
+  				{% endif %}
+			</ul>
+	  	</div>
+	</div>
+	{% if active.tabs == 'ubersicht' %}
+	{% if user.conventecuser.role != 'admin' %}
+	{% for team in user.conventecuser.kanzlei.team_set.all %}
+	<div class="row" style="margin-top:50px;">
+	  	<div class="col-md-10 col-md-offset-1">
+	  		<h2>{{ team.name }}</h2>
+	  		<p>{{ team.description }}</p>
+	  	</div>
+	</div>
+	<div class="row" style="margin-top:40px;">
+  		<div class="col-md-10 col-md-offset-1">
+  			<table class="table table-hover" data-link="row">
+				<thead>
+      				<tr>
+        				<th>Team Name</th>
+        				<th>Aktive Projekte</th>
+        				<th>Mitglieder</th>
+        
+      				</tr>
+    			</thead>
+    			<tbody>
+    					<tr>
+        					<td><strong>{{ team.name }}</strong></td>
+        					<td>{% for project in team.projekt_set.all %}{{ project.name }}<br/>{% endfor %}</td>
+        					<td>{% for mitglied in team.conventecuser_set.all %}{{ mitglied.user.get_full_name }}{% if mitglied.position %} ({{ mitglied.position }}){% endif %}<br/>{% endfor %}</td>
+      					</tr>
+    			</tbody>
+  			</table>
+  		</div>
+  	</div>
+  	{% endfor %}
+  	{% else %}
+  	{% for team in user.conventecuser.kanzlei.team_set.all %}
+	<div class="row" style="margin-top:50px;">
+	  	<div class="col-md-10 col-md-offset-1">
+	  		<h2>{{ team.name }}</h2>
+	  		<h3>{{ team.description }}</h3>
+	  		<a href="{% url 'team:team_detail' team_id=team.id %}">Team bearbeiten</a>
+	  	</div>
+	</div>
+	<div class="row" style="margin-top:40px;">
+  		<div class="col-md-10 col-md-offset-1">
+  			<table class="table table-hover" data-link="row">
+				<thead>
+      				<tr>
+        				<th>Team Name</th>
+        				<th>Aktive Projekte</th>
+        				<th>Mitglieder</th>
+        
+      				</tr>
+    			</thead>
+    			<tbody>
+    					<tr>
+        					<td><strong>{{ team.name }}</strong></td>
+        					<td>{% for project in team.projekt_set.all %}{{ project.name }}<br/>{% endfor %}</td>
+        					<td>{% for mitglied in team.conventecuser_set.all %}{{ mitglied.user.get_full_name }}{% if mitglied.position %} ({{ mitglied.position }}){% endif %}<br/>{% endfor %}</td>
+      					</tr>
+    			</tbody>
+  			</table>
+  		</div>
+  	</div>
+  	{% endfor %}
+  	{% endif %}
+  	{% elif active.tabs == 'hinzufugen' %}
+  	<div class="row" style="margin-top:50px;">
+  		<div class="col-md-10 col-md-offset-1">
+  			<h2>Neues Team</h2>
+  			<form action="{% url 'team:team' %}" method="post" style="margin-top:30px;">
+  				{% csrf_token %}
+  				<div class="form-group">
+  					<label>Name:</label>
+  					<input type="text" class="form-control" name="name" id="namen" style="max-width:500px;">
+				</div>
+				<div class="form-group">
+					<label>Beschreibung:</label>
+					<textarea class="form-control" rows="5" name="description" id="description" style="max-width:500px;"></textarea>
+				</div> 
+				<button type="submit" onclick="check_entries(event)" class="btn btn-primary" style="margin-top:30px;margin-bottom:30px;">Team Erstellen</button>
+  			</form>
+  		</div>
+	</div>
+	<script>
+	function check_entries(e){
+		name = document.getElementById('namen');
+		description = document.getElementById('description');
+		if(typeof namen.value == 'undefined' || typeof description.value == 'undefined' || namen.value == '' || description.value == ''){
+			alert('Das Team wird nur erstellt wenn das ganze Formular ausgefüllt wurde.');
+			e.preventDefault();
+		}
+	}
+	</script>
+  		{% endif %}
+	</div>
+</div>
+{% endblock %}

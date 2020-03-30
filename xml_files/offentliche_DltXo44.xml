@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document font_type="Times New Roman" text_color="red">
+    <header>
+        <default><image alignment="right" width="0.14" path="conventec.jpeg"/></default>
+    </header>
+    <footer>
+        <default><paragraph alignment = "center"><pagenumber/></paragraph></default>
+    </footer>
+    <style name="heading" font_size="14" bold="true" alignment="center"/>
+    <style name="heading_norm" font_size="14" alignment="center"/>
+    <titles style_name="heading" style="roman" separator="." name="tit"/>
+    <text style_name="heading">Öffentliche Urkunde</text>
+    <lb/>
+    <text style_name="heading_norm">über die Gruendung der</text>
+    <lb/>
+    <text style_name="heading">{{ firma.allgemein.firmenname_1 }}</text>
+    {%if firma.allgemein.firmenname_2 is defined%}
+    <text style_name="heading">{{ firma.allgemein.firmenname_2 }}</text>
+    {%endif%}
+    <lb/>
+    <text style_name="heading_norm">mit Sitz in {{ firma.allgemein.sitz }}</text>
+    <lb/>
+    <paragraph style_name="heading_norm">
+        <text>(nachfolgend: die </text>
+        <text bold="true">"Gesellschaft" </text>
+        <text>)</text>
+    </paragraph>
+    
+    <lb/>
+    <text>Im Amtoslokal des Notariates {{ notariat.notariat.ort }}, {{ notariat.notariat.strasse }}, {{ notariat.notariat.plz }} {{ notariat.notariat.ort }}, Schweiz,
+        {{'sind heute folgende Gründer' if grunder.sex=='mp'}}
+        {{'ist heute folgender Gründer' if grunder.sex=='ms'}}
+        {{'ist heute folgende Gründerin' if grunder.sex=='fs'}}
+        {{'sind heute folgende Gründerinnen' if grunder.sex=='fp'}} erschienen:</text>
+    <lb/>
+    <list type="bullet">
+        {%for g in grunder.grunder %}
+            {% set outer_loop = loop.index0 %}
+            {% if not g.vertreten_durch is defined or not g.vertreten_durch %}
+                <point><text>{{ g.vorname }} {{ g.name }}, geboren am {{ g.geburtsdatum }}, von {{ g.heimatort }}, {{ g.strasse }}, {{ g.plz }}, {{ g.ort }}</text>
+                {% for g2 in grunder.grunder %}
+                    {% if g2.vertreten and g2.vertreten_durch is defined and g2.vertreten_durch[2]  == outer_loop %}
+                    <text>, handelnd als Gründer und zusätzlich gestützt auf notariell beglaubigte Vollmacht vom {{ g2.datum_vollmacht }} als Bevollmächtigter für</text>
+                    <lb/>
+                    <lb/>
+                    <text>{{ g2.vorname }} {{ g2.name }}, geboren am {{ g2.geburtsdatum }}, von {{ g2.heimatort }}, {{ g2.strasse }}, {{ g2.plz }} {{ g2.ort }}</text>
+                    {% endif %}
+                {% endfor %}
+                </point>
+            {% endif %}
+        {%endfor%}
+    </list>
+    <lb/>
+    
+    <text>und {%if grunder.sex=='fs' or grunder.sex=='ms'%}hat{% else %}haben{% endif %} erklärt:</text>
+    <title name="tit"></title>
+    <lb/>
+    <text>unter der Firma</text>
+    <lb/>
+    <text style_name="heading">{{ firma.allgemein.firmenname_1 }}</text>
+    {%if firma.allgemein.firmenname_2 is defined%}
+    <text style_name="heading">{{ firma.allgemein.firmenname_2 }}</text>
+    {%endif%}
+    <lb/>
+    <text>gründen wir gemäss den Bestimmungen des schweizerischen Obligationenrechts (OR) eine Gesellschaft mit beschränkter Haftung mit Sitz in {{ firma.allgemein.sitz }}.</text>
+    <lb/>
+    <title name="tit"></title>
+    <lb/>
+    <text>Den vorliegenden Entwurf der Gesellschaftsstatuten haben wir gelesen und legen ihn als gültige Statuten der in Gründung begriffenen Gesellschaft fest. Die genehmigten Statuten bilden integrierenden Bestandteil dieser Urkunde.</text>
+    <lb/>
+    <title name="tit"></title>
+    <lb/>
+    <text>Das Stammkapital der Gesellschaft beträgt CHF {{ kapital.kapital.stammkapital_formatted }} und ist eingeteilt in {{ kapital.kapital.anzahl }} Stammanteile mit einem Nominalwert von je CHF {{ kapital.kapital.nominalwert }}, welche zum Ausgabebetrag von CHF {{ kapital.kapital.ausgabebetrag_formatted }} je Stammanteil wie folgt gezeichnet werden:</text>
+    <lb/>
+    
+    <table columns="4" rows="{{grunder.grunder|length + 1}}" style="borderless">
+        {%for g in grunder.grunder%}
+        <cell spacing_before="120" spacing_after="120">{{ g.vorname }} {{ g.name }}</cell>
+        <cell spacing_before="120" spacing_after="120">{{ g.stammanteile }} Stammanteile</cell>
+        <cell spacing_before="120" spacing_after="120">à CHF {{ kapital.kapital.nominalwert }}</cell>
+        <cell spacing_before="120" spacing_after="120">CHF {{ g.stammkapital }}</cell>
+        {%endfor%}
+        <cell bold="true">Total</cell>
+        <cell bold="true">{{ kapital.kapital.anzahl }} Stammanteile</cell>
+        <cell bold="true"></cell>
+        <cell bold="true">Stammkapital CHF {{ kapital.kapital.stammkapital_formatted }}</cell>
+
+    </table>
+    
+    <lb/>
+    <text>Die Gründer verpflichten sich hiermit bedingungslos, die dem Ausgabebetrag der von ihnen gezeichneten Stammanteile entsprechende Einlage zu leisten.</text>
+    <text>Gemäss Statuten bestehen folgende Bestimmungen im Sinne von Art. 777a Abs. 2 OR:</text>
+    <text>Artikel 15 – Konkurrenzverbot</text>
+    <title name="tit"></title>
+    <lb/>
+    <text>Es sind folgende Einlagen geleistet worden:</text>
+    <lb/>
+    <text>CHF {{ kapital.kapital.liberierungsbetrag }} in Geld, durch Hinterlegung bei der {{ kapital.kapital.firma }}, als dem Bundesgesetz über die Banken und Sparkassen unterstelltes Institut, gemäss deren vorliegender schriftlicher Bescheinigung vom {{ kapital.kapital.datum }}, zur ausschliesslichen Verfügung der Gesellschaft.</text>
+    <lb/>
+    <text>Dadurch sind die dem Ausgabebetrag aller Stammanteile entsprechenden Einlagen vollständig erbracht.</text>
+    <title name="tit"></title>
+    <lb/>
+    <text>wir stellen fest, dass:</text>
+    
+    <list type="numbering">
+        <point>sämtliche Stammanteile gültig gezeichnet sind;</point>
+        <point>die Einlagen dem gesamten Ausgabebetrag entsprechen;</point>
+        <point>die gesetzlichen und statutarischen Anforderungen an die Leistung der Einlagen erfüllt sind.</point>
+    </list>
+    <title name="tit"></title>
+    <lb/>
+    <text>Wir bestellen als Geschäftsführer:</text>
+    <list type="bullet">
+        {%for g in geschaftsfuhrung.geschaftsfuhrer %}
+            <point>{{ g.vorname }} {{ g.name }}, geboren am {{ g.geburtsdatum }}, von {{ g.heimatort }} in {{ g.ort }}</point>
+        {%endfor%}
+    </list>
+    <text>Die entsprechenden Wahlannahmeerklärungen liegen vor.</text>
+    <text>Wir erklären hiermit, auf eine eingeschränkte Revision gemäss Art. 818 i.V.m. Art. 727a OR zu verzichten. Die Voraussetzungen für einen solchen Verzicht sind erfüllt.</text>
+    <lb/>
+    <title name="tit"></title>
+    <lb/>
+    <text>Abschliessend erklären wir die Gesellschaft den gesetzlichen Vorschriften entsprechend als gegründet. Die Geschäftsführung ist ermächtigt und beauftragt, die Gesellschaft zur Eintragung ins Handelsregister anzumelden.</text>
+    <text>Ferner bevollmächtigen wir jedes Mitglied der Geschäftsführung einzeln, allfällige, wegen Beanstandung durch die Handelsregisterbehörde erforderliche Änderungen an den Statuten oder am Errichtungsakt, durch einen öffentlich zu beurkundenden Nachtrag namens der Gründer vorzunehmen.</text>
+    <pagebreak/>
+    <text>{{ notariat.notariat.ort }}, {{ notariat.notariat.datum }}</text>
+    <lb/>
+    
+    <table columns="2" rows="{{ grunder.grunder|length  + grunder.grunder|length % 2 }}" style="borderless">
+        {% for g in grunder.grunder %}
+        
+            {% if loop.index0 % 2 == 0 and loop.index != grunder.grunder|length %}
+                <cell><paragraph></paragraph><paragraph></paragraph><paragraph border_bottom="true"></paragraph></cell>
+                <cell><paragraph></paragraph><paragraph></paragraph><paragraph border_bottom="true"></paragraph></cell>
+            {% endif %}
+        
+            {% if loop.index0 % 2 == 0 and loop.index == grunder.grunder|length %}
+                <cell><paragraph></paragraph><paragraph></paragraph><paragraph border_bottom="true"></paragraph></cell>
+                <cell><paragraph></paragraph><paragraph></paragraph><paragraph></paragraph></cell>
+            {% endif %}
+        
+            <cell><text>{{ g.vorname }} {{ g.name }}</text></cell>
+        
+            {% if loop.index == grunder.grunder|length and grunder.grunder|length % 2 == 1 %}
+                <cell></cell>
+            {% endif %}
+        
+        {% endfor %}
+    </table>
+    
+
+
+    
+    <lb/>
+    <lb/>
+    <text style_name="heading">Öffentliche Beurkundung</text>
+    <lb/>
+    <text>Die unterzeichnende Urkundsperson bestätigt im Sinne von Art. 777b Abs. 1 OR, dass ihr und {% if grunder.sex=='mp' %}den Gründern{% elif grunder.sex=='fp' %}den Gründerinnen{% elif grunder.sex=='ms' %}dem Gründer{% elif grunder.sex=='fs' %}der Gründerin{% endif %} {% if grunder.vertretung %}bzw. deren Vertretern {% endif %}alle in dieser Urkunde einzeln genannten Belege vorgelegen haben.{{ grunder.vertretung }}</text>
+    <text>Diese Urkunde (mit Statuten) enthält den mir mitgeteilten Parteiwillen. Sie ist von {% if grunder.sex=='mp' or grunder.sex=='fp' %}den{% else %}der{% endif %} in der Urkunde genannten erschienenen {% if grunder.sex=='mp' or grunder.sex=='fp' %}Personen{% else %}Person{% endif %} gelesen, als richtig anerkannt und unterzeichnet worden.</text>
+    <text>{{ notariat.notariat.ort }}, {{ notariat.notariat.datum }}</text>
+    
+    <text alignment="right" bold="true">{{ notariat.notariat.ort }}, {{ notariat.notariat.datum }}</text>
+    <paragraph alignment="right"></paragraph>
+    <paragraph alignment="right"></paragraph>
+    <text alignment="right">{{ notariat.notariat.name }}, Notar</text>
+
+    
+    
+    
+    
+    
+    
+
+
+
+</document>

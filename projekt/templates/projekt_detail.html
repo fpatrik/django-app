@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Projekt {{ projekt.name }}
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+	<div class="row" style="margin-top:50px;">
+	  	<div class="col-md-10 col-md-offset-1">
+	  		<ol class="breadcrumb" style="background-color:white;padding-left:0px;">
+			  <li><a href="{% url 'projekt:projekt' %}">Projekte</a></li>
+			  <li><a href="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}">{{ projekt.name }}</a></li>
+			  {% if active.tabs == 'ubersicht' %}
+			  <li><a href="{% url 'project_folder:project_folder' project_folder_id=project_folder.id %}?active=ubersicht">Übersicht</a></li>
+			  {% elif active.tabs == 'bearbeiten' %}
+			  <li><a href="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}?active=bearbeiten">Projekt bearbeiten</a></li>
+			  {% elif active.tabs == 'teams' %}
+			  <li><a href="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}?active=teams">Teameinstellungen</a></li>
+			  {% elif active.tabs == 'abschliessen' %}
+			  <li><a href="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}?active=abschliessen">Projekt {% if projekt.completed %}aktivieren{% else %}abschliessen{% endif %}</a></li>
+			  {% elif active.tabs == 'loschen' %}
+			  <li><a href="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}?active=loschen">Projekt löschen</a></li>
+			  {% endif %}
+			</ol>
+	  	</div>
+	</div>
+	<div class="row" style="margin-top:10px;">
+	  	<div class="col-md-10 col-md-offset-1">
+	  		<h2>Projekt {{ projekt.name }}{% if projekt.completed %} (Abgeschlossen){% endif %}</h2>
+	  		<p>{{ projekt.description }} </p>
+	  		<p style="margin-top:30px;"><strong>Teams: </strong>{% for team in projekt.teams.all %}{{ team.name }}{% if team.id == projekt.lead.id%} (Lead){% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+	  	</div>
+	</div>
+	<div class="row" style="margin-top:30px;">
+	  	<div class="col-md-10 col-md-offset-1">
+	  		<ul class="nav nav-tabs">
+  				<li {% if active.tabs == 'ubersicht' %}class="active"{% endif %}><a href="{% url 'project_folder:project_folder' project_folder_id=project_folder.id %}?active=ubersicht">Übersicht</a></li>
+  				{% if not projekt.completed %}
+  				{% if user.conventecuser.role == 'admin' or user.conventecuser.role == 'manager' %}
+  				<li {% if active.tabs == 'bearbeiten' %}class="active"{% endif %}><a href="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}?active=bearbeiten">Projekt bearbeiten</a></li>
+  				<li {% if active.tabs == 'teams' %}class="active"{% endif %}><a href="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}?active=teams">Teameinstellungen</a></li>
+  				{% endif %}
+  				{% endif %}
+  				{% if user.conventecuser.role == 'admin' or user.conventecuser.role == 'manager' %}
+  				<li {% if active.tabs == 'abschliessen' %}class="active"{% endif %}><a href="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}?active=abschliessen">Projekt {% if not projekt.completed %}abschliessen{% else %}aktivieren{% endif %}</a></li>
+  				<li {% if active.tabs == 'loschen' %}class="active"{% endif %}><a href="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}?active=loschen">Projekt löschen</a></li>
+  				{% endif %}
+			</ul>
+	  	</div>
+	</div>
+	{% if active.tabs == 'ubersicht' %}
+	<div class="row" style="margin-top:50px;">
+		<div class="col-md-10 col-md-offset-1">
+			<h4>Geschäfte</h4>
+		</div>
+  		<div class="col-md-10 col-md-offset-1" style="margin-top:30px;">
+  			<div class="table-responsive">
+  				<table class="table table-hover" data-link="row">
+					<thead>
+      					<tr>
+        					<th>Name <a href="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}?active={{active.tabs}}&sort=name&reverse=false"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></a><a href="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}?active={{active.tabs}}&sort=name&reverse=true"></span><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></a></th>
+        					<th>Typ <a href="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}?active={{active.tabs}}&sort=type&reverse=false"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></a><a href="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}?active={{active.tabs}}&sort=type&reverse=true"></span><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></a></th>
+        					<th>Erstellt <a href="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}?active={{active.tabs}}&sort=created&reverse=false"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></a><a href="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}?active={{active.tabs}}&sort=created&reverse=true"></span><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></a></th>
+        					<th>Zuletzt Bearbeitet <a href="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}?active={{active.tabs}}&sort=edited&reverse=false"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></a><a href="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}?active={{active.tabs}}&sort=edited&reverse=true"></span><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></a></th>
+      					</tr>
+    				</thead>
+    				<tbody>
+    					{% for geschaft in geschafts %}
+    						<tr style="cursor:pointer;">
+        						<td><a href="{% url 'geschaft:geschaft' geschaft_id=geschaft.id %}"></a><strong>{{ geschaft.name }}</strong></td>
+        						<td>{{ geschaft.template.name }}</td>
+        						<td>{{ geschaft.str_created }}</td>
+        						<td>{{ geschaft.str_last_edited }}</td>
+      						</tr>
+						{% endfor %}
+    				</tbody>
+  				</table>
+			</div>
+			
+  		</div>
+	</div>
+	{% elif active.tabs == 'bearbeiten' and success == 'false' %}
+	<div class="row" style="margin-top:50px;">
+  		<div class="col-md-10 col-md-offset-1">
+  			<h4>Beschreibung ändern</h4>
+  			<form action="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}" method="post" style="margin-top:30px;">
+  				{% csrf_token %}
+  				<div class="form-group">
+  					<label>Name:</label>
+  					<input type="text" class="form-control" name="name" value="{{ projekt.name }}" style="max-width:500px;">
+				</div>
+				<div class="form-group">
+					<label>Beschreibung:</label>
+					<textarea class="form-control" rows="5" name="description" style="max-width:500px;">{{ projekt.description }}</textarea>
+				</div> 
+				<input type="hidden" name="active" value="{{ active.tabs }}">
+				<button type="submit" class="btn btn-primary" style="margin-top:30px;margin-bottom:30px;">Ändern</button>
+  			</form>
+  		</div>
+  	</div>
+  	{% elif active.tabs == 'teams' and success == 'false' %}
+  	<div class="row" style="margin-top:50px;">
+		<div class="col-md-10 col-md-offset-1">
+		<h4>Team hinzufügen</h4>
+		</div>
+  		<div class="col-md-10 col-md-offset-1" style="margin-top:30px;">
+  				<table class="table table-hover" id="table-add">
+					<thead>
+      					<tr>
+        					<th>Name</th>
+        					<th>Team zum Projekt hinzufügen</th>
+        					{% if projekt.lead in user.conventecuser.teams.all or user.conventecuser.role == 'admin' %}
+        					<th>Team als Projektlead hinzufügen</th>
+        					{% endif %}
+      					</tr>
+    				</thead>
+    				<tbody>
+    					{% for team in teams_passive %}
+    						<tr>
+        						<td>{{ team.name }}</td>
+        						
+        						<td><form action="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}#table-add" method="post">{% csrf_token %}<input type="hidden" name="add_team" value="{{ team.id }}"><button type='submit' class='btn btn-success'><span class='glyphicon glyphicon-plus' aria-hidden='false'></span></button></form></td>
+        						{% if projekt.lead in user.conventecuser.teams.all or user.conventecuser.role == 'admin' %}
+        						<td><form action="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}#table-add" method="post">{% csrf_token %}<input type="hidden" name="add_team" value="{{ team.id }}"><input type="hidden" name="change_lead" value="{{ team.id }}"><button type='submit' class='btn btn-success'><span class='glyphicon glyphicon-star' aria-hidden='false'></span></button></form></td>
+        						{% endif %}
+      						</tr>
+						{% endfor %}
+    				</tbody>
+  				</table>
+  		</div>
+	</div>
+	<div class="row" style="margin-top:50px;">
+		<div class="col-md-10 col-md-offset-1">
+		<h4>Team entfernen</h4>
+		</div>
+  		<div class="col-md-10 col-md-offset-1" style="margin-top:30px;">
+  				<table class="table table-hover" id="table-remove">
+					<thead>
+      					<tr>
+        					<th>Name</th>
+        					<th>Projektlead</th>
+        					{% if projekt.lead in user.conventecuser.teams.all or user.conventecuser.role == 'admin' %}
+        					<th>Team zum Projektlead machen</th>
+        					{% endif %}
+        					<th>Team entfernen</th>
+      					</tr>
+    				</thead>
+    				<tbody>
+    					{% for team in teams_active %}
+    						<tr>
+        						<td>{{ team.name }}</td>
+        						<td><span class='glyphicon glyphicon-{% if projekt.lead.id == team.id %}ok{% else %}minus{% endif %}' aria-hidden='false'></span></td>
+        						{% if projekt.lead in user.conventecuser.teams.all or user.conventecuser.role == 'admin' %}
+        						<td>{% if projekt.lead.id != team.id %}<form action="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}#table-add" method="post">{% csrf_token %}<input type="hidden" name="change_lead" value="{{ team.id }}"><button type='submit' class='btn btn-success'><span class='glyphicon glyphicon-star' aria-hidden='false'></span></button></form>{% endif %}</td>
+        						{% endif %}
+        						<td>{% if projekt.lead.id != team.id %}<form action="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}#table-add" method="post">{% csrf_token %}<input type="hidden" name="remove_team" value="{{ team.id }}"><button type='submit' class='btn btn-danger'><span class='glyphicon glyphicon-remove' aria-hidden='false'></span></button></form>{% else %}Projektlead kann nicht entfernt werden.{% endif%}</td>
+      						</tr>
+						{% endfor %}
+    				</tbody>
+  				</table>
+  		</div>
+	</div>
+  	{% elif active.tabs == 'abschliessen' and success == 'false' %}
+  	<div class="row" style="margin-top:50px;">
+  		<div class="col-md-10 col-md-offset-1">
+  			<h4>{% if projekt.completed %}Aktivieren{% else %}Abschliessen{% endif %}</h4>
+  			<form action="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}" method="post" style="margin-top:30px;">
+  				{% csrf_token %}
+  				<input type="hidden" name="abschliessen" value="{% if projekt.completed %}false{% else %}true{% endif %}">
+  				<input type="hidden" name="active" value="{{ active.tabs }}">
+				<button type="submit" class="btn btn-primary" style="margin-top:30px;margin-bottom:30px;">{% if projekt.completed %}Projekt aktivieren{% else %}Projekt abschliessen{% endif %}</button>
+  			</form>
+  		</div>
+  	</div>
+  	{% elif active.tabs == 'loschen' and success == 'false' %}
+  	<div class="row" style="margin-top:50px;">
+  		<div class="col-md-10 col-md-offset-1">
+  			<h4>Löschen</h4>
+  			<form action="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}" method="post" style="margin-top:30px;">
+  				{% csrf_token %}
+  				<input type="hidden" name="loschen" value="true">
+  				<input type="hidden" name="active" value="{{ active.tabs }}">
+				<button type="submit" class="btn btn-primary" style="margin-top:30px;margin-bottom:30px;" onclick="delete_project(event);">Projekt löschen</button>
+  			</form>
+  		</div>
+  	</div>
+	{% else %}
+	<div class="row" style="margin-top:50px;">
+  		<div class="col-md-10 col-md-offset-1">
+  			<div class="alert alert-success">
+			 	Projekt erfolgreich bearbeitet.
+			</div>
+  		</div>
+	</div>
+	{% endif %}
+</div>
+<script>
+function delete_project(e) {
+	if(confirm("Wollen Sie das Projekt, sowie alle darin enthaltenen Geschäfte unwiderruflich löschen?")){
+	}
+	else{
+		e.preventDefault();
+	}
+}
+
+</script>
+{% endblock %}

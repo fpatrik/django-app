@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Projekt {{ projekt.name }}
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+	<div class="row" style="margin-top:50px;">
+	  	<div class="col-md-10 col-md-offset-1">
+	  		<ol class="breadcrumb" style="background-color:white;padding-left:0px;">
+			  <li><a href="{% url 'projekt:projekt' %}">Projekte</a></li>
+			  <li><a href="{% url 'project_folder:project_folder' project_folder_id=projekt.project_folder.id %}?active=ubersicht">{{ projekt.name }}</a></li>
+			  <li><a href="{% url 'project_folder:project_folder' project_folder_id=projekt.project_folder.id %}?active=ubersicht">Übersicht</a></li>
+			  {% for f in parent_folders %}
+			  {% if not forloop.first %}
+			  <li><a href="{% url 'project_folder:project_folder' project_folder_id=f.id %}?active=ubersicht">{{ f.name }}</a></li>
+			  {% endif %}
+			  {% endfor %}
+			</ol>
+	  	</div>
+	</div>
+	<div class="row" style="margin-top:10px;">
+	  	<div class="col-md-10 col-md-offset-1">
+	  		<h2>Projekt {{ projekt.name }}{% if projekt.completed %} (Abgeschlossen){% endif %}</h2>
+	  		<p>{{ projekt.description }} </p>
+	  		<p style="margin-top:30px;"><strong>Teams: </strong>{% for team in projekt.teams.all %}{{ team.name }}{% if team.id == projekt.lead.id%} (Lead){% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+	  	</div>
+	</div>
+	<div class="row" style="margin-top:30px;">
+	  	<div class="col-md-10 col-md-offset-1">
+	  		<ul class="nav nav-tabs">
+  				<li {% if active.tabs == 'ubersicht' %}class="active"{% endif %}><a href="{% url 'project_folder:project_folder' project_folder_id=projekt.project_folder.id %}?active=ubersicht">Übersicht</a></li>
+  				{% if not projekt.completed %}
+  				{% if user.conventecuser.role == 'admin' or user.conventecuser.role == 'manager' %}
+  				<li {% if active.tabs == 'bearbeiten' %}class="active"{% endif %}><a href="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}?active=bearbeiten">Projekt bearbeiten</a></li>
+  				<li {% if active.tabs == 'teams' %}class="active"{% endif %}><a href="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}?active=teams">Teameinstellungen</a></li>
+  				{% endif %}
+  				{% endif %}
+  				{% if user.conventecuser.role == 'admin' or user.conventecuser.role == 'manager' %}
+  				<li {% if active.tabs == 'abschliessen' %}class="active"{% endif %}><a href="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}?active=abschliessen">Projekt {% if not projekt.completed %}abschliessen{% else %}aktivieren{% endif %}</a></li>
+  				<li {% if active.tabs == 'loschen' %}class="active"{% endif %}><a href="{% url 'projekt:projekt_detail' projekt_id=projekt.id %}?active=loschen">Projekt löschen</a></li>
+  				{% endif %}
+			</ul>
+	  	</div>
+	</div>
+	<div class="row" style="margin-top:50px;">
+		<div class="col-md-10 col-md-offset-1">
+			<h4 id="folder-title">{{ project_folder.name }}</h4>
+		</div>
+	</div>
+	<div class="row" style="margin-top:10px;">
+  		<div class="col-md-10 col-md-offset-1" style="margin-top:30px;">
+  			<div class="table-responsive">
+  				<table class="table table-hover" data-link="row">
+					<thead>
+      					<tr>
+      						<th></th>
+        					<th>Name <a href="{% url 'project_folder:project_folder' project_folder_id=project_folder.id %}?active={{active.tabs}}&sort=name&reverse=false#folder-title"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></a><a href="{% url 'project_folder:project_folder' project_folder_id=project_folder.id %}?active={{active.tabs}}&sort=name&reverse=true#folder-title"></span><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></a></th>
+        					<th>Typ <a href="{% url 'project_folder:project_folder' project_folder_id=project_folder.id %}?active={{active.tabs}}&sort=type&reverse=false#folder-title"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></a><a href="{% url 'project_folder:project_folder' project_folder_id=project_folder.id %}?active={{active.tabs}}&sort=type&reverse=true#folder-title"></span><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></a></th>
+        					<th>Erstellt <a href="{% url 'project_folder:project_folder' project_folder_id=project_folder.id %}?active={{active.tabs}}&sort=created&reverse=false#folder-title"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></a><a href="{% url 'project_folder:project_folder' project_folder_id=project_folder.id %}?active={{active.tabs}}&sort=created&reverse=true#folder-title"></span><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></a></th>
+        					<th>Zuletzt bearbeitet <a href="{% url 'project_folder:project_folder' project_folder_id=project_folder.id %}?active={{active.tabs}}&sort=edited&reverse=false#folder-title"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></a><a href="{% url 'project_folder:project_folder' project_folder_id=project_folder.id %}?active={{active.tabs}}&sort=edited&reverse=true#folder-title"></span><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></a></th>
+        					<th>Löschen</th>
+      					</tr>
+    				</thead>
+    				<tbody>
+    					{% for folder in folders %}
+    						<tr style="cursor:pointer;">
+    							<td><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span></td>
+        						<td><a href="{% url 'project_folder:project_folder' project_folder_id=folder.id %}#folder-title"></a><strong>{{ folder.name }}</strong></td>
+        						<td>Ordner</td>
+        						<td>{{ folder.str_created }}</td>
+        						<td>{{ folder.str_last_edited }}</td>
+        						<td><form action="{% url 'project_folder:project_folder' project_folder_id=project_folder.id %}" method="post">{% csrf_token %}<input type="hidden" name="delete_folder" value="{{ folder.id }}"><button type='submit' class='btn btn-danger delete-folder'><span class='glyphicon glyphicon-remove' aria-hidden='false'></span></button></form></td>
+      						</tr>
+						{% endfor %}
+    					{% for geschaft in geschafts %}
+    						<tr style="cursor:pointer;">
+    							<td><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span></td>
+        						<td><a href="{% url 'geschaft:geschaft' geschaft_id=geschaft.id %}"></a><strong>{{ geschaft.name }}</strong></td>
+        						<td>{{ geschaft.template.name }}</td>
+        						<td>{{ geschaft.str_created }}</td>
+        						<td>{{ geschaft.str_last_edited }}</td>
+        						<td><form action="{% url 'project_folder:project_folder' project_folder_id=project_folder.id %}" method="post">{% csrf_token %}<input type="hidden" name="delete_geschaft" value="{{ geschaft.id }}"><button type='submit' class='btn btn-danger delete-geschaft'><span class='glyphicon glyphicon-remove' aria-hidden='false'></span></button></form></td>
+      						</tr>
+						{% endfor %}
+    				</tbody>
+  				</table>
+			</div>
+  		</div>
+	</div>
+	<script>
+		var folders = document.getElementsByClassName('delete-folder');
+		for(var i = 0; i < folders.length; i++){
+			folders[i].addEventListener('click', function(e){
+				e.preventDefault();
+				e.stopPropagation();
+			    if(confirm('Wollen Sie den Ordner und alle Inhalte endgültig löschen?')){
+			    	e.target.parentElement.submit();
+			    }
+			})
+		}
+		var geschafts = document.getElementsByClassName('delete-geschaft');
+		for(var i = 0; i < geschafts.length; i++){
+			geschafts[i].addEventListener('click', function(e){
+				e.preventDefault();
+				e.stopPropagation();
+			    if(confirm('Wollen Sie das Geschäft endgültig löschen?')){
+			    	e.target.parentElement.submit();
+			    }
+			})
+		}
+	</script>
+	{% if not projekt.completed %}
+	<div class="row" style="margin-top:50px;margin-bottom:30px;cursor:pointer;">
+		<div class="col-md-10 col-md-offset-1">
+			{% if project_folder.parent_folder %}
+			<a href="{% url 'project_folder:project_folder' project_folder_id=project_folder.parent_folder.id %}#folder-title"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Zurück</a>
+			{% endif %}
+		</div>
+	</div>
+	<div class="row" style="cursor:pointer;margin-top:50px;">
+		<div class="col-md-10 col-md-offset-1">
+			<form action="{% url 'project_folder:project_folder' project_folder_id=project_folder.id %}" method="post">
+				<div class="input-group" style="max-width:500px;">
+					{% csrf_token %}
+					<input type="text" name="add_folder" class="form-control" placeholder="Name">
+					<span class="input-group-btn">
+				    	<button type='submit' class='btn btn-success'>Ordner hinzufügen</button></form>
+				    </span>
+	    		</div>
+	    	</form>
+		</div>
+	</div>
+	<div class="row" style="cursor:pointer;margin-top:50px;">
+		<div class="col-md-10 col-md-offset-1">
+			<div class="panel panel-primary" style="min-height:300px;">
+				<div class="panel-heading">
+					<p>Geschäft hinzufügen</p>
+				</div>
+  				<div class="panel-body" id="geschaft-selection">
+  					<ul class="nav nav-pills nav-stacked" style="max-width:200px;display:inline-block;vertical-align:top;">
+  						{% for t_container in top_containers %}
+						<li {% if container and t_container.id == container.id %}class="active"{% endif %}><a href="{% url 'project_folder:project_folder' project_folder_id=project_folder.id %}?container={{ t_container.id }}#geschaft-selection">{{ t_container.name }}</a></li>
+						{% endfor %}
+					</ul>
+					{% if parent_containers %}
+					{% for p_container in parent_containers %}
+					{% if not forloop.first %}
+					<ul class="nav nav-pills nav-stacked" style="max-width:200px;display:inline-block;vertical-align:top;">
+						<li {% if container and p_container.id == container.id %}class="active"{% endif %}><a href="{% url 'project_folder:project_folder' project_folder_id=project_folder.id %}?container={{ p_container.id }}#geschaft-selection">{{ p_container.name }}</a></li>
+					</ul>
+					{% endif %}
+					{% endfor %}
+					{% endif %}
+					{% if final_containers %}
+					<ul class="nav nav-pills nav-stacked" style="max-width:200px;display:inline-block;vertical-align:top;">
+					{% for f_container in final_containers %}
+						<li><a href="{% url 'project_folder:project_folder' project_folder_id=project_folder.id %}?container={{ f_container.id }}#geschaft-selection">{{ f_container.name }}</a></li>
+					{% endfor %}
+					</ul>
+					{% endif %}
+					{% if final_templates %}
+					<ul class="nav nav-pills nav-stacked" style="max-width:500px;display:inline-block;vertical-align:top;">
+					{% for template in final_templates %}
+						<li><a class="geschaft-click" data-template-id="{{ template.id }}">{{ template.name }}</a></li>
+					{% endfor %}
+					</ul>
+					{% endif %}
+					<form id="add-geschaft-form" action="{% url 'project_folder:project_folder' project_folder_id=project_folder.id %}" method="post" style="margin-top:50px;display:none;">
+					<div class="input-group" style="max-width:500px;">
+						{% csrf_token %}
+						<input id="input-template-id" type="hidden" name="add_geschaft" value="" class="form-control" placeholder="Name">
+						<input type="text" name="geschaft_name" value="" class="form-control" placeholder="Name">
+						<span class="input-group-btn">
+					    	<button type='submit' class='btn btn-success'>Geschäft hinzufügen</button></form>
+					    </span>
+		    		</div>
+	    	</form>
+  				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+	var geschafts = document.getElementsByClassName('geschaft-click');
+	for(var i = 0; i < geschafts.length; i++){
+		geschafts[i].addEventListener('click', function(e){
+			var form = document.getElementById('add-geschaft-form');
+			form.style.display = 'block';
+			document.getElementById('input-template-id').value = e.target.getAttribute('data-template-id');
+			var geschafts = document.getElementsByClassName('geschaft-click');
+			for(var i = 0; i < geschafts.length; i++){
+				geschafts[i].parentElement.setAttribute("class", "");
+			}
+			e.target.parentElement.setAttribute("class", "active");
+		})
+	}
+	</script>
+	{% endif %}
+</div>
+{% endblock %}

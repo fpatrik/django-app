@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Einstellungen
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+	<div class="row" style="margin-top:50px;">
+	  	<div class="col-md-10 col-md-offset-1">
+	  		<ol class="breadcrumb" style="background-color:white;padding-left:0px;">
+			  <li><a href="{% url 'settings:settings' %}">Einstellungen</a></li>
+			</ol>
+	  	</div>
+	</div>
+	<div class="row" style="margin-top:10px;">
+	  	<div class="col-md-10 col-md-offset-1">
+	  		<h2>Einstellungen</h2>
+	  	</div>
+	</div>
+	<div class="row" style="margin-top:50px;">
+  		<div class="col-md-10 col-md-offset-1">
+  			<h4>Passwort Ändern</h4>
+  			<form action="{% url 'settings:settings' %}" method="post" style="margin-top:30px;">
+  				{% csrf_token %}
+  				<div class="form-group">
+  					<label>Altes Passwort:</label>
+  					<input type="password" class="form-control" name="pw_old" style="max-width:500px;">
+				</div>
+				<div class="form-group">
+  					<label>Neues Passwort:</label>
+  					<input type="password" class="form-control" name="pw_new_1" style="max-width:500px;">
+				</div>
+				<div class="form-group">
+  					<label>Neues Passwort wiederholen:</label>
+  					<input type="password" class="form-control" name="pw_new_2" style="max-width:500px;">
+				</div>
+				{% if message != None %}
+	  			<div class="alert alert-{% if error %}danger{% else %}success{% endif %}" style="max-width:500px;">
+				 	{{ message }}
+				</div>
+				{% endif %}
+				<button type="submit" class="btn btn-primary" style="margin-top:30px;margin-bottom:30px;">Ändern</button>
+  			</form>
+  		</div>
+  	</div>
+</div>
+{% endblock %}

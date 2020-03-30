@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document font_type="Calibri" font_size="12" text_color="black" spacing_before="60" spacing_after="60">
+	<style name="docheading1" font_size="16" bold="true" alignment="left"/>
+	<style name="docheading1e" font_size="14" bold="true" italics="true" alignment="left"/>
+	<style name="text1" font_size="11" alignment="left"/>
+	<style name="text1bold" font_size="11" bold="true" alignment="left" keep_next="true"/>
+	<style name="text1boldsmall" font_size="8" bold="true" alignment="left" keep_next="true"/>
+	<style name="text1both" font_size="11" alignment="both"/>
+	<style name="text1e" font_size="9" italics="true" alignment="left"/>
+	<style name="text1ebold" font_size="9" bold="true" italics="true" alignment="left" spacing_after="180"/>
+	<style name="text1eboldsmall" font_size="8" bold="true" italics="true" alignment="left"/>
+	<style name="text1eboth" font_size="9" italics="true" alignment="both" spacing_after="180"/>
+	<style name="text2" font_size="14" bold="true" alignment="center"/>
+	<style name="text2e" font_size="12" bold="true" alignment="center" spacing_after="180"/>
+	<style name="signature1" font_size="11" bold="true" alignment="left"/>
+	<style name="signature1e" font_size="9" bold="true" italics="true" alignment="left"/>
+	<style name="text1right" font_size="11" alignment="right"/>
+	<style name="text1eright" font_size="9" italics="true" alignment="right"/>
+
+	<footer>
+		<default>
+			<paragraph alignment="right">
+				<pagenumber font_size="11"/>
+			</paragraph>
+		</default>
+	</footer>
+
+    <paragraph style_name="text1bold" alignment="center">
+       <text>Protokoll</text>
+    </paragraph>
+    <paragraph style_name="text1ebold" alignment="center">
+       <text>Minutes</text>
+    </paragraph>
+
+	<paragraph style_name="text1" alignment="center">
+       <text>über die</text>
+    </paragraph>
+    <paragraph style_name="text1e" alignment="center">
+       <text>of the</text>
+    </paragraph>
+
+    <paragraph>
+    </paragraph>
+
+    <paragraph style_name="text2" alignment="center">
+       <text>Beschlüsse der ausserordentlichen Generalversammlung</text>
+    </paragraph>
+    <paragraph style_name="text2e" alignment="center" italic="true">
+       <text>Resolutions of the Extraordinary Shareholders’ Meeting</text>
+    </paragraph>
+
+    <paragraph style_name="text1" alignment="center">
+       <text>der</text>
+    </paragraph>
+    <paragraph style_name="text1e" alignment="center">
+       <text>of</text>
+    </paragraph>
+
+    <paragraph>
+    </paragraph>
+    
+	<paragraph style_name="text2" alignment="center">
+     	<text>{{angaben.firma.firma}}</text>
+    </paragraph>
+
+    {% if angaben.firma.ubersetzung_1 %}
+    <paragraph style_name="text2e" alignment="center" bold="false">
+     	<text>({{angaben.firma.ubersetzung_1}})</text>
+    </paragraph>
+    {%else%}
+    {%endif%}
+
+    {% if angaben.firma.ubersetzung_2 %}
+    <paragraph style_name="text2e" alignment="center" bold="false">
+     	<text>({{angaben.firma.ubersetzung_2}})</text>
+    </paragraph>
+    {%else%}
+    {%endif%}
+
+    {% if angaben.firma.ubersetzung_3 %}
+    <paragraph style_name="text2e" alignment="center" bold="false">
+     	<text>({{angaben.firma.ubersetzung_3}})</text>
+    </paragraph>
+    {%else%}
+    {%endif%}
+
+    <paragraph style_name="text1" alignment="center">
+    	<text>(die "</text><text bold="true">Gesellschaft</text><text>")</text>
+    </paragraph>
+
+    <paragraph style_name="text1e" alignment="center">
+    	<text>(the "</text><text bold="true">Company</text><text>")</text>
+    </paragraph>
+
+    <paragraph style_name="text1">
+    	<text></text>
+    </paragraph>
+
+    <paragraph style_name="text1" alignment="center">
+    	<text>mit Sitz in {{angaben.firma.sitzgemeinde}}</text>
+    </paragraph>
+
+    <paragraph style_name="text1e" alignment="center">
+    	<text>with seat in {{angaben.firma.sitzgemeinde}}</text>
+    </paragraph>
+
+    <paragraph>
+    </paragraph>
+
+    <paragraph style_name="text1" alignment="center">
+    	<text>betreffend</text>
+    </paragraph>
+
+    <paragraph style_name="text1e" alignment="center">
+    	<text>concerning</text>
+    </paragraph>
+
+    <paragraph style_name="text1both">
+    	<text></text>
+    </paragraph>
+
+    <paragraph style_name="text1bold" alignment="center">
+    	<text>– Abberufung von {% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="gesellschaft" %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.firma}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de is defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de is not defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%} als Revisionsstelle und Verzicht auf eingeschränkte Revision (Opting-Out) / </text><text italics="true">Revocation of {% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="gesellschaft" %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.firma}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_en is defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.titel_en}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_en is not defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%} as auditors and waiver of limited audit (opting-out) –</text>
+    </paragraph>
+    {% if traktanden.traktanden.decharge==true %}
+    <paragraph style_name="text1bold" alignment="center">
+    	<text>– Déchargeerteilung an {% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="gesellschaft" %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.firma}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de is defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de is not defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%} als Revisionsstelle / </text><text italics="true">Granting of discharge to {% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="gesellschaft" %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.firma}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_en is defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.titel_en}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_en is not defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%} as auditors –</text>
+    </paragraph>
+    {%endif%}
+
+     <paragraph style_name="text1both">
+    	<text></text>
+    </paragraph>
+
+    <paragraph style_name="text1both">
+    	<text>vom {{eroffnungen.datum.datum_de}} {% if eroffnungen.datum.ort=="sitz" %}am Sitz der Gesellschaft{%endif%}{% if eroffnungen.datum.ort=="naturlich" %}an der {{eroffnungen.datum.strasse}}, {{eroffnungen.datum.plz_de}}, {{eroffnungen.datum.land_de}}{%endif%}{% if eroffnungen.datum.ort=="juristisch" %}in den Räumlichkeiten der {{eroffnungen.datum.firma}}, {{eroffnungen.datum.strasse}}, {{eroffnungen.datum.plz_de}}, {{eroffnungen.datum.land_de}}{%endif%}.</text>
+    </paragraph>
+
+    <paragraph style_name="text1eboth">
+    	<text>of {{eroffnungen.datum.datum_en}} {% if eroffnungen.datum.ort=="sitz" %}at the seat of the Company {%endif%}{% if eroffnungen.datum.ort=="naturlich" %}at {{eroffnungen.datum.strasse}}, {{eroffnungen.datum.plz_en}}, {{eroffnungen.datum.land_en}}{%endif%}{% if eroffnungen.datum.ort=="juristisch" %}at the offices of {{eroffnungen.datum.firma}}, {{eroffnungen.datum.strasse}}, {{eroffnungen.datum.plz_en}}, {{eroffnungen.datum.land_en}}{%endif%}.</text>
+    </paragraph>
+
+    <table rows="1" columns="1" column_widths="20000" style="borderless">
+        <cell>
+            <paragraph style_name="text1" spacing_after="120" border_bottom="true">
+                <text></text>
+            </paragraph>
+        </cell>
+    </table>
+
+    <paragraph style_name="text1both">
+    	<text>{% if eroffnungen.vorsitzender.funktion=="prasident" and eroffnungen.vorsitzender.sex=="herr" %}Präsident des Verwaltungsrates, {%endif%}{% if eroffnungen.vorsitzender.funktion=="prasident" and eroffnungen.vorsitzender.sex=="frau" %}Präsidentin des Verwaltungsrates, {%endif%}{% if eroffnungen.vorsitzender.funktion=="mitglied" %}Mitglied des Verwaltungsrates, {%endif%}{% if eroffnungen.vorsitzender.funktion=="bevollmachtigter" %}{%endif%}eröffnet die ausserordentliche Generalversammlung (die "</text><text bold="true">Generalversammlung</text><text>") und übernimmt den Vorsitz ({%if eroffnungen.vorsitzender.sex=="herr" %}der {%else%}die {%endif%}</text><text bold="true">Vorsitzende</text><text>"). {%if eroffnungen.vorsitzender.sex=="herr" %}Er {%else%}Sie {%endif%}ernennt {% if eroffnungen.protokollfuhrer.titel_de is defined %}{{eroffnungen.protokollfuhrer.titel_de}} {%endif%}{{eroffnungen.protokollfuhrer.vorname}} {{eroffnungen.protokollfuhrer.nachname}} {% if eroffnungen.protokollfuhrer.sex=="herr" %}zum Protokollführer und Stimmenzähler (der "</text><text bold="true">Sekretär</text><text>").{%else%}zur Protokollführerin und Stimmenzählerin (die "</text><text bold="true">Sekretärin</text><text>").{%endif%}</text>
+    </paragraph>
+
+    <paragraph style_name="text1eboth">
+    	<text>{% if eroffnungen.vorsitzender.titel_en is defined %}{{eroffnungen.vorsitzender.titel_en}} {%endif%}{{eroffnungen.vorsitzender.vorname}} {{eroffnungen.vorsitzender.nachname}}, {% if eroffnungen.vorsitzender.funktion=="prasident" %}chairman of the board, {%endif%}{% if eroffnungen.vorsitzender.funktion=="mitglied" %}member of the board, {%endif%}{% if eroffnungen.vorsitzender.funktion=="bevollmachtigter" %}{%endif%}opens the extraordinary shareholders' meeting (the "</text><text bold="true">Shareholders' Meeting</text><text>") and assumes the chair ({%if eroffnungen.vorsitzender.sex=="herr" %}the {%else%}the {%endif%}</text><text bold="true">Chairperson</text><text>"). {%if eroffnungen.vorsitzender.sex=="herr" %}He {%else%}She {%endif%}appoints {% if eroffnungen.protokollfuhrer.titel_en is defined %}{{eroffnungen.protokollfuhrer.titel_en}} {%endif%}{{eroffnungen.protokollfuhrer.vorname}} {{eroffnungen.protokollfuhrer.nachname}} as secretary and scrutineer (the "</text><text bold="true">Secretary</text><text>").</text>
+    </paragraph>
+
+
+
+    <pagebreak/>
+
+    <paragraph style_name="text2" alignment="left">
+    	<text>I. Feststellungen</text>
+    </paragraph>
+
+    <paragraph style_name="text2e" alignment="left">
+    	<text italics="true">Determinations</text>
+    </paragraph>
+
+    <paragraph style_name="text1both">
+    	<text>{%if eroffnungen.vorsitzender.sex=="herr" %}Der {%else%}Die {%endif%}Vorsitzende stellt fest:</text>
+    </paragraph>
+
+    <paragraph style_name="text1eboth">
+    	<text>The Chairperson states that</text>
+    </paragraph>
+
+    <list type="list">
+        <point spacing_after="180" alignment="both">
+        	<text style_name="text1both">die nicht anwesenden Mitglieder des Verwaltungsrates haben auf ihr Recht gemäss Art. 702a des Schweizerischen Obligationsrechts ("</text><text bold="true">OR</text><text>") verzichtet an der Generalversammlung teilzunehmen und Anträge zu stellen;</text>
+        	<lb/>
+        	<text style_name="text1eboth">the members of the board not present have waived their right to participate in the Shareholders Meeting and to make motions pursuant to Art. 702a of the Swiss Code of Obligations ("</text><text style_name="text1e" bold="true">CO</text><text style_name="text1e">");</text>
+        </point>
+        {% if eroffnungen.vertretung.aktien_a==true %}
+        {% set first_comma = false %}
+        {% set first_and = false %}
+        <point spacing_after="180" alignment="both">
+        	<text style_name="text1both">es {% if eroffnungen.vertretung.anwesende_n == 1 %}ist {%endif%}{% if eroffnungen.vertretung.anwesende_n > 1 %}sind {%endif%} {{eroffnungen.vertretung.anwesende}} {% if eroffnungen.vertretung.anwesende_n == 1 %}Aktionär anwesend bzw. vertreten, der {% endif%}{% if eroffnungen.vertretung.anwesende_n > 1 and eroffnungen.vertretung.geschlecht==false %}Aktionäre anwesend bzw. vertreten, die zusammen {%endif%}{% if eroffnungen.vertretung.anwesende_n > 1 and eroffnungen.vertretung.geschlecht==true %}Aktionärinnen anwesend bzw. vertreten, die zusammen {%endif%}{% if eroffnungen.aktien.namenaktien_stammaktien_n is defined and eroffnungen.aktien.namenaktien_stammaktien_n > 0 %}{% set first_comma = true %}{{eroffnungen.aktien.namenaktien_stammaktien_n}} Namenaktie{% if eroffnungen.aktien.namenaktien_stammaktien_n > 0 %}n{% endif %}{% if (eroffnungen.aktien.namenaktien_vorzugsaktien_kat1_n is not defined or eroffnungen.aktien.namenaktien_vorzugsaktien_kat1_n < 1) and (eroffnungen.aktien.namenaktien_vorzugsaktien_kat2_n is not defined or eroffnungen.aktien.namenaktien_vorzugsaktien_kat2_n < 1) and (eroffnungen.aktien.namenaktien_vorzugsaktien_kat3_n is not defined or eroffnungen.aktien.namenaktien_vorzugsaktien_kat3_n < 1) %} (Stammaktien){% endif %} mit einem Nennwert von {% if eroffnungen.aktien.namenaktien_stammaktien_n is defined and eroffnungen.aktien.namenaktien_stammaktien_n > 1 %}je {% endif %}CHF {{ shares.namen_stamm.value }}{% endif %}{% if eroffnungen.aktien.namenaktien_vorzugsaktien_kat1_n is defined and eroffnungen.aktien.namenaktien_vorzugsaktien_kat1_n > 0 %}{% if first_comma  %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien.namenaktien_vorzugsaktien_kat1_n }} Namenaktie{% if eroffnungen.aktien.namenaktien_vorzugsaktien_kat1_n > 0 %}n{% endif%} ({{ eroffnungen.aktien.namenaktien_vorzugsaktien_kat1_bezeichnung }}), mit einem Nennwert von {% if eroffnungen.aktien.namenaktien_vorzugsaktien_kat1_n is defined and eroffnungen.aktien.namenaktien_vorzugsaktien_kat1_n > 1 %}je {% endif %}CHF {{ shares.namen_vorzug_2.value }}{% endif %}{% if eroffnungen.aktien.namenaktien_vorzugsaktien_kat2_n is defined and eroffnungen.aktien.namenaktien_vorzugsaktien_kat2_n > 0 %}{% if first_comma %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien.namenaktien_vorzugsaktien_kat2_n }} Namenaktie{% if eroffnungen.aktien.namenaktien_vorzugsaktien_kat2_n > 0 %}n{% endif%} ({{ eroffnungen.aktien.namenaktien_vorzugsaktien_kat2_bezeichnung }}), mit einem Nennwert von {% if eroffnungen.aktien.namenaktien_vorzugsaktien_kat2_n is defined and eroffnungen.aktien.namenaktien_vorzugsaktien_kat2_n > 1 %}je {% endif %}CHF {{ shares.namen_vorzug_2.value }}{% endif %}{% if eroffnungen.aktien.namenaktien_vorzugsaktien_kat3_n is defined and eroffnungen.aktien.namenaktien_vorzugsaktien_kat3_n > 0 %}{% if first_comma %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien.namenaktien_vorzugsaktien_kat3_n }} Namenaktie{% if eroffnungen.aktien.namenaktien_vorzugsaktien_kat3_n > 0 %}n{% endif%} ({{ eroffnungen.aktien.namenaktien_vorzugsaktien_kat3_bezeichnung }}), mit einem Nennwert von {% if eroffnungen.aktien.namenaktien_vorzugsaktien_kat3_n is defined and eroffnungen.aktien.namenaktien_vorzugsaktien_kat3_n > 1 %}je {% endif %}CHF {{ shares.namen_vorzug_3.value }}{% endif %}{% if eroffnungen.aktien.namenaktien_stimmrechtsaktien_n is defined and eroffnungen.aktien.namenaktien_stimmrechtsaktien_n > 0 %}{% if first_comma %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien.namenaktien_stimmrechtsaktien_n }} Namenaktie{% if eroffnungen.aktien.namenaktien_stimmrechtsaktien_n > 0 %}n{% endif%} (Stimmrechtsaktien), mit einem Nennwert von {% if eroffnungen.aktien.namenaktien_stimmrechtsaktien_n is defined and eroffnungen.aktien.namenaktien_stimmrechtsaktien_n > 1 %}je {% endif %}CHF {{ shares.namen_stimm.value }}{% endif %}{% if eroffnungen.aktien.inhaberaktien_stammaktien_n is defined and eroffnungen.aktien.inhaberaktien_stammaktien_n > 0 %}{% if first_comma %} und {% set first_and = true %}{% endif %}{% set first_comma = true %}{{eroffnungen.aktien.inhaberaktien_stammaktien_n}} Inhaberaktie{% if eroffnungen.aktien.inhaberaktien_stammaktien_n > 1 %}n{%endif%}{% if (eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat1_n is not defined or eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat1_n < 1) and (eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat2_n is not defined or eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat2_n < 1) and (eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat3_n is not defined or eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat3_n < 1) %} (Stammaktien){% endif %} mit einem Nennwert von {% if eroffnungen.aktien.inhaberaktien_stammaktien_n is defined and eroffnungen.aktien.inhaberaktien_stammaktien_n > 1 %}je {% endif %}CHF {{ shares.inhaber_stamm.value }}{%endif%}{% if eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat1_n is defined and eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat1_n > 0 %}{% if first_comma %}{% if not first_and %} und {% set first_and = true %}{% endif %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat1_n }} Inhaberaktie{% if eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat1_n > 0 %}n{% endif%} ({{ eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat1_bezeichnung }}), mit einem Nennwert von {% if eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat1_n is defined and eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat1_n > 1 %}je {% endif %}CHF {{ shares.inhaber_vorzug_2.value }}{% endif %}{% if eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat2_n is defined and eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat2_n > 0 %}{% if first_comma %}{% if not first_and %} und {% set first_and = true %}{% endif %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat2_n }} Inhaberaktie{% if eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat2_n > 0 %}n{% endif%} ({{ eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat2_bezeichnung }}), mit einem Nennwert von {% if eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat2_n is defined and eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat2_n > 1 %}je {% endif %}CHF {{ shares.inhaber_vorzug_2.value }}{% endif %}{% if eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat3_n is defined and eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat3_n > 0 %}{% if first_comma %}{% if not first_and %} und {% set first_and = true %}{% endif %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat3_n }} Inhaberaktie{% if eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat3_n > 0 %}n{% endif%} ({{ eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat3_bezeichnung }}), mit einem Nennwert von {% if eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat3_n is defined and eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat3_n > 1 %}je {% endif %}CHF {{ shares.inhaber_vorzug_3.value }}{% endif %} {% if eroffnungen.vertretung.anwesende_n > 1 %}halten{% else %}hält{% endif %};</text>
+        	<lb/>
+            {% set first_comma = false %}
+            {% set first_and = false %}
+        	<text style_name="text1eboth">{{ eroffnungen.vertretung.anwesende_n }} shareholder{% if eroffnungen.vertretung.anwesende_n > 1%}s are{% else %} is{% endif %} either present or represented, holding {% if eroffnungen.vertretung.anwesende_n > 1%}in total {% endif %}{% if eroffnungen.aktien.namenaktien_stammaktien_n is defined and eroffnungen.aktien.namenaktien_stammaktien_n > 0 %}{% set first_comma = true %}{{eroffnungen.aktien.namenaktien_stammaktien_n}} registered share{% if eroffnungen.aktien.namenaktien_stammaktien_n > 1%}s{% endif %}{% if (eroffnungen.aktien.namenaktien_vorzugsaktien_kat1_n is not defined or eroffnungen.aktien.namenaktien_vorzugsaktien_kat1_n < 1) and (eroffnungen.aktien.namenaktien_vorzugsaktien_kat2_n is not defined or eroffnungen.aktien.namenaktien_vorzugsaktien_kat2_n < 1) and (eroffnungen.aktien.namenaktien_vorzugsaktien_kat3_n is not defined or eroffnungen.aktien.namenaktien_vorzugsaktien_kat3_n < 1) %} (ordinary shares){% endif %} with a nominal value of CHF {{ shares.namen_stamm.value }} {% if eroffnungen.aktien.namenaktien_stammaktien_n is defined and eroffnungen.aktien.namenaktien_stammaktien_n > 1 %}each{% endif %}{% endif %}{% if eroffnungen.aktien.namenaktien_vorzugsaktien_kat1_n is defined and eroffnungen.aktien.namenaktien_vorzugsaktien_kat1_n > 0 %}{% if first_comma  %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien.namenaktien_vorzugsaktien_kat1_n }} registered share{% if eroffnungen.aktien.namenaktien_vorzugsaktien_kat1_n > 0 %}s{% endif%} ({{ eroffnungen.aktien.namenaktien_vorzugsaktien_kat1_bezeichnung }}), with a nominal value of CHF {{ shares.namen_vorzug_2.value }} {% if eroffnungen.aktien.namenaktien_vorzugsaktien_kat1_n is defined and eroffnungen.aktien.namenaktien_vorzugsaktien_kat1_n > 1 %}each{% endif %}{% endif %}{% if eroffnungen.aktien.namenaktien_vorzugsaktien_kat2_n is defined and eroffnungen.aktien.namenaktien_vorzugsaktien_kat2_n > 0 %}{% if first_comma  %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien.namenaktien_vorzugsaktien_kat2_n }} registered share{% if eroffnungen.aktien.namenaktien_vorzugsaktien_kat2_n > 0 %}s{% endif%} ({{ eroffnungen.aktien.namenaktien_vorzugsaktien_kat2_bezeichnung }}), with a nominal value of CHF {{ shares.namen_vorzug_2.value }} {% if eroffnungen.aktien.namenaktien_vorzugsaktien_kat2_n is defined and eroffnungen.aktien.namenaktien_vorzugsaktien_kat2_n > 1 %}each{% endif %}{% endif %}{% if eroffnungen.aktien.namenaktien_vorzugsaktien_kat3_n is defined and eroffnungen.aktien.namenaktien_vorzugsaktien_kat3_n > 0 %}{% if first_comma  %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien.namenaktien_vorzugsaktien_kat3_n }} registered share{% if eroffnungen.aktien.namenaktien_vorzugsaktien_kat3_n > 0 %}s{% endif%} ({{ eroffnungen.aktien.namenaktien_vorzugsaktien_kat3_bezeichnung }}), with a nominal value of CHF {{ shares.namen_vorzug_3.value }} {% if eroffnungen.aktien.namenaktien_vorzugsaktien_kat3_n is defined and eroffnungen.aktien.namenaktien_vorzugsaktien_kat3_n > 1 %}each{% endif %}{% endif %}{% if eroffnungen.aktien.namenaktien_stimmrechtsaktien_n is defined and eroffnungen.aktien.namenaktien_stimmrechtsaktien_n > 0 %}{% if first_comma  %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien.namenaktien_stimmrechtsaktien_n }} registered share{% if eroffnungen.aktien.namenaktien_stimmrechtsaktien_n > 0 %}s{% endif%} (shares with privileged voting rights), with a nominal value of CHF {{ shares.namen_stimm.value }}{% endif %} {% if eroffnungen.aktien.namenaktien_stimmrechtsaktien_n is defined and eroffnungen.aktien.namenaktien_stimmrechtsaktien_n > 1 %}each{% endif %}{% if eroffnungen.aktien.inhaberaktien_stammaktien_n is defined and eroffnungen.aktien.inhaberaktien_stammaktien_n > 1 %}{% if first_comma %} und {% set first_and = true %}{% endif %}{% set first_comma = true %}{{eroffnungen.aktien.inhaberaktien_stammaktien_n}} bearer shares{%endif%}{% if eroffnungen.aktien.inhaberaktien_stammaktien_n is defined and eroffnungen.aktien.inhaberaktien_stammaktien_n ==1 %}{{eroffnungen.aktien.inhaberaktien_stammaktien_n}} bearer share {% if (eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat1_n is not defined or eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat1_n < 1) and (eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat2_n is not defined or eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat2_n < 1) and (eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat3_n is not defined or eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat3_n < 1) %} (ordinary shares){% endif %} with a nominal value of CHF {{ shares.inhaber_stamm.value }} {% if eroffnungen.aktien.inhaberaktien_stammaktien_n is defined and eroffnungen.aktien.inhaberaktien_stammaktien_n > 1 %}each{% endif %}{%endif%}{% if eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat1_n is defined and eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat1_n > 0 %}, {{ eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat1_n }} bearer share{% if eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat1_n > 0 %}s{% endif%} ({{ eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat1_bezeichnung }}), with a nominal value of CHF {{ shares.inhaber_vorzug_2.value }} {% if eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat1_n is defined and eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat1_n > 1 %}each{% endif %}{% endif %}{% if eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat2_n is defined and eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat2_n > 0 %}{% if first_comma %}{% if not first_and %} und {% set first_and = true %}{% endif %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat2_n }} bearer share{% if eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat2_n > 0 %}s{% endif%} ({{ eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat2_bezeichnung }}), with a nominal value of CHF {{ shares.inhaber_vorzug_2.value }} {% if eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat2_n is defined and eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat2_n > 1 %}each{% endif %}{% endif %}{% if eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat3_n is defined and eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat3_n > 0 %}{% if first_comma %}{% if not first_and %} und {% set first_and = true %}{% endif %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat3_n }} bearer share{% if eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat3_n > 0 %}s{% endif%} ({{ eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat3_bezeichnung }}), with a nominal value of CHF {{ shares.inhaber_vorzug_3.value }} {% if eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat3_n is defined and eroffnungen.aktien.inhaberaktien_vorzugsaktien_kat3_n > 1 %}each{% endif %}{% endif %};</text>
+        </point>
+        {%endif%}
+        {% if eroffnungen.vertretung.aktien_v==true %}
+        {% set first_comma = false %}
+        {% set first_and = false %}
+        <point spacing_after="180" alignment="both">
+        	<text style_name="text1both">{% if eroffnungen.vorsitzender.sex == 'herr' %}er{% else %}sie{% endif %} vertritt {% if eroffnungen.aktien_v.namenaktien_stammaktien_n is defined and eroffnungen.aktien_v.namenaktien_stammaktien_n > 0 %}{% set first_comma = true %}{{eroffnungen.aktien_v.namenaktien_stammaktien_n}} Namenaktie{% if eroffnungen.aktien_v.namenaktien_stammaktien_n > 0 %}n{% endif %}{% if (eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat1_n is not defined or eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat1_n < 1) and (eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat2_n is not defined or eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat2_n < 1) and (eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat3_n is not defined or eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat3_n < 1) %} (Stammaktien){% endif %} mit einem Nennwert von {% if eroffnungen.aktien_v.namenaktien_stammaktien_n is defined and eroffnungen.aktien_v.namenaktien_stammaktien_n > 1 %}je {% endif %}CHF {{ shares.namen_stamm.value }}{% endif %}{% if eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat1_n is defined and eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat1_n > 0 %}{% if first_comma  %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat1_n }} Namenaktie{% if eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat1_n > 0 %}n{% endif%} ({{ eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat1_bezeichnung }}), mit einem Nennwert von {% if eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat1_n is defined and eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat1_n > 1 %}je {% endif %}CHF {{ shares.namen_vorzug_2.value }}{% endif %}{% if eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat2_n is defined and eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat2_n > 0 %}{% if first_comma %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat2_n }} Namenaktie{% if eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat2_n > 0 %}n{% endif%} ({{ eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat2_bezeichnung }}), mit einem Nennwert von {% if eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat2_n is defined and eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat2_n > 1 %}je {% endif %}CHF {{ shares.namen_vorzug_2.value }}{% endif %}{% if eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat3_n is defined and eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat3_n > 0 %}{% if first_comma %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat3_n }} Namenaktie{% if eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat3_n > 0 %}n{% endif%} ({{ eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat3_bezeichnung }}), mit einem Nennwert von {% if eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat3_n is defined and eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat3_n > 1 %}je {% endif %}CHF {{ shares.namen_vorzug_3.value }}{% endif %}{% if eroffnungen.aktien_v.namenaktien_stimmrechtsaktien_n is defined and eroffnungen.aktien_v.namenaktien_stimmrechtsaktien_n > 0 %}{% if first_comma %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien_v.namenaktien_stimmrechtsaktien_n }} Namenaktie{% if eroffnungen.aktien_v.namenaktien_stimmrechtsaktien_n > 0 %}n{% endif%} (Stimmrechtsaktien), mit einem Nennwert von {% if eroffnungen.aktien_v.namenaktien_stimmrechtsaktien_n is defined and eroffnungen.aktien_v.namenaktien_stimmrechtsaktien_n > 1 %}je {% endif %}CHF {{ shares.namen_stimm.value }}{% endif %}{% if eroffnungen.aktien_v.inhaberaktien_stammaktien_n is defined and eroffnungen.aktien_v.inhaberaktien_stammaktien_n > 0 %}{% if first_comma %} und {% set first_and = true %}{% endif %}{% set first_comma = true %}{{eroffnungen.aktien_v.inhaberaktien_stammaktien_n}} Inhaberaktie{% if eroffnungen.aktien_v.inhaberaktien_stammaktien_n > 1 %}n{%endif%}{% if (eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat1_n is not defined or eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat1_n < 1) and (eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat2_n is not defined or eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat2_n < 1) and (eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat3_n is not defined or eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat3_n < 1) %} (Stammaktien){% endif %} mit einem Nennwert von {% if eroffnungen.aktien_v.inhaberaktien_stammaktien_n is defined and eroffnungen.aktien_v.inhaberaktien_stammaktien_n > 1 %}je {% endif %}CHF {{ shares.inhaber_stamm.value }}{%endif%}{% if eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat1_n is defined and eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat1_n > 0 %}{% if first_comma %}{% if not first_and %} und {% set first_and = true %}{% endif %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat1_n }} Inhaberaktie{% if eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat1_n > 0 %}n{% endif%} ({{ eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat1_bezeichnung }}), mit einem Nennwert von {% if eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat1_n is defined and eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat1_n > 1 %}je {% endif %}CHF {{ shares.inhaber_vorzug_2.value }}{% endif %}{% if eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat2_n is defined and eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat2_n > 0 %}{% if first_comma %}{% if not first_and %} und {% set first_and = true %}{% endif %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat2_n }} Inhaberaktie{% if eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat2_n > 0 %}n{% endif%} ({{ eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat2_bezeichnung }}), mit einem Nennwert von {% if eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat2_n is defined and eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat2_n > 1 %}je {% endif %}CHF {{ shares.inhaber_vorzug_2.value }}{% endif %}{% if eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat3_n is defined and eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat3_n > 0 %}{% if first_comma %}{% if not first_and %} und {% set first_and = true %}{% endif %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat3_n }} Inhaberaktie{% if eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat3_n > 0 %}n{% endif%} ({{ eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat3_bezeichnung }}), mit einem Nennwert von {% if eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat3_n is defined and eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat3_n > 1 %}je {% endif %}CHF {{ shares.inhaber_vorzug_3.value }}{% endif %}, gestützt auf {% if eroffnungen.vertretung.geschlecht_v == 'mannlich_s' %}eine entsprechende schriftliche Vollmacht des einzigen Aktionärs{% elif eroffnungen.vertretung.geschlecht_v == 'weiblich_s' %}eine entsprechende schriftliche Vollmacht der einzigen Aktionärin{% elif eroffnungen.vertretung.geschlecht_v == 'mannlich_p' %}entsprechende schriftliche Vollmachten der betreffenden Aktionäre{% elif eroffnungen.vertretung.geschlecht_v == 'weiblich_p' %}entsprechende schriftliche Vollmachten der betreffenden Aktionärinnen{% endif %};</text>
+        	<lb/>
+            {% set first_comma = false %}
+            {% set first_and = false %}
+        	<text style_name="text1eboth">{% if eroffnungen.vorsitzender.sex == 'herr' %}he{% else %}she{% endif %} represents {% if eroffnungen.aktien_v.namenaktien_stammaktien_n is defined and eroffnungen.aktien_v.namenaktien_stammaktien_n > 0 %}{% set first_comma = true %}{{eroffnungen.aktien_v.namenaktien_stammaktien_n}} registered share{% if eroffnungen.aktien_v.namenaktien_stammaktien_n > 1%}s{% endif %}{% if (eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat1_n is not defined or eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat1_n < 1) and (eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat2_n is not defined or eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat2_n < 1) and (eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat3_n is not defined or eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat3_n < 1) %} (ordinary shares){% endif %} with a nominal value of CHF {{ shares.namen_stamm.value }} {% if eroffnungen.aktien_v.namenaktien_stammaktien_n is defined and eroffnungen.aktien_v.namenaktien_stammaktien_n > 1 %}each{% endif %}{% endif %}{% if eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat1_n is defined and eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat1_n > 0 %}{% if first_comma  %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat1_n }} registered share{% if eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat1_n > 0 %}s{% endif%} ({{ eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat1_bezeichnung }}), with a nominal value of CHF {{ shares.namen_vorzug_2.value }} {% if eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat1_n is defined and eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat1_n > 1 %}each{% endif %}{% endif %}{% if eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat2_n is defined and eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat2_n > 0 %}{% if first_comma  %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat2_n }} registered share{% if eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat2_n > 0 %}s{% endif%} ({{ eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat2_bezeichnung }}), with a nominal value of CHF {{ shares.namen_vorzug_2.value }} {% if eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat2_n is defined and eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat2_n > 1 %}each{% endif %}{% endif %}{% if eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat3_n is defined and eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat3_n > 0 %}{% if first_comma  %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat3_n }} registered share{% if eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat3_n > 0 %}s{% endif%} ({{ eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat3_bezeichnung }}), with a nominal value of CHF {{ shares.namen_vorzug_3.value }} {% if eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat3_n is defined and eroffnungen.aktien_v.namenaktien_vorzugsaktien_kat3_n > 1 %}each{% endif %}{% endif %}{% if eroffnungen.aktien_v.namenaktien_stimmrechtsaktien_n is defined and eroffnungen.aktien_v.namenaktien_stimmrechtsaktien_n > 0 %}{% if first_comma  %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien_v.namenaktien_stimmrechtsaktien_n }} registered share{% if eroffnungen.aktien_v.namenaktien_stimmrechtsaktien_n > 0 %}s{% endif%} (shares with privileged voting rights), with a nominal value of CHF {{ shares.namen_stimm.value }}{% endif %} {% if eroffnungen.aktien_v.namenaktien_stimmrechtsaktien_n is defined and eroffnungen.aktien_v.namenaktien_stimmrechtsaktien_n > 1 %}each{% endif %}{% if eroffnungen.aktien_v.inhaberaktien_stammaktien_n is defined and eroffnungen.aktien_v.inhaberaktien_stammaktien_n > 1 %}{% if first_comma %} und {% set first_and = true %}{% endif %}{% set first_comma = true %}{{eroffnungen.aktien_v.inhaberaktien_stammaktien_n}} bearer shares{%endif%}{% if eroffnungen.aktien_v.inhaberaktien_stammaktien_n is defined and eroffnungen.aktien_v.inhaberaktien_stammaktien_n ==1 %}{{eroffnungen.aktien_v.inhaberaktien_stammaktien_n}} bearer share {% if (eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat1_n is not defined or eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat1_n < 1) and (eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat2_n is not defined or eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat2_n < 1) and (eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat3_n is not defined or eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat3_n < 1) %} (ordinary shares){% endif %} with a nominal value of CHF {{ shares.inhaber_stamm.value }} {% if eroffnungen.aktien_v.inhaberaktien_stammaktien_n is defined and eroffnungen.aktien_v.inhaberaktien_stammaktien_n > 1 %}each{% endif %}{%endif%}{% if eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat1_n is defined and eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat1_n > 0 %}, {{ eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat1_n }} bearer share{% if eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat1_n > 0 %}s{% endif%} ({{ eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat1_bezeichnung }}), with a nominal value of CHF {{ shares.inhaber_vorzug_2.value }} {% if eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat1_n is defined and eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat1_n > 1 %}each{% endif %}{% endif %}{% if eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat2_n is defined and eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat2_n > 0 %}{% if first_comma %}{% if not first_and %} und {% set first_and = true %}{% endif %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat2_n }} bearer share{% if eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat2_n > 0 %}s{% endif%} ({{ eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat2_bezeichnung }}), with a nominal value of CHF {{ shares.inhaber_vorzug_2.value }} {% if eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat2_n is defined and eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat2_n > 1 %}each{% endif %}{% endif %}{% if eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat3_n is defined and eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat3_n > 0 %}{% if first_comma %}{% if not first_and %} und {% set first_and = true %}{% endif %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat3_n }} bearer share{% if eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat3_n > 0 %}s{% endif%} ({{ eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat3_bezeichnung }}), with a nominal value of CHF {{ shares.inhaber_vorzug_3.value }} {% if eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat3_n is defined and eroffnungen.aktien_v.inhaberaktien_vorzugsaktien_kat3_n > 1 %}each{% endif %}{% endif %}, based on {% if eroffnungen.vertretung.geschlecht_v == 'mannlich_s' %}a corresponding written power of attorney issued by the sole shareholder{% elif eroffnungen.vertretung.geschlecht_v == 'weiblich_s' %}a corresponding written power of attorney issued by the sole shareholder{% elif eroffnungen.vertretung.geschlecht_v == 'mannlich_p' %}corresponding written powers of attorney issued by each of the respective shareholders{% elif eroffnungen.vertretung.geschlecht_v == 'weiblich_p' %}corresponding written powers of attorney issued by each of the respective shareholders{% endif %};</text>
+        </point>
+        {%endif%}
+        {% if eroffnungen.vertretung.aktien_v %}
+        <point spacing_after="180" alignment="both">
+        	<text style_name="text1both">{% if eroffnungen.vertretung.geschlecht_v == 'mannlich_s' %}der{% else %}die{% endif %} in dieser Generalversammlung {% if eroffnungen.vorsitzender.sex == 'herr' %}vom Vorsitzenden{% else %}von der Vorsitzenden{% endif %} {% if eroffnungen.vertretung.geschlecht_v == 'mannlich_s' %}vertretene Aktionär hat in seiner schriftlichen Vollmacht{% elif eroffnungen.vertretung.geschlecht_v == 'weiblich_s' %}vertretene Aktionärin hat in ihrer schriftlichen Vollmacht{% elif eroffnungen.vertretung.geschlecht_v == 'mannlich_p' %}vertretenen Aktionäre haben in ihren schriftlichen Vollmachten{% else %}vertretenen Aktionärinnen haben in ihren schriftlichen Vollmachten{% endif %} ausdrücklich auf die Ernennung eines unabhängigen Stimmrechtsvertreters im Sinne von Art. 689c OR verzichtet;</text>
+        	<lb/>
+        	<text style_name="text1eboth">{% if eroffnungen.vertretung.geschlecht_v == 'mannlich_s' %}In his written power of attorney, the shareholder represented in this Shareholders' Meeting by the Chairperson has waived his{% elif eroffnungen.vertretung.geschlecht_v == 'weiblich_s' %}In her written power of attorney, the shareholder represented in this Shareholders' Meeting by the Chairperson has waived her{% else %}In their respective written powers of attorney, the shareholders represented in this Shareholders' Meeting by the Chairperson have waived their{% endif %} right to designate an independent proxy in the sense of art. 689c CO;
+            </text>
+        </point>
+        {% endif %}
+        <point spacing_after="180" alignment="both">
+        	<text style_name="text1both">{% if not eroffnungen.vertretung.aktien_v and not eroffnungen.vertretung.aktien_d %}es sind weder Organvertreter noch andere abhängige Stimmrechtsvertreter vorgeschlagen und es üben keine Depotvertreter Mitwirkungsrechte aus;{% elif not eroffnungen.vertretung.aktien_d %}es üben keine Depotvertreter Mitwirkungsrechte aus;{% else %}{% if eroffnungen.vertretung.geschlecht_d == 'mannlich_s' %}es ist ein Depotvertreter anwesend, welcher{% elif eroffnungen.vertretung.geschlecht_d == 'weiblich_s' %}es ist eine Depotvertreterin anwesend, welche{% elif eroffnungen.vertretung.geschlecht_d == 'mannlich_s' %}es sind {{ eroffnungen.vertretung.anzahl_d }} Depotvertreter anwesend, welche zusammen{% else %}es sind {{ eroffnungen.vertretung.anzahl_d }} Depotvertreterinnen anwesend, welche zusammen{% endif %} {% set first_comma = false %}{% set first_and = false %}{% if eroffnungen.aktien_d.namenaktien_stammaktien_n is defined and eroffnungen.aktien_d.namenaktien_stammaktien_n > 0 %}{% set first_comma = true %}{{eroffnungen.aktien_d.namenaktien_stammaktien_n}} Namenaktie{% if eroffnungen.aktien_d.namenaktien_stammaktien_n > 0 %}n{% endif %}{% if (eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat1_n is not defined or eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat1_n < 1) and (eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat2_n is not defined or eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat2_n < 1) and (eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat3_n is not defined or eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat3_n < 1) %} (Stammaktien){% endif %} mit einem Nennwert von {% if eroffnungen.aktien_d.namenaktien_stammaktien_n is defined and eroffnungen.aktien_d.namenaktien_stammaktien_n > 1 %}je {% endif %}CHF {{ shares.namen_stamm.value }}{% endif %}{% if eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat1_n is defined and eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat1_n > 0 %}{% if first_comma  %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat1_n }} Namenaktie{% if eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat1_n > 0 %}n{% endif%} ({{ eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat1_bezeichnung }}), mit einem Nennwert von {% if eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat1_n is defined and eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat1_n > 1 %}je {% endif %}CHF {{ shares.namen_vorzug_2.value }}{% endif %}{% if eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat2_n is defined and eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat2_n > 0 %}{% if first_comma %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat2_n }} Namenaktie{% if eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat2_n > 0 %}n{% endif%} ({{ eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat2_bezeichnung }}), mit einem Nennwert von {% if eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat2_n is defined and eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat2_n > 1 %}je {% endif %}CHF {{ shares.namen_vorzug_2.value }}{% endif %}{% if eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat3_n is defined and eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat3_n > 0 %}{% if first_comma %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat3_n }} Namenaktie{% if eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat3_n > 0 %}n{% endif%} ({{ eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat3_bezeichnung }}), mit einem Nennwert von {% if eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat3_n is defined and eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat3_n > 1 %}je {% endif %}CHF {{ shares.namen_vorzug_3.value }}{% endif %}{% if eroffnungen.aktien_d.namenaktien_stimmrechtsaktien_n is defined and eroffnungen.aktien_d.namenaktien_stimmrechtsaktien_n > 0 %}{% if first_comma %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien_d.namenaktien_stimmrechtsaktien_n }} Namenaktie{% if eroffnungen.aktien_d.namenaktien_stimmrechtsaktien_n > 0 %}n{% endif%} (Stimmrechtsaktien), mit einem Nennwert von {% if eroffnungen.aktien_d.namenaktien_stimmrechtsaktien_n is defined and eroffnungen.aktien_d.namenaktien_stimmrechtsaktien_n > 1 %}je {% endif %}CHF {{ shares.namen_stimm.value }}{% endif %}{% if eroffnungen.aktien_d.inhaberaktien_stammaktien_n is defined and eroffnungen.aktien_d.inhaberaktien_stammaktien_n > 0 %}{% if first_comma %} und {% set first_and = true %}{% endif %}{% set first_comma = true %}{{eroffnungen.aktien_d.inhaberaktien_stammaktien_n}} Inhaberaktie{% if eroffnungen.aktien_d.inhaberaktien_stammaktien_n > 1 %}n{%endif%}{% if (eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat1_n is not defined or eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat1_n < 1) and (eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat2_n is not defined or eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat2_n < 1) and (eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat3_n is not defined or eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat3_n < 1) %} (Stammaktien){% endif %} mit einem Nennwert von {% if eroffnungen.aktien_d.inhaberaktien_stammaktien_n is defined and eroffnungen.aktien_d.inhaberaktien_stammaktien_n > 1 %}je {% endif %}CHF {{ shares.inhaber_stamm.value }}{%endif%}{% if eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat1_n is defined and eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat1_n > 0 %}{% if first_comma %}{% if not first_and %} und {% set first_and = true %}{% endif %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat1_n }} Inhaberaktie{% if eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat1_n > 0 %}n{% endif%} ({{ eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat1_bezeichnung }}), mit einem Nennwert von {% if eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat1_n is defined and eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat1_n > 1 %}je {% endif %}CHF {{ shares.inhaber_vorzug_2.value }}{% endif %}{% if eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat2_n is defined and eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat2_n > 0 %}{% if first_comma %}{% if not first_and %} und {% set first_and = true %}{% endif %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat2_n }} Inhaberaktie{% if eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat2_n > 0 %}n{% endif%} ({{ eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat2_bezeichnung }}), mit einem Nennwert von {% if eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat2_n is defined and eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat2_n > 1 %}je {% endif %}CHF {{ shares.inhaber_vorzug_2.value }}{% endif %}{% if eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat3_n is defined and eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat3_n > 0 %}{% if first_comma %}{% if not first_and %} und {% set first_and = true %}{% endif %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat3_n }} Inhaberaktie{% if eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat3_n > 0 %}n{% endif%} ({{ eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat3_bezeichnung }}), mit einem Nennwert von {% if eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat3_n is defined and eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat3_n > 1 %}je {% endif %}CHF {{ shares.inhaber_vorzug_3.value }}{% endif %} {% if eroffnungen.vertretung.geschlecht_d == 'mannlich_s' or eroffnungen.vertretung.geschlecht_d == 'weiblich_s' %}vertritt{% else %}vertreten{% endif %};{% endif %}</text>
+        	<lb/>
+        	<text style_name="text1eboth">
+                {% if not eroffnungen.vertretung.aktien_v and not eroffnungen.vertretung.aktien_d %}no members of corporate bodies or other dependent proxies have been proposed and no custodian acting as representative is exercising participation rights;{% elif not eroffnungen.vertretung.aktien_d %}no custodian acting as representative is exercising participation rights;{% else %}{% if eroffnungen.vertretung.geschlecht_d == 'mannlich_s' %}there is 1 custodian present acting as representative, representing{% elif eroffnungen.vertretung.geschlecht_d == 'weiblich_s' %}there is 1 custodian present acting as representative, representing{% elif eroffnungen.vertretung.geschlecht_d == 'mannlich_s' %}there are {{ eroffnungen.vertretung.anzahl_d }} custodians present acting as representatives, representing in total{% else %}there are {{ eroffnungen.vertretung.anzahl_d }} custodians present acting as representatives, representing in total{% endif %} {% set first_comma = false %}{% set first_and = false %}{% if eroffnungen.aktien_d.namenaktien_stammaktien_n is defined and eroffnungen.aktien_d.namenaktien_stammaktien_n > 0 %}{% set first_comma = true %}{{eroffnungen.aktien_d.namenaktien_stammaktien_n}} registered share{% if eroffnungen.aktien_d.namenaktien_stammaktien_n > 1%}s{% endif %}{% if (eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat1_n is not defined or eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat1_n < 1) and (eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat2_n is not defined or eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat2_n < 1) and (eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat3_n is not defined or eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat3_n < 1) %} (ordinary shares){% endif %} with a nominal value of CHF {{ shares.namen_stamm.value }} {% if eroffnungen.aktien_d.namenaktien_stammaktien_n is defined and eroffnungen.aktien_d.namenaktien_stammaktien_n > 1 %}each{% endif %}{% endif %}{% if eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat1_n is defined and eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat1_n > 0 %}{% if first_comma  %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat1_n }} registered share{% if eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat1_n > 0 %}s{% endif%} ({{ eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat1_bezeichnung }}), with a nominal value of CHF {{ shares.namen_vorzug_2.value }} {% if eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat1_n is defined and eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat1_n > 1 %}each{% endif %}{% endif %}{% if eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat2_n is defined and eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat2_n > 0 %}{% if first_comma  %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat2_n }} registered share{% if eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat2_n > 0 %}s{% endif%} ({{ eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat2_bezeichnung }}), with a nominal value of CHF {{ shares.namen_vorzug_2.value }} {% if eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat2_n is defined and eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat2_n > 1 %}each{% endif %}{% endif %}{% if eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat3_n is defined and eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat3_n > 0 %}{% if first_comma  %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat3_n }} registered share{% if eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat3_n > 0 %}s{% endif%} ({{ eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat3_bezeichnung }}), with a nominal value of CHF {{ shares.namen_vorzug_3.value }} {% if eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat3_n is defined and eroffnungen.aktien_d.namenaktien_vorzugsaktien_kat3_n > 1 %}each{% endif %}{% endif %}{% if eroffnungen.aktien_d.namenaktien_stimmrechtsaktien_n is defined and eroffnungen.aktien_d.namenaktien_stimmrechtsaktien_n > 0 %}{% if first_comma  %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien_d.namenaktien_stimmrechtsaktien_n }} registered share{% if eroffnungen.aktien_d.namenaktien_stimmrechtsaktien_n > 0 %}s{% endif%} (shares with privileged voting rights), with a nominal value of CHF {{ shares.namen_stimm.value }}{% endif %} {% if eroffnungen.aktien_d.namenaktien_stimmrechtsaktien_n is defined and eroffnungen.aktien_d.namenaktien_stimmrechtsaktien_n > 1 %}each{% endif %}{% if eroffnungen.aktien_d.inhaberaktien_stammaktien_n is defined and eroffnungen.aktien_d.inhaberaktien_stammaktien_n > 1 %}{% if first_comma %} und {% set first_and = true %}{% endif %}{% set first_comma = true %}{{eroffnungen.aktien_d.inhaberaktien_stammaktien_n}} bearer shares{%endif%}{% if eroffnungen.aktien_d.inhaberaktien_stammaktien_n is defined and eroffnungen.aktien_d.inhaberaktien_stammaktien_n ==1 %}{{eroffnungen.aktien_d.inhaberaktien_stammaktien_n}} bearer share {% if (eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat1_n is not defined or eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat1_n < 1) and (eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat2_n is not defined or eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat2_n < 1) and (eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat3_n is not defined or eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat3_n < 1) %} (ordinary shares){% endif %} with a nominal value of CHF {{ shares.inhaber_stamm.value }} {% if eroffnungen.aktien_d.inhaberaktien_stammaktien_n is defined and eroffnungen.aktien_d.inhaberaktien_stammaktien_n > 1 %}each{% endif %}{%endif%}{% if eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat1_n is defined and eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat1_n > 0 %}, {{ eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat1_n }} bearer share{% if eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat1_n > 0 %}s{% endif%} ({{ eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat1_bezeichnung }}), with a nominal value of CHF {{ shares.inhaber_vorzug_2.value }} {% if eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat1_n is defined and eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat1_n > 1 %}each{% endif %}{% endif %}{% if eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat2_n is defined and eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat2_n > 0 %}{% if first_comma %}{% if not first_and %} und {% set first_and = true %}{% endif %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat2_n }} bearer share{% if eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat2_n > 0 %}s{% endif%} ({{ eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat2_bezeichnung }}), with a nominal value of CHF {{ shares.inhaber_vorzug_2.value }} {% if eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat2_n is defined and eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat2_n > 1 %}each{% endif %}{% endif %}{% if eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat3_n is defined and eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat3_n > 0 %}{% if first_comma %}{% if not first_and %} und {% set first_and = true %}{% endif %},{% else %}{% set first_comma = true %}{% endif %} {{ eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat3_n }} bearer share{% if eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat3_n > 0 %}s{% endif%} ({{ eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat3_bezeichnung }}), with a nominal value of CHF {{ shares.inhaber_vorzug_3.value }} {% if eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat3_n is defined and eroffnungen.aktien_d.inhaberaktien_vorzugsaktien_kat3_n > 1 %}each{% endif %}{% endif %};{% endif %}
+            </text>
+        </point>
+      	<point spacing_after="180" alignment="both">
+        	<text style_name="text1both">somit ist das gesamte Aktienkapital der Gesellschaft von CHF {{ shares.total_value }} vertreten;</text>
+        	<lb/>
+        	<text style_name="text1eboth">hence, the entire share capital of the Company of CHF {{ shares.total_value }} is represented;</text>
+        </point>
+        <point spacing_after="180" alignment="both">
+        	<text style_name="text1both">diese ausserordentliche Generalversammlung ist daher gültig als Universalversammlung im Sinne von Art. 701 OR konstituiert und beschlussfähig;</text>
+        	<lb/>
+        	<text style_name="text1eboth">this extraordinary Shareholders’ Meeting is therefore duly constituted as a universal meeting and able to pass resolutions pursuant to art. 701 CO;</text>
+        </point>
+   	</list>
+
+    <paragraph style_name="text1both">
+    	<text>Gegen diese Feststellungen wird kein Widerspruch erhoben.</text>
+    </paragraph>
+
+     <paragraph style_name="text1eboth">
+    	<text>No objections are raised against these determinations.</text>
+    </paragraph>
+
+    <pagebreak/>
+
+    <paragraph style_name="text2" alignment="left">
+    	<text>II. {% if traktanden.traktanden.decharge==true %}Traktanden{%else%}Traktandum{%endif%}</text>
+    </paragraph>
+
+    <paragraph style_name="text2e" alignment="left">
+    	<text italics="true">{% if traktanden.traktanden.decharge==true %}Agenda Items{%else%}Agenda Item{%endif%}</text>
+    </paragraph>
+
+    <paragraph style_name="text1both">
+    	<text></text>
+    </paragraph>
+
+    {% if traktanden.traktanden.decharge==true %}
+	<paragraph style_name="text1bold" alignment="left">
+    	<text>1. Abberufung von {% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="gesellschaft" %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.firma}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de is defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de is not defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%} als Revisionsstelle und Verzicht auf eingeschränkte Revision (Opting-Out)</text>
+    </paragraph>
+    {%else%}
+    <paragraph style_name="text1bold" alignment="left">
+    	<text>Abberufung von {% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="gesellschaft" %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.firma}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de is defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de is not defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%} als Revisionsstelle und Verzicht auf eingeschränkte Revision (Opting-Out)</text>
+    </paragraph>
+    {%endif%}
+
+    <paragraph style_name="text1ebold" alignment="left">
+    	<text>Revocation of {% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="gesellschaft" %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.firma}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_en is defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.titel_en}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_en is not defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%} as auditors and waiver of limited audit (opting-out)</text>
+    </paragraph>
+
+    {% if traktanden.traktanden.decharge==true %}
+	<paragraph style_name="text1bold" alignment="left">
+    	<text>2. Déchargeerteilung an {% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="gesellschaft" %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.firma}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de is defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de is not defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%} als Revisionsstelle</text>
+    </paragraph>
+    <paragraph style_name="text1ebold" alignment="left">
+    	<text>Granting of discharge to {% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="gesellschaft" %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.firma}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de is defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de is not defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%} as auditor</text>
+    </paragraph>
+    {%endif%}
+
+	<paragraph style_name="text1both">
+    	<text></text>
+    </paragraph>
+
+	<paragraph style_name="text2" alignment="left">
+    	<text>III. Verhandlungen und Beschlüsse</text>
+    </paragraph>
+
+    <paragraph style_name="text2e" alignment="left">
+    	<text italics="true">Deliberations and Resolutions</text>
+    </paragraph>
+
+    <paragraph style_name="text1both">
+    	<text></text>
+    </paragraph>
+
+	{% if traktanden.traktanden.decharge==true %}
+	<paragraph style_name="text1bold" alignment="left">
+    	<text>1. Abberufung von {% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="gesellschaft" %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.firma}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de is defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de is not defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%} als Revisionsstelle und Verzicht auf eingeschränkte Revision (Opting-Out)</text>
+    </paragraph>
+    {%else%}
+    <paragraph style_name="text1bold" alignment="left">
+    	<text>Abberufung von {% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="gesellschaft" %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.firma}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de is defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de is not defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%} als Revisionsstelle und Verzicht auf eingeschränkte Revision (Opting-Out)</text>
+    </paragraph>
+    {%endif%}
+
+    <paragraph style_name="text1ebold" alignment="left">
+    	<text>Revocation of {% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="gesellschaft" %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.firma}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_en is defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.titel_en}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_en is not defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%} as auditors and waiver of limited audit (opting-out)</text>
+    </paragraph>
+
+    <paragraph style_name="text1both">
+    	<text>{% if aktionare.sex=="ms" %}Der Aktionär beschliesst, {%endif%}{% if aktionare.sex=="mp" %}Die Aktionäre beschliessen einstimmig, {%endif%}{% if aktionare.sex=="fs" %}Die Aktionärin beschliesst, {%endif%}{% if aktionare.sex=="fp" %}Die Aktionärinnen beschliessen einstimmig, {%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="gesellschaft" %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.firma}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de is defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de is not defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%} als Revisionsstelle {% if verhandlungen.verhandlungen.abberufung=="sofort" %}mit sofortiger Wirkung {%endif%}abzuberufen</text>
+
+    	{% if verhandlungen.verhandlungen.dank==true %}
+
+    	<text> und {% if aktionare.sex=="mp" or aktionare.sex=="fp" %}danken {%endif%}{% if aktionare.sex=="ms" or aktionare.sex=="fs" %}dankt {%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="gesellschaft" or (bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.sex=="frau")%}ihr {%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.sex=="herr" %}ihm {%endif%}für den Einsatz</text>
+    	{%endif%}
+
+    	<text>.</text>
+
+		{% if verhandlungen.verhandlungen.abberufung=="laufend" %}
+		<text>{% if (bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="gesellschaft") or (bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.sex=="frau")%}Ihr {%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.sex=="herr" %}Sein {%endif%}Amt endet mit der Abnahme der laufenden Jahresrechnung.</text>
+		{%endif%}
+    </paragraph>
+
+    <paragraph style_name="text1eboth">
+    	<text>{% if aktionare.sex=="ms" %}The Shareholder resolves {%endif%}{% if aktionare.sex=="mp" %}The Shareholders unanimously resolve {%endif%}{% if aktionare.sex=="fs" %}The Shareholder resolves {%endif%}{% if aktionare.sex=="fp" %}The Shareholders unanimously resolve {%endif%}to revoke {% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="gesellschaft" %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.firma}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de is defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de is not defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%} as auditor {% if verhandlungen.verhandlungen.abberufung=="sofort" %}with immediate effect{%endif%}</text>
+
+    	{% if verhandlungen.verhandlungen.dank==true %}
+
+    	<text> and {% if aktionare.sex=="mp" or aktionare.sex=="fp" %}express their {%endif%}{% if aktionare.sex=="ms" %}expresses his {%endif%}{% if aktionare.sex=="fs" %}expresses her {%endif%}gratitude for the services rendered</text>
+    	{%endif%}
+
+    	<text>.</text>
+
+		{% if verhandlungen.verhandlungen.abberufung=="laufend" %}
+		<text>{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="gesellschaft" %}Its {%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.sex=="frau" %}Her {%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.sex=="herr" %}His {%endif%}office ends with the approval of the current annual financial statements.</text>
+		{%endif%}
+    </paragraph>
+
+    <paragraph style_name="text1both">
+    	<text>Nach Vergewisserung, dass die gesetzlichen Voraussetzungen hierfür erfüllt sind, {% if aktionare.sex=="ms" %}beschliesst der Aktionär {%endif%}{% if aktionare.sex=="mp" %}beschliessen die Aktionäre {%endif%}{% if aktionare.sex=="fs" %}beschliesst die Aktionärin {%endif%}{% if aktionare.sex=="fp" %}beschliessen die Aktionärinnen {%endif%}ferner in Anwendung von Art. 727a Abs. 2 OR auf die eingeschränkte Revision zu verzichten. Der Verzicht gilt {% if verhandlungen.verhandlungen.verzicht=="laufend_und_kommend" %}für das laufende und die kommenden Geschäftsjahre{%endif%}{% if verhandlungen.verhandlungen.verzicht=="abgelaufen_und_kommend" %}für das bereits abgelaufene Geschäftsjahr {{verhandlungen.verhandlungen.abgelaufenes}}, das laufende Geschäftsjahr und die kommenden Geschäftsjahre{%endif%}{% if verhandlungen.verhandlungen.verzicht=="mehrere_abgelaufen_und_kommend" %}für die bereits abgelaufenen Geschäftsjahre {{verhandlungen.verhandlungen.abgelaufene}}, das laufende Geschäftsjahr und die kommenden Geschäftsjahre{%endif%}{% if verhandlungen.verhandlungen.verzicht=="kommend" %}für die kommenden Geschäftsjahre{%endif%}, d.h. ab {{verhandlungen.verhandlungen.datum_de}}.</text>
+    </paragraph>
+
+    <paragraph style_name="text1eboth">
+    	<text>After having ascertained that the corresponding statutory requirements are fulfilled, the {% if aktionare.sex=="ms" %}Shareholder further resolves {%endif%}{% if aktionare.sex=="mp" %}Shareholders further resolve {%endif%}{% if aktionare.sex=="fs" %}Shareholder further resolves {%endif%}{% if aktionare.sex=="fp" %}Shareholders further resolve{%endif%}to waive limited audit in application of art. 727a CO. This waiver shall be effective {% if verhandlungen.verhandlungen.verzicht=="laufend_und_kommend" %}for the current business year and for future business years{%endif%}{% if verhandlungen.verhandlungen.verzicht=="abgelaufen_und_kommend" %}for the previous business year {{verhandlungen.verhandlungen.abgelaufenes}}, for the current business year and for future business years{%endif%}{% if verhandlungen.verhandlungen.verzicht=="mehrere_abgelaufen_und_kommend" %}for the previous business years {{verhandlungen.verhandlungen.abgelaufene}}, for the current business year and for future business years{%endif%}{% if verhandlungen.verhandlungen.verzicht=="kommend" %}for future business years{%endif%}, i.e. as of {{verhandlungen.verhandlungen.datum_en}}.</text>
+    </paragraph>
+
+{% if traktanden.traktanden.decharge==true %}
+	<paragraph style_name="text1bold" alignment="left">
+    	<text>2. Déchargeerteilung an {% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="gesellschaft" %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.firma}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de is defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de is not defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%} als Revisionsstelle</text>
+    </paragraph>
+    <paragraph style_name="text1ebold" alignment="left">
+    	<text>Granting of discharge to {% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="gesellschaft" %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.firma}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de is defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de is not defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%} as auditor</text>
+    </paragraph>
+    <paragraph style_name="text1both">
+    	<text>{% if aktionare.sex=="ms" %}Der Aktionär beschliesst, {%endif%}{% if aktionare.sex=="mp" %}Die Aktionäre beschliessen einstimmig, {%endif%}{% if aktionare.sex=="fs" %}Die Aktionärin beschliesst, {%endif%}{% if aktionare.sex=="fp" %}Die Aktionärinnen beschliessen einstimmig, {%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="gesellschaft" %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.firma}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de is defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de is not defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%} für die Tätigkeit als Revisionsstelle Entlastung zu erteilen.</text>
+	</paragraph>
+	<paragraph style_name="text1eboth">
+		<text>{% if aktionare.sex=="ms" %}The Shareholder resolves {%endif%}{% if aktionare.sex=="mp" %}The Shareholders unanimously resolve {%endif%}{% if aktionare.sex=="fs" %}The Shareholder resolves {%endif%}{% if aktionare.sex=="fp" %}The Shareholders unanimously resolve {%endif%}to grant discharge to {% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="gesellschaft" %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.firma}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de is defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%}{% if bisherige_revisionsstelle.bisherige_revisionsstelle.typ=="person" and bisherige_revisionsstelle.bisherige_revisionsstelle.titel_de is not defined %}{{bisherige_revisionsstelle.bisherige_revisionsstelle.vorname}} {{bisherige_revisionsstelle.bisherige_revisionsstelle.nachname}}{%endif%} for the services as auditor.</text>
+	</paragraph>
+    {%endif%}
+	<paragraph style_name="text1both">
+    	<text></text>
+    </paragraph>
+    
+	<paragraph style_name="text2" alignment="left">
+    	<text>IV. Abschluss</text>
+    </paragraph>
+
+    <paragraph style_name="text2e" alignment="left">
+    	<text italics="true">Final Statements</text>
+    </paragraph>
+
+    <paragraph style_name="text1both">
+    	<text></text>
+    </paragraph>
+
+    <paragraph style_name="text1both">
+    	<text>Nachdem das Wort nicht weiter verlangt wird, schliesst {%if eroffnungen.vorsitzender.sex=="herr" %}der {%else%}die {%endif%} Vorsitzende die Generalversammlung nachdem {%if eroffnungen.vorsitzender.sex=="herr" %}er {%else%}sie {%endif%} festgestellt hat, dass das gesamte Aktienkapital der Gesellschaft während der gesamten Dauer der Generalversammlung vertreten war.</text>
+    </paragraph>
+
+    <paragraph style_name="text1eboth">
+    	<text>As the floor is not further requested, the Chairperson closes the Shareholders’ Meeting after {%if eroffnungen.vorsitzender.sex=="herr" %}he {%else%}she {%endif%} has ascertained that the entire share capital of the Company has been represented during the entire time of the Shareholders’ Meeting.</text>
+    </paragraph>
+
+    <paragraph style_name="text1both">
+    	<text>{% if eroffnungen.datum.ort=="sitz" %}{{angaben.firma.sitzgemeinde}}, {%endif%}{% if eroffnungen.datum.ort=="naturlich" %}{{eroffnungen.datum.plz_de}}, {%endif%}{% if eroffnungen.datum.ort=="juristisch" %}{{eroffnungen.datum.plz_de}}, {%endif%}{{eroffnungen.datum.datum_de}}</text>
+    </paragraph>
+
+     <paragraph style_name="text1eboth">
+    	<text>{% if eroffnungen.datum.ort=="sitz" %}{{angaben.firma.sitzgemeinde}}, {%endif%}{% if eroffnungen.datum.ort=="naturlich" %}{{eroffnungen.datum.plz_en}}, {%endif%}{% if eroffnungen.datum.ort=="juristisch" %}{{eroffnungen.datum.plz_en}}, {%endif%}{{eroffnungen.datum.datum_en}}</text>
+    </paragraph>
+
+
+    <table columns="2" rows="3" style="borderless">
+        
+        <cell>
+        	<paragraph>
+        		<text>{%if eroffnungen.vorsitzender.sex=="herr" %}Der {%else%}Die {%endif%} Vorsitzende</text>
+        	</paragraph>
+        	<paragraph style_name="text1e">
+        		<text>The Chairperson</text>
+        	</paragraph>
+        </cell>
+
+        <cell>
+        	<paragraph>
+        		<text>{% if eroffnungen.protokollfuhrer.sex=="herr" %}Der Sekretär{%else%}Die Sekretärin{%endif%}</text>
+        	</paragraph>
+        	<paragraph style_name="text1e">
+        		<text>The Secretary</text>
+        	</paragraph>
+        </cell>
+
+        <cell>
+        	<paragraph></paragraph>
+        	<paragraph></paragraph>
+        	<paragraph border_bottom="true"></paragraph>
+        </cell>
+
+        <cell>
+        	<paragraph></paragraph>
+        	<paragraph></paragraph>
+        	<paragraph border_bottom="true"></paragraph>
+        </cell>
+
+        <cell>
+        	<paragraph>
+        		<text>{% if eroffnungen.vorsitzender.titel_de is defined %}{{eroffnungen.vorsitzender.titel_de}} {%endif%}{{eroffnungen.vorsitzender.vorname}} {{eroffnungen.vorsitzender.nachname}}</text>
+        	</paragraph>
+        </cell>
+
+        <cell>
+        	<paragraph>
+        		<text>{% if eroffnungen.protokollfuhrer.titel_de is defined %}{{eroffnungen.protokollfuhrer.titel_de}} {%endif%}{{eroffnungen.protokollfuhrer.vorname}} {{eroffnungen.protokollfuhrer.nachname}}</text>
+        	</paragraph>
+        </cell>
+
+</table>
+    
+
+	
+
+</document>

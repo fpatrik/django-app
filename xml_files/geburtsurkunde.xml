@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document font_type="Times New Roman">
+    <paragraph alignment="center" font_size="25">
+        <text font_size="25">Geburtsurkunde</text>
+    </paragraph>
+    <paragraph alignment="center" font_size="25">
+    </paragraph>
+    <paragraph>
+        <text>{% if angaben.geschlecht.sex == 'madchen' %}Das Mädchen{% else %}Der Junge{% endif %} {{ angaben.name.name }} wurde am {{ angaben.geburtsdatum.geburtsdatum }} geboren.</text>
+        <lb/>
+    </paragraph>
+    {% if angaben.merkmale|length > 0%}
+    <paragraph>
+        <text>Die besonderen Merkmale sind:</text>
+    </paragraph>
+    <list type="roman">
+        {% for merkmal in angaben.merkmale %}
+        <point>
+            <text bold="true">{{ merkmal.name }}: </text>
+            <text>{{ merkmal.beschreibung }}</text>
+        </point>
+        {% endfor %}
+    </list>
+    {% else %}
+    <paragraph>
+        <text>Das Neugeborene zeigt keine besonderen Merkmale.</text>
+    </paragraph>
+    {% endif %}
+    <lb/>
+    <table columns="2" rows="2" style="borderless">
+        <cell><paragraph></paragraph><paragraph></paragraph><paragraph border_bottom="true"></paragraph></cell>
+        <cell></cell>
+        <cell>Dr. Franziska Friedlos</cell>
+        <cell></cell>
+    </table>
+    
+    
+</document>

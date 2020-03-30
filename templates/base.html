@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	
+		<meta charset="UTF-8">
+		<title>{% block title %}
+		{% endblock %}</title>
+		{% load staticfiles %}
+		<script src="{% static 'jquery/jquery.js' %}"></script>
+		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}" />
+		<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'jasny-bootstrap/js/jasny-bootstrap.min.js' %}"></script>
+		<link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+		
+	</head>
+<body style="font-family: 'Muli', sans-serif;">
+	<nav class="navbar navbar-default">
+	  		<div class="container-fluid">
+	    		<div class="navbar-header">
+	      			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+	        			<span class="sr-only">Toggle navigation</span>
+	        			<span class="icon-bar"></span>
+	        			<span class="icon-bar"></span>
+	        			<span class="icon-bar"></span>
+	      			</button>
+	      			<a class="navbar-brand" href=""><img alt="Brand" src="{% static 'images/logo.png' %}" height="25"></a>
+	    		</div>
+	    		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+	      			<ul class="nav navbar-nav">
+	      				<li {% if active.nav == 'projekte' %}class="active"{% endif %}><a href="{% url 'projekt:projekt' %}">Projekte</a></li>
+	      				<li {% if active.nav == 'teams' %}class="active"{% endif %}><a href="{% url 'team:team' %}">Teams</a></li>
+	      				{% if user.conventecuser.role == 'admin'%}
+	      				<li {% if active.nav == 'kanzlei' %}class="active"{% endif %}><a href="{% url 'kanzlei:kanzlei' kanzlei_id=user.conventecuser.kanzlei.id %}">Kanzlei Admin</a></li>
+	      				{% endif%}
+	      				<li {% if active.nav == 'feedback' %}class="active"{% endif %}><a href="{% url 'feedback:feedback' %}">Feedback</a></li>
+	      				<li {% if active.nav == 'einstellungen' %}class="active"{% endif %}><a href="{% url 'settings:settings' %}">Einstellungen</a></li>
+	      			</ul>
+	
+	      			<ul class="nav navbar-nav navbar-right">
+	      				<p class="navbar-text">Eingeloggt als {{ user.get_full_name }}</p>
+	      				<div class="btn-group">
+	    					<a href="{% url 'logout:logout' %}" class="btn btn-default navbar-btn">
+	        					 Logout
+	    					</a>
+						</div>
+	      			</ul>
+	    		</div><!-- /.navbar-collapse -->
+	  		</div><!-- /.container-fluid -->
+		</nav>
+
+{% block body %}
+{% endblock %}
+	<div class="container-fluid">
+		<div class="row" style="margin-top:10px;margin-bottom:10px;">
+		</div>
+	</div>
+	<div class="container-fluid" style="position:fixed;bottom:0;width:100%;background-color:#f8f8f8;border-top:1px solid #e7e7e7;">
+		<div class="row" style="margin-top:5px;margin-bottom:5px;font-size:11px;">
+			<div class="col-md-10 col-md-offset-1">
+				<a href="https://conventec.ch">Conventec Website</a> |
+				<a href="mailto:support@conventec.ch">Support</a> |
+				<a target="_blank" href="https://www.youtube.com/watch?v=YwLSvPXvcjs">Anleitungsvideo</a> |
+				<a target="_blank" href="{% static 'files/Kurzanleitung.pdf' %}">Kurzanleitung</a>
+				<a href="{% url 'terms:terms' %}" style="float:right;">Nutzungsbedingungen und Cookie-Richtlinie</a>
+			</div>
+		</div>
+	</div>
+	<noscript>
+	  <style>html{display:none;}</style>
+	  <meta http-equiv="refresh" content="0.0;url={% url 'login:error' %}?e=nojs">
+	</noscript>
+	<script>
+		if(!navigator.cookieEnabled){
+			window.location = "{% url 'login:error' %}?e=nocookie";
+		}
+	</script>
+</body>
+</html>

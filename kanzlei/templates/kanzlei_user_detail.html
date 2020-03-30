@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Kanzlei {{ kanzlei.name }}
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+	<div class="row" style="margin-top:50px;">
+	  	<div class="col-md-10 col-md-offset-1">
+	  		<ol class="breadcrumb" style="background-color:white;padding-left:0px;">
+			  <li><a href="{% url 'kanzlei:kanzlei' kanzlei_id=kanzlei.id %}">Kanzlei</a></li>
+			  <li><a href="{% url 'kanzlei:kanzlei_user' kanzlei_id=kanzlei.id %}">User Management</a></li>
+			  <li><a href="{% url 'kanzlei:kanzlei_user_detail' kanzlei_id=kanzlei.id user_id=user.id %}">{{ user.get_full_name }}</a></li>
+			</ol>
+	  	</div>
+	</div>
+	<div class="row" style="margin-top:50px;">
+  		<div class="col-md-10 col-md-offset-1">
+  			<h3 id="bearbeiten">Mitarbeiter bearbeiten</h3>
+  			{% if s %}
+  			<div class="alert alert-{% if s == 'success' %}success{% else %}danger{% endif %}" role="alert" style="max-width:500px;">
+  				{% if s == 'success' %}Der User wurde erfolgreich bearbeitet{% elif s == 'fail' %}Die E-Mail konnte nicht geändert werden, da sie bereits in verwendung ist{% endif %}
+			</div>
+			{% endif %}
+  			<form action="{% url 'kanzlei:kanzlei_user_detail' kanzlei_id=kanzlei.id user_id=user.id %}" method="post" style="margin-top:30px;">
+  				{% csrf_token %}
+  				<div class="form-group">
+  					<label>Vorname:</label>
+  					<input type="text" class="form-control" value="{{ user.first_name }}" name="vorname" style="max-width:500px;">
+				</div>
+				<div class="form-group">
+  					<label>Nachname:</label>
+  					<input type="text" class="form-control" value="{{ user.last_name }}" name="nachname" style="max-width:500px;">
+				</div> 
+				<div class="form-group">
+  					<label>Email:</label>
+  					<input type="text" class="form-control" value="{{ user.email }}" name="email" style="max-width:500px;">
+				</div> 
+				<div class="form-group">
+  					<label>Position:</label>
+  					<input type="text" class="form-control" value="{{ user.conventecuser.position }}" name="position" style="max-width:500px;">
+				</div> 
+				<div class="form-group">
+					<label>Rolle:</label>
+				 	<select class="form-control" name="role" style="max-width:500px;">
+				    	<option value="admin" {% if user.conventecuser.role == 'admin' %}selected="selected"{% endif %}>Kanzlei Admin</option>
+				    	<option value="manager" {% if user.conventecuser.role == 'manager' %}selected="selected"{% endif %}>Projektmanager</option>
+				    	<option value="mitarbeiter" {% if user.conventecuser.role == 'mitarbeiter' %}selected="selected"{% endif %}>Projektmitarbeiter</option>
+				 	</select>
+				</div> 
+				<div class="form-group">
+  					<label>Passwort:</label>
+  					<input type="password" class="form-control" id="pw1" name="pw1" style="max-width:500px;" placeholder="Optional">
+				</div> 
+				<div class="form-group">
+  					<label>Passwort wiederholen:</label>
+  					<input type="password" class="form-control" id="pw2" name="pw2" style="max-width:500px;" placeholder="Optional">
+				</div>
+				<button type="submit" onclick="check_entries(event)" class="btn btn-primary" style="margin-top:30px;margin-bottom:30px;">Änderungen speichern</button>
+  			</form>
+  		</div>
+  		<div class="row" style="margin-top:50px;margin-bottom:50px;">
+  			<div class="col-md-10 col-md-offset-1">
+  				<a href="{% url 'kanzlei:kanzlei_user'  kanzlei.id %}" style="margin-bottom:50px;margin-top:20px;"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Zurück</a>
+	  		</div>
+	  	</div>
+	</div>
+	<script>
+		function check_entries(e){
+			pw1 = document.getElementById('pw1');
+			pw2 = document.getElementById('pw2');
+			if(typeof pw1.value != 'undefined' && typeof pw2.value != 'undefined' && (pw1.value != '' || pw2.value != '') && (pw1.value != pw2.value)){
+				alert('Die Passwörter stimmen nicht überein.');
+				e.preventDefault();
+			}
+		}
+	</script>
+</div>
+{% endblock %}

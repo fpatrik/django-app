@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Projekte
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+	<div class="row" style="margin-top:50px;">
+	  	<div class="col-md-10 col-md-offset-1">
+	  		<ol class="breadcrumb" style="background-color:white;padding-left:0px;">
+			  <li><a href="{% url 'projekt:projekt' %}">Projekte</a></li>
+			  {% if active.tabs == 'aktuelle' %}
+			  <li><a href="{% url 'projekt:projekt' %}?active=aktuelle">Aktuelle Projekte</a></li>
+			  {% elif active.tabs == 'abgeschlossene' %}
+			  <li><a href="{% url 'projekt:projekt' %}?active=abgeschlossene">Abgeschlossene Projekte</a></li>
+			  {% elif active.tabs == 'neues' %}
+			  <li><a href="{% url 'projekt:projekt' %}?active=neues">Neues Projekt</a></li>
+			  {% endif %}
+			</ol>
+	  	</div>
+	</div>
+	<div class="row" style="margin-top:10px;">
+	  	<div class="col-md-10 col-md-offset-1">
+	  		<h2>Projekte</h2>
+	  	</div>
+	</div>
+	<div class="row" style="margin-top:50px;">
+	  	<div class="col-md-10 col-md-offset-1">
+	  		<ul class="nav nav-tabs">
+  				<li {% if active.tabs == 'aktuelle' %}class="active"{% endif %}><a href="{% url 'projekt:projekt' %}?active=aktuelle">Aktuelle Projekte</a></li>
+  				<li {% if active.tabs == 'abgeschlossene' %}class="active"{% endif %}><a href="{% url 'projekt:projekt' %}?active=abgeschlossene">Abgeschlossene Projekte</a></li>
+  				{% if user.conventecuser.role == 'admin' or user.conventecuser.role == 'manager'%}<li {% if active.tabs == 'neues' %}class="active"{% endif %}><a href="{% url 'projekt:projekt' %}?active=neues">Neues Projekt</a></li>{% endif %}
+			</ul>
+	  	</div>
+	</div>
+	{% if active.tabs != 'neues' %}
+	<div class="row" style="margin-top:50px;">
+  		<div class="col-md-10 col-md-offset-1">
+  			<div class="table-responsive">
+  				<table class="table table-hover" data-link="row">
+					<thead>
+      					<tr>
+        					<th>Name <a href="{% url 'projekt:projekt' %}?active={{active.tabs}}&sort=name&reverse=false"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></a><a href="{% url 'projekt:projekt' %}?active={{active.tabs}}&sort=name&reverse=true"></span><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></a></th>
+        					<th>Beschreibung</th>
+        					<th>Teams</th>
+        					<th>Erstellt <a href="{% url 'projekt:projekt' %}?active={{active.tabs}}&sort=created&reverse=false"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></a><a href="{% url 'projekt:projekt' %}?active={{active.tabs}}&sort=created&reverse=true"></span><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></a></th>
+        					{% if active.tabs == 'abgeschlossene' %}
+        					<th>Abgeschlossen <a href="{% url 'projekt:projekt' %}?active={{active.tabs}}&sort=completed_at&reverse=false"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></a><a href="{% url 'projekt:projekt' %}?active={{active.tabs}}&sort=completed_at&reverse=true"></span><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></a></th>
+        					{% endif %}
+      					</tr>
+    				</thead>
+    				<tbody>
+    					{% for project in projects %}
+    						<tr style="cursor:pointer;">
+        						<td><a href="{% url 'project_folder:project_folder' project_folder_id=project.project_folder.id %}?active=ubersicht"></a><strong>{{ project.name }}</strong></td>
+        						<td>{{ project.description }}</td>
+        						<td>{% for team in project.teams.all %}{{ team.name }} {% if team.id == projekt.lead.id%} (Lead){% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}</td>
+        						<td>{{ project.str_created }}</td>
+        						{% if active.tabs == 'abgeschlossene' %}
+        						<td>{{ project.str_completed_at }}</td>
+        						{% endif %}
+      						</tr>
+						{% endfor %}
+    				</tbody>
+  				</table>
+			</div>
+  		</div>
+	</div>
+	{% elif success == 'false' %}
+	<div class="row" style="margin-top:50px;">
+  		<div class="col-md-10 col-md-offset-1">
+  			<h2>Neues Projekt</h2>
+  			<form action="{% url 'projekt:projekt' %}" method="post" style="margin-top:30px;">
+  				{% csrf_token %}
+  				<div class="form-group">
+  					<label>Name:</label>
+  					<input type="text" class="form-control" id="namen" name="name" style="max-width:500px;">
+				</div>
+				<div class="form-group">
+					<label>Beschreibung:</label>
+					<textarea class="form-control" rows="5" id="description" name="description" style="max-width:500px;"></textarea>
+				</div> 
+				<div class="form-group">
+			    	<label>Verantwortliches Team</label>
+			    	<select class="form-control" id="team" name="team" style="max-width:500px;">
+			    	{% if user.conventecuser.role == 'admin' %}
+			    		{% for team in user.conventecuser.kanzlei.team_set.all %}
+			      			<option value="{{ team.id }}">{{ team.name }}</option>
+			      		{% endfor %}
+			    	{% else %}
+			    		{% for team in user.conventecuser.teams.all %}
+			      			<option value="{{ team.id }}">{{ team.name }}</option>
+			      		{% endfor %}
+			      	{% endif %}
+			    	</select>
+			  	</div>
+				<button type="submit" onclick="check_entries(event)" class="btn btn-primary" style="margin-top:30px;margin-bottom:30px;">Projekt erstellen</button>
+  			</form>
+  		</div>
+  		<script>
+		function check_entries(e){
+			namen = document.getElementById('namen');
+			description = document.getElementById('description');
+			team = document.getElementById('team');
+			
+			if(typeof namen.value == 'undefined' || typeof description.value == 'undefined' || typeof team.value == 'undefined' || namen.value == '' || description.value == '' || team.value == ''){
+				alert('Das Projekt wird nur erstellt wenn das ganze Formular ausgefüllt wurde.');
+				e.preventDefault();
+			}
+		}
+		</script>
+	</div>
+	{% else %}
+	<div class="row" style="margin-top:50px;">
+  		<div class="col-md-10 col-md-offset-1">
+  			<div class="alert alert-success">
+			 	Projekt {{ success.name }} erfolgreich erstellt.
+			</div>
+  		</div>
+	</div>
+	{% endif %}
+</div>
+{% endblock %}

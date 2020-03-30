@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document font_type="Arial" font_size="15" italics="true">
+    <paragraph>
+        <text>Personalakte {{ angaben.name.vorname }} {{ angaben.name.nachname }}</text>
+        <lb/>
+    </paragraph>
+    <table rows="5" columns="3" style="borderless">
+        <cell>Geschlecht</cell>
+        <cell>{% if angaben.geschlecht.sex == 'herr' %}Herr{% else %}Frau{% endif %}</cell>
+        <cell></cell>
+        <cell>Name</cell>
+        <cell>{{ angaben.name.nachname}}</cell>
+        <cell></cell>
+        <cell>Vorname</cell>
+        <cell>{{ angaben.name.vorname}}</cell>
+        <cell></cell>
+        <cell>Geburtsdatum</cell>
+        <cell>{{ angaben.geburtsdatum.geburtsdatum }}</cell>$
+        <cell></cell>
+        <cell>Nationalität</cell>
+        <cell>{{ angaben.nationalitat.nationalitat }}</cell>
+        <cell></cell>
+    </table>
+    <list type="bullet">
+        {% for meilenstein in angaben.lebenslauf %}
+        <point>{{ meilenstein.titel }}</point>
+        <point level="1">{{ meilenstein.beschreibung }} (von {{ meilenstein.beginn }} bis {{ meilenstein.ende }})</point>
+        {% endfor %}
+    </list>
+</document>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	
+		<meta charset="UTF-8">
+		<title>Conventec</title>
+		{% load staticfiles %}
+		<script type="text/javascript" src="{% static 'jquery/jquery.js' %}"></script>
+		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}" />
+		<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+		<link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+		
+	</head>
+<body style="background-image:url('{% static 'images/index.jpg' %}');background-repeat: no-repeat;background-size: cover;min-height:100%;font-family: 'Muli', sans-serif;">
+
+<div class="container-fluid">
+	<div class="row" style="margin-top:50px;">
+  		<div class="col-md-10 col-md-offset-1">
+  			<a class="btn btn-default" href="{% url 'login:login' %}" role="button" style="float:right;color:black;border-color:black;">Login<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+  		</div>
+  	</div>
+	<div class="row" style="margin-top:150px;">
+  		<div class="col-md-10 col-md-offset-1" style="text-align:center;">
+  			<img alt="Brand" src="{% static 'images/full.png' %}" style="display:block;max-width:50vw;margin:auto;">
+  		</div>
+  	</div>
+</div>
+</body>
+</html>
